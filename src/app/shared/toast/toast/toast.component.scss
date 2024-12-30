@@ -1,0 +1,14 @@
+.toast{
+    position: fixed;
+    height: 100px;
+    width: 300px;
+    background-color: rgba(254, 0, 126, 1); /* Usando directamente el color */
+    color: #FFF;
+    top: 50%; /* Posición al 50% de la ventana desde arriba */
+    left: 50%; /* Posición al 50% de la ventana desde la izquierda */
+    transform: translate(-50%, -50%); /* Ajusta para centrar completamente */
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    text-align: center; /* Centra el texto internamente */
+}

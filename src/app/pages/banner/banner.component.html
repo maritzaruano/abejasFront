@@ -1,0 +1,30 @@
+<div class="banner">    
+    <ng-container *ngIf="!isBlogOrBlogs()">
+        <div class="banner__banner" [ngStyle]="{ 'background-image': 'url(' + bannerImage + ')' }">
+            <div class="banner__banner__text">
+            <h1 class="banner__banner__text__h1 pink-color" [innerHTML]="bannerText"></h1>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="isBlogOrBlogs()" >
+        <div class="banner__blog" 
+            [ngStyle]="{ 'background-image': 'url(' + bannerImage + ')' }">
+            <div class="banner__blog__text">
+            <h1 class="banner__blog__text__h1 pink-color" [innerHTML]="bannerText"></h1>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isGallery()" >
+        <div class="banner__blog" 
+            [ngStyle]="{ 'background-image': 'url(' + bannerImage + ')' }">
+            <div class="banner__blog__text">
+            <h1 class="banner__blog__text__h1 pink-color" [innerHTML]="bannerText"></h1>
+            </div>
+        </div>
+    </ng-container>
+    
+    
+   
+</div>
+  

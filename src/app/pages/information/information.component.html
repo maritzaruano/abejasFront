@@ -1,0 +1,99 @@
+<div class="tarjet" >
+  <div class="card__information ">
+    <div class="container card__information__container">
+      <div class="row justify-content-center card__information__container__row">
+        <div class="col-3 ">
+          <img 
+            class="card__information__img" 
+            src="assets/img/bee.png" 
+            alt="abastract beezzz logo">
+        </div>
+        <div class="col-9  pink-color card__information__container__row__text">
+          {{information.TITLE_CONTACT}}
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center card__information__container__row">
+        <div class="col-1 card__information__container__row__icon">
+          <a href="tel:+17724862688">
+            <i class="bi bi-telephone pink-color"></i>     
+          </a> 
+        </div>
+        <div class="col-8 card__information__container__row__contact">
+          <a class="card__information__container__row__contact__num__a" href="tel:+17724862688">{{information.CONTACT_PHONE}}</a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center card__information__container__row">
+        <div class="col-1 card__information__container__row__icon">
+          <a href="tel:+1772-779-1594">
+            <i class="bi bi-telephone pink-color"></i>  
+          </a>   
+        </div>
+        <div class="col-8 card__information__container__row__contact">
+          <a class="card__information__container__row__contact__num__a" href="tel:+1772-779-1594 ">{{information.CONTACT_PHONE_SPANISH}}</a> <span class="pink-color" style="font-size: 15px;">{{information.FOR_SPANISH}}</span>
+          
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center card__information__container__row">
+
+            <div class="col-1 card__information__container__row__icon">
+              <a [href]="'https://api.whatsapp.com/send/?phone=17727791594&text=' + whatsappMessage" target="_blank"  >
+                <i class="bi bi-whatsapp pink-color"></i>  
+              </a>   
+            </div>
+            <div class="col-8 card__information__container__row__contact">
+            <a [href]="'https://api.whatsapp.com/send/?phone=17727791594&text=' + whatsappMessage" target="_blank" class="card__information__container__row__contact__num__a" >
+              {{information.CONTACT_PHONE_SPANISH}}
+            </a>
+            
+            </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center card__information__container__row">
+        <div class="col-1 card__information__container__row__icon">
+          <a  href="mailto:abstractbeezzz@gmail.com?subject=Request%20for%20Live%20Honey%20Bee%20Removal&body=Name%3A%0ATelephone%3A%0AEmail%3A%0AAddress%3A%0ADescribe%20the%20situation%3A"  > 
+            <i class="bi bi-envelope pink-color"></i>   
+          </a>  
+        </div>
+        <div class="col-8 card__information__container__row__contact">
+          <a href="mailto:abstractbeezzz@gmail.com?subject=Request%20for%20Live%20Honey%20Bee%20Removal&body=Name%3A%0ATelephone%3A%0AEmail%3A%0AAddress%3A%0ADescribe%20the%20situation%3A" class="card__information__container__row__contact__num__a">
+            {{information.CONTACT_EMAIL}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center card__information__container__row">
+        <div class="col-1 card__information__container__row__icon">
+          <a  href="https://www.instagram.com/abstractbeezzz" target="_blank">
+            <i class="bi bi-instagram pink-color"></i>   
+          </a>  
+        </div>
+        <div class="col-8 card__information__container__row__contact" >
+          <a href="https://www.instagram.com/abstractbeezzz" target="_blank"  class="card__information__container__row__contact__num__a">
+            {{information.CONTACT_INSTAGRAM}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center card__information__container__row">
+        <div class="col-1 card__information__container__row__icon">
+          <i class="bi bi-geo-alt-fill pink-color"></i>  
+        </div>
+        <div class="col-8 card__information__container__row__contact" >
+           {{information.CONTACT_ADRESS}}
+        </div>
+      </div>
+    </div> 
+      
+  </div> 
+</div>    
+

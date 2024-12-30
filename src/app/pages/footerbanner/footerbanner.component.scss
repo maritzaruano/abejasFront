@@ -1,0 +1,50 @@
+.banner {
+  padding-top: 1em;
+
+  &__banner {
+    position: relative;
+    display: inline-block; /* Permite que el contenedor se ajuste al texto */
+    width: auto; /* Se adapta al ancho del contenido */
+    height: auto; /* Se adapta a la altura del contenido */
+
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1;
+      border-radius: 45px;
+    }
+
+    &__text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+
+      &__h1 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin: 0;
+
+        padding: 1rem;
+        text-shadow: 2px 0 0 #FFF, -2px 0 0 #FFF, 0 2px 0 #FFF, 0 -2px 0 #FFF, 1px 1px #FFF, -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF;
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco */
+
+      }
+    }
+  }
+  @media (max-width: 992px) { 
+        
+    &__banner {       
+      &__text {    
+        &__h1 {
+          font-size: 1rem;  
+        }
+      }
+    }  
+  }  
+}

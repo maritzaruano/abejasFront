@@ -1,0 +1,315 @@
+.footer{     
+    width: 100%;
+    background-color: #DDF6FA;
+    &__container{
+        background-color: #DDF6FA;
+        height: 18em;        
+        &__row{   
+            &__tablet{
+                display: none !important;
+            }
+            &__cell{
+                display: none !important;
+            }
+            &__img{
+                padding-left: 2em;
+                width: 300px;
+                cursor: pointer;
+                pointer-events: auto; 
+                justify-content: center !important;
+            }         
+            &__location{
+                font-size: 18px !important;
+
+            }
+            &__links{
+                padding-top: 2em;
+                font-size: 18px !important;
+                &__p{
+                    padding-left: 1em;
+                }
+                &__ul{
+                    list-style-type: none;
+                    padding-left: 0px;
+                    &__li{
+                        padding-left: 1rem;
+                        cursor: pointer;
+                    }
+                }
+            }
+            &__policy{
+                font-weight: 300 !important;
+                font-size: 13px !important;
+            }
+            &__i{
+                padding-left: 10px;
+                font-size: 25px;
+                gap: 20px;
+                cursor: pointer!important;
+            }
+            &__contact{        
+                font-size: 18px !important;
+                &__num{
+                    margin-bottom: 0px;
+                    font-size: 18px !important;
+                    display: inline-block; 
+                    color: black!important;
+ 
+                    &__a{
+                        text-decoration: none !important;  
+                        color: black!important;
+                    }                     
+                    
+
+                }
+                
+            }
+                
+        }        
+    }
+    @media (max-width: 1400px) {  
+        .footer{      
+            &__container{
+                height: 18em;
+                &__row{
+                    &__img{
+                        width: 270px;
+                        padding-left: 2em;
+                    }
+                    &__location{
+                        font-size:18px !important ;
+                        padding: 0px
+                    }
+                    &__links{
+                        font-size: 18px !important;
+                        &__ul{
+                            list-style-type: none;
+                            padding-left: 0px;
+                            &__li{
+                                padding-left: 1rem;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    &__contact{              
+                        &__num{
+                            margin-bottom:0px;
+                            font-size: 18px !important;
+                            // color: black !important;
+
+                        }            
+                    }        
+                }
+            }
+        }
+    }
+    @media (max-width: 1200px) {  
+        .footer{
+            &__container{
+                height: 18em;
+                &__row{
+                    &__img{
+                        width: 230px;
+                    }
+                &__location{
+                    font-size:18px !important ;
+                    padding: 0px;
+                }
+                &__links{
+                    font-size: 18px !important;
+                    &__ul{
+                        list-style-type: none;
+                        padding-left: 0px;
+                        &__li{
+                            padding-left: 1rem;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                &__i{
+                    text-align: end;
+                    font-size: 25px;
+                }
+                &__contact{            
+                    &__num{
+                        margin-bottom:0px;
+                        font-size: 18px !important;
+                        display: inline-block;          
+                    }        
+                }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 992px) { 
+        
+        .footer{   
+            &__container{
+                display: block !important;
+                height: 15em;
+                &__row{  
+                
+                    &__img{
+                        width: 190px;
+                    }
+                    &__location{
+                        font-size: 15px !important;
+                        padding-left: 0px;
+                    }
+                    &__links{
+                        font-size: 15px !important;
+                        &__ul{
+                            list-style-type: none;
+                            padding-left: 0px;
+                            &__li{
+                                padding-left: 1rem;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    &__i{
+                        text-align: start !important;
+                        font-size: 21px;
+
+                    }
+                    &__i.col-md-2{
+                        padding-left: 0px;
+                    }
+                    &__contact{  
+       
+                        &__num{
+                            margin-bottom:0px;
+                            font-size: 16px !important;
+                            
+                        }            
+                    }        
+                }
+            }
+        } 
+    }     
+    @media (max-width: 768px) { 
+        height: 510px;
+        background-color: #DDF6FA;
+        .footer{         
+            &__container{    
+                height: 10.5em;       
+                &__row{  
+                    display: none !important;   
+                    &__tablet{
+                    display: block !important;                        
+                        &__i{
+                            font-size: 35px !important;
+                            margin-right: .5em !important;
+                        }
+                        &__imagen{
+                            padding: 0px;
+                            margin: 0px;
+                        }
+                       
+                        &__contact{  
+                            padding: 0px;
+                            margin: 0px; 
+                            text-align: start;
+                            &__num{
+                                margin-bottom:0px;
+                                font-size: 16px;
+                                display: inline-block; 
+                                text-align: center; 
+                                &__one{
+                                    margin-bottom: 0px;
+                                }  
+                                &__two{
+                                    margin-bottom: 0px;
+                                }  
+                                &__es{
+                                    font-size: 10px;
+                                    margin-top: -10px;
+                                    text-align: end;
+                                }
+                            } s
+      
+                            &__num{
+                                margin-bottom:0px;
+                                font-size: 30px;
+                                display: inline-block;      
+                                
+                            }            
+                        }  
+                        &__location{
+                            font-size: 16px !important;
+                           padding: 1em;
+                           margin-left: 1.5em;
+                        } 
+                        &__img{
+                            width: 290px;
+                        }     
+                }   }
+            }
+        } 
+    }   
+    @media (max-width: 576px) {  
+        height: 630px;
+        .footer { 
+        height: 150vh;   
+            &__container{    
+                height: 10em;           
+                &__row{  
+                    display: none !important;   
+                    &__tablet{  
+                        display: none !important;
+                    }
+                    &__cell{
+                        display: block !important;
+                        &__i{
+                            font-size: 35px !important;
+                            margin-right: .5em !important;
+                        }
+                        &__contact{ 
+                            &__num{
+                                margin-bottom:0px;
+                                font-size: 16px;
+                                display: inline-block; 
+                                text-align: center; 
+                                &__one{
+                                    margin-bottom: 0px;
+                                }  
+                                &__two{
+                                    margin-bottom: 0px;
+                                }  
+                                &__es{
+                                    font-size: 10px;
+                                    margin-top: -10px;
+                                    text-align: end;
+                                }
+                            }     
+                        }  
+                        &__links{
+                            padding: 0px;
+                            margin: 0px;
+                            &__p{
+                             padding-left: 1em;
+                            }
+                            &__ul{
+                                padding: 0px;
+                            
+                            }
+                        }
+                        &__location{
+                            font-size: 16px !important;
+                            padding-top: 1em;
+                            padding-bottom: 1em;
+                        } 
+                        &__img{
+                            width: 280px;
+                        }     
+                    }   
+                }
+            }
+        } 
+
+    }
+}
+
+
+

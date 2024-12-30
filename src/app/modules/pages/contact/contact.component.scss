@@ -1,0 +1,86 @@
+input, textarea{
+    background-color: #DDF6FA;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 15px;
+    margin-bottom: 1em;
+   
+}
+
+.situation{
+    height: 150px;
+}
+button{
+    background-color: #DDF6FA;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 15px;
+    margin-bottom: 1em;
+
+
+}
+.button:hover{
+    background-color: #FE007E;
+    color: white;
+}
+.button.selected {
+    background-color: #FE007E; /* Color verde al estar seleccionado */
+    color: white;
+  }
+
+.submit{
+    color:#FE007E;
+    font-weight: 600;
+
+}
+.submit:hover{
+    background-color: #FE007E;
+    color: white;
+
+}
+.information {
+    position: sticky;  /* Hace que el componente se quede pegado después de un cierto punto */
+    top: 210px;          /* Mantén una distancia de 20px desde el borde superior */
+    align-self: calc(20px); /* Alinea al inicio de su contenedor */
+    width: 100%;        /* Asegura que ocupe todo el ancho dentro de la columna */
+}
+
+
+ul{
+    list-style: none;
+    list-style-position: outside;
+    padding-left: 2em; /* Ajusta el espacio entre la viñeta y el contenido */
+}
+li {
+    text-indent: -1em; /* Desplaza el texto hacia la izquierda */
+
+    text-align: justify; /* Opcional, alinea el texto para más claridad */
+  }
+img{
+    width: 35px;
+}
+
+h1{
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: 1em;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    color: #0000;
+    background: linear-gradient(90deg,#C02942 calc(50% + 0.5ch),#000 0) right/calc(200% + 1ch) 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    animation: l7 2s infinite steps(11);
+  }
+  .loader:before {
+    content:"Loading..."
+  }
+  @keyframes l7 {to{background-position: left}}

@@ -1,0 +1,16 @@
+.information {
+    position: sticky;  /* Hace que el componente se quede pegado después de un cierto punto */
+    top: 210px;          /* Mantén una distancia de 20px desde el borde superior */
+    align-self: calc(20px); /* Alinea al inicio de su contenedor */
+    width: 100%;        /* Asegura que ocupe todo el ancho dentro de la columna */
+} 
+
+h1{
+    font-weight: 600;
+}
+h2{
+    margin-top: 1em;
+    font-size: 20px;
+    font-weight: 600;
+
+}

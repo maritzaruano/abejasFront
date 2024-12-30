@@ -1,0 +1,44 @@
+
+
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Menú Lateral -->
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+        <div class="position-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" routerLink="/admin" routerLinkActive="active-link">
+                <i class="bi bi-house-door"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/users" routerLinkActive="active-link">
+                <i class="bi bi-person-circle"></i> Users
+              </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/blogs" routerLinkActive="active-link">
+                  <i class="bi bi-newspaper"></i> Blogs
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/gallery" routerLinkActive="active-link">
+                <i class="bi bi-camera-fill"></i> Gallery
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="logout()">
+                <i class="bi bi-box-arrow-right" ></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  
+      <!-- Contenido Principal -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>

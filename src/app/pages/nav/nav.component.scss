@@ -1,0 +1,108 @@
+nav{
+    position: fixed;
+    top: 9.5em;
+    width: 100%;
+    z-index: 999;
+
+    .menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      
+        &__menu {  
+          &__movil{
+            display: none !important;
+          }    
+          height: 50px !important;
+          width: 800px;
+          background-color: #FE007E;
+          border-radius: 8px;
+          color: white;
+          align-items: center;
+      
+          &__ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+      
+            &__li {
+              cursor: pointer;
+              font-weight: bold;
+              font-size: 24px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+        }
+    }
+    @media (max-width: 1400px){
+        top:8.5em ;
+     }
+     @media(max-width: 1200px){
+         top: 7.7em;
+     }
+     @media (max-width:992px){
+         top: 6em;
+      
+     }
+     @media (max-width: 991px){
+        top: 7em;
+        .menu{
+            &__menu{
+            height: 40px !important;
+
+            }
+        }
+     }
+     @media (max-width: 768px){
+        top: 4.5em;
+        position: relative;         
+        .menu{
+            &__menu{
+            display: none !important;
+            &__movil{                   
+                display: block !important;
+                text-align: center;                          
+                    &__botton {
+                        background-color: #FE007E;
+                        color: #FFF;
+                        width: 7em;
+                        height: 3em;
+                        font-weight: 600;
+                        border: none;
+                        font-size: 16px;
+                    }                         
+                    &__ul {
+                        padding: 0;
+                        background-color: #FE007E;                    
+                        &__li {
+                            margin-top: .5em;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: 16px;
+                            padding: 0.5em;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #FFF;
+                        }
+                    }
+                }                           
+            }        
+        }     
+    } 
+    @media (max-width: 576px)  {
+        top: 6em;
+        position: relative; 
+    }      
+
+}   
+
+.active-link{
+    text-decoration: underline;
+}

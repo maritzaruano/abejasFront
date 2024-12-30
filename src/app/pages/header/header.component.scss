@@ -1,0 +1,301 @@
+
+header{
+    position: relative;
+}
+
+.header{      
+    position: fixed;
+    width: 100%;
+
+    z-index: 999;
+    pointer-events: auto; 
+
+
+    &__container{
+        background-color: #DDF6FA;
+        height: 11em;        
+        &__row{             
+            &__tablet{
+                display: none !important;
+                &__a{
+                    text-decoration: none !important;  
+                    color: #FE007E;
+                }
+            }
+            &__cell{
+                display: none !important;
+            }
+            &__img{
+                width: 300px;
+                cursor: pointer;
+                pointer-events: auto; 
+            }         
+            &__location{
+                font-size: 28px !important;
+            }
+            &__i{
+                padding-left: 10px;
+                font-size: 40px;
+                gap: 20px;
+                cursor: pointer!important;
+                &__a{
+                    text-decoration: none !important;  
+                    color: #FE007E;                    
+                }
+            }
+            &__contact{        
+                font-size: 28px !important;
+                &__free{
+                    font-size: 28px !important;
+                    margin-bottom: 0px;
+                }
+                &__num{
+                    margin-bottom: 0px;
+                    font-size: 30px !important;
+                    display: inline-block;   
+                       
+                    &__es{
+                        font-size: 15px;
+                        margin-top: -10px;
+                        text-align: end;
+                    }  
+                    &__a{
+                        text-decoration: none !important;  
+                        color: black!important;
+                        
+                    }               
+                }
+                
+            
+            }
+                
+        }        
+    }
+
+    @media (max-width: 1400px) {  
+
+        .header
+        {
+        position: fixed !important
+        }
+        
+            &__container{
+                height: 10em;
+                &__row{
+                    &__img{
+                        width: 260px;
+                        z-index: 10;
+                    }
+                    &__location{
+                        font-size:23px !important ;
+                    }
+                    &__contact{     
+                        &__free{
+                            font-size: 23px !important;
+                        }          
+                        &__num{
+                            margin-bottom:0px;
+                            font-size: 25px !important;
+                            display: inline-block;
+                            &__es{
+                                font-size: 15px;
+                                margin-top: -10px;
+                                text-align: end;
+                            }
+                        }            
+                    }        
+                }
+            
+        }
+    }
+    @media (max-width: 1200px) {  
+        .header{
+            &__container{
+                height: 9em;
+                &__row{
+                    &__img{
+                        width: 230px;
+                    }
+                &__location{
+                    font-size:18px !important ;
+                    text-align: end;
+                }
+                &__i{
+                    text-align: end;
+                    &__a{
+                        text-decoration: none !important;  
+                        color: #FE007E;                    
+                    }
+                }
+                &__contact{     
+                    &__free{
+                        font-size: 18px !important;
+                    }          
+                    &__num{
+                        margin-bottom:0px;
+                        font-size: 20px !important;
+                        display: inline-block;
+                        &__es{
+                            margin-top: -10px;
+                            text-align: end;
+                            }
+                        }            
+                    }        
+                }
+            }
+        }
+    }
+
+    @media (max-width: 992px) { 
+        
+        .header{   
+            &__container{
+                display: block !important;
+                height: 7em;
+                &__row{  
+                
+                    &__img{
+                        width: 190px;
+                    }
+                    &__location{
+                        font-size: 15px !important;
+                        text-align: center;
+                    }
+                    &__i{
+                        text-align: start !important;
+                        font-size: 21px;
+                        &__a{
+                            text-decoration: none !important;  
+                            color: #FE007E;                    
+                        }
+
+                    }
+                    &__i.col-md-2{
+                        padding-left: 0px;
+                    }
+                    &__contact{   
+                        padding-right: 0.9em;  
+                        &__free{
+                            font-size: 15px !important;
+                        }          
+                        &__num{
+                            margin-bottom:0px;
+                            font-size: 16px !important;
+                            &__es{
+                                font-size: 11px;
+                                margin-top: -10px;
+                                text-align: end;
+                            }
+                        }            
+                    }        
+                }
+            }
+        } 
+    }     
+    @media (max-width: 768px) { 
+        height: 280px;
+        position: relative !important;
+        .header{         
+            &__container{    
+                height: 10.5em;   
+    
+                &__row{  
+                    display: none !important;   
+                    &__tablet{
+                    display: block !important;                        
+                        &__i{
+                            font-size: 35px !important;
+                            margin-right: .5em !important;
+                            &__a{
+                                text-decoration: none !important;  
+                                color: #FE007E;                    
+                            }
+                        }
+                        &__contact{  
+                            padding-top: 0em;;   
+                            &__free{
+                                font-size: 21px;
+                                margin-bottom: 0px;
+                            }          
+                            &__num{
+                                margin-bottom:0px;
+                                font-size: 30px;
+                                display: inline-block;      
+                                &__es{
+                                    font-size: 20px;
+                                    margin-top: -10px;
+                                    text-align: end;
+                                }
+                            }            
+                        }  
+                        &__location{
+                            font-size: 20px;
+                        } 
+                        &__img{
+                            width: 290px;
+                        }     
+                }   }
+            }
+        } 
+    }   
+    @media (max-width: 576px) {  
+
+        height: 400px;
+        .header { 
+        height: 150vh;   
+            &__container{    
+                height: 9.8em;           
+                &__row{  
+                    display: none !important;   
+                    &__tablet{  
+                        display: none !important;
+                    }
+                    &__cell{
+                        display: block !important;
+                        &__i{
+                            font-size: 35px !important;
+                            margin-right: .5em !important;
+                            &__a{
+                                text-decoration: none !important;  
+                                color: #FE007E;                    
+                            }
+                        }
+                        &__contact{  
+
+                            &__free{
+                                font-size: 22px;
+                                margin-bottom: 0px;
+                            }          
+                            &__num{
+                                margin-bottom:0px;
+                                font-size: 40px;
+                                display: inline-block;  
+                                &__one{
+                                    margin-bottom: 0px;
+                                }  
+                                &__two{
+                                    margin-bottom: 0px;
+                                }  
+                                &__es{
+                                    font-size: 16px;
+                                    margin-top: -10px;
+                                    text-align: end;
+                                }
+                            }            
+                        }  
+                        &__location{
+                            font-size: 18px;
+                        } 
+                        &__img{
+                            width: 280px;
+                        }     
+                    }   
+                }
+            }
+        } 
+
+    }
+}
+
+
+

@@ -1,0 +1,83 @@
+.banner{
+    padding-top: 0px !important;
+    &__blog {
+        width: 60%;
+        height: 500px;
+        margin: auto;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+           
+        z-index: 1;  // Aseguramos que el banner esté detrás del header
+
+        &__text {
+            &__h1{
+                text-align: center;
+                font-size: 40px;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-shadow: 2px 0 0 #FFF, -2px 0 0 #FFF, 0 2px 0 #FFF, 0 -2px 0 #FFF, 1px 1px #FFF, -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF;
+            }
+            &__a{
+                text-align: center;
+                font-size: 40px;
+                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-shadow: 2px 0 0 #FFF, -2px 0 0 #FFF, 0 2px 0 #FFF, 0 -2px 0 #FFF, 1px 1px #FFF, -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF;
+            }
+        }   
+    }  
+    @media (max-width: 1400px) {
+        &__blog {
+            height: 400px;
+            margin-top: 1em;
+            &__text {
+                &__h1{
+                    font-size: 3vw;    
+                }
+            }   
+        }   
+    }
+    @media (max-width: 1200px) {
+
+        &__blog {
+            height: 400px;
+            margin-top: 1em;
+            &__text {
+                &__h1{
+                    font-size: 3vw;    
+                }
+            }   
+        }   
+    }
+    @media (max-width: 992px) {
+   
+        &__blog {
+            height: 300px;
+            margin-top: 2em;
+        } 
+    }
+    @media (max-width: 768px) {
+
+        &__blog {
+            height: 300px;
+            margin-top: 1em;
+        } 
+       
+    }
+    @media (max-width: 576px) {
+        padding-top: 7em;
+        &__blog {
+            height: 10em;
+            margin-top: 0px;
+        } 
+       
+    }
+
+}

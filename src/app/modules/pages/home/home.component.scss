@@ -1,0 +1,51 @@
+
+video{
+  width: 100%;
+  max-width: 800px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 400px;
+  margin-bottom:1em;
+}
+p{
+    text-align: justify;
+}
+ul{
+    list-style: none;
+    list-style-position: outside;
+    padding-left: 2em; /* Ajusta el espacio entre la viñeta y el contenido */
+}
+li {
+    text-indent: -1em; /* Desplaza el texto hacia la izquierda */
+
+    text-align: justify; /* Opcional, alinea el texto para más claridad */
+  }
+img{
+    width: 35px;
+}
+
+.text-primary a {
+    word-wrap: break-word; /* Permite que el texto largo se ajuste */
+    overflow-wrap: anywhere; /* Maneja cadenas largas como URLs */
+    white-space: normal; /* Asegura que el texto pueda ocupar varias líneas */
+  }
+ 
+   
+    
+  @media (max-width: 768px) {
+    video{
+      height: auto;
+
+    }
+  }
+  
+  @media (max-width: 576px) {
+  
+  }
+  
+  .information {
+    position: sticky;  /* Hace que el componente se quede pegado después de un cierto punto */
+    top: 210px;          /* Mantén una distancia de 20px desde el borde superior */
+    align-self: calc(20px); /* Alinea al inicio de su contenedor */
+    width: 100%;        /* Asegura que ocupe todo el ancho dentro de la columna */
+  } 

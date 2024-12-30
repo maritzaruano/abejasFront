@@ -1,0 +1,237 @@
+.information {
+    position: sticky;  /* Hace que el componente se quede pegado después de un cierto punto */
+    top: 210px;          /* Mantén una distancia de 20px desde el borde superior */
+    align-self: calc(20px); /* Alinea al inicio de su contenedor */
+    width: 100%;        /* Asegura que ocupe todo el ancho dentro de la columna */
+} 
+.img {
+    display: flex; /* Activa flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    text-align: center; /* Opcional: centra el texto si hay texto adicional dentro */
+    height: 80%; /* Asegúrate de definir un alto, o el contenedor debe tener altura */
+    
+    &__florida {
+        width: 19em; /* Tamaño inicial para pantallas grandes */
+    }
+    &__association{
+        width: 45em; /* Tamaño inicial para pantallas grandes */
+        display: block!important;    /* Oculta la imagen en pantallas pequeñas */
+        &__cell{
+            display:none !important;
+        
+        }
+    }
+
+
+}
+
+@media (max-width: 1400px) {
+    .img__florida {
+        width: 20em;    
+    }
+    .img__association{
+        width: 45em; /* Tamaño inicial para pantallas grandes */
+
+        display: block !important;   
+        
+    }
+    .img__association{
+        &__cell{
+            display:none !important;
+        
+        }
+    }
+}
+
+
+@media (max-width: 1200px) {
+    .img__florida {
+        width: 20em;    
+    }
+    .img__association{
+        width: 38em; /* Tamaño inicial para pantallas grandes */
+    }
+    .img__association{
+        &__cell{
+            display:none !important;
+        
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .img__florida {
+        width: 15em !important;    
+    }
+    .img__association{
+        display: block !important;   
+        width: 38em;      
+       
+    }
+    .img__association{
+        &__cell{
+
+            display:none !important;
+        
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .img__florida {
+        width: 15em;
+  
+    }
+    .img_pc{
+        display: none!important;
+    }
+
+    .img__association{
+        display: none !important;        
+    }
+    .img__association{
+        &__cell{
+            width: 12em; 
+            display:block !important;
+            margin-top: 1.5em;
+        
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .img__florida {
+        width: 10em !important;    
+
+    }
+    .img__association{
+        display: none !important;        
+    }
+    .img__association{
+        &__cell{
+            width: 12em; 
+            display:block !important;
+            margin-top: 1em;
+        }
+    }
+}
+
+
+
+.tarjet{
+    background-color: #DDF6FA;
+    border-radius: 20px;
+}
+
+.card{
+    padding-top: 3px;
+    &__information{  
+        border-radius: 20px;
+        border: 4px solid #FE007E;
+        &__container{
+            padding-top: 8px;
+            &__row{
+                padding-top: 8px;
+                padding: 8px;
+                &__text{
+                    font-size: 1.5em;
+                    padding-top: 4px;
+                }
+                &__icon{
+                    font-size: 20px;
+                }
+                &__contact{
+                    font-size: 20px;
+                    &__num{
+                        &__a{
+                            text-decoration: none !important;  
+                            color: black!important;
+                        }
+                    }
+                }
+            }
+        }
+        &__img{
+            width: 2em;
+            margin: 5px;
+            margin-left: 27px;
+        }
+        &__text{
+            font-size: 18px;
+        }
+        &__i{
+            font-size: 3em;
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1400px){
+        &__information{  
+            &__container{
+                padding-left: 0px;
+                
+                &__row{
+                    &__text{
+                        font-size: 16px;
+                        padding-top: 4px;
+                    }
+                    &__icon{
+                        font-size: 18px;
+                        padding-left: 0px;
+                    }
+                    &__contact{
+                        font-size: 16px;
+                        padding-left: 0px;
+                        &__num{
+                            &__a{
+                                text-decoration: none !important;  
+                                color: black!important;
+                            }
+                        }
+                    }
+                }
+            }
+            &__img{
+                width: 2em;
+                margin: 5px;
+                margin-left: 27px;
+                font-size: 0.8em;
+            }
+           
+        }
+
+    }
+    @media (max-width: 400px) {
+        &__information{  
+            &__container{
+                padding-left: 0px;
+                
+                &__row{
+                    &__text{
+                        font-size: 16px;
+                        padding-top: 4px;
+                    }
+                    &__icon{
+                        font-size: 18px;
+                        padding-left: 0px;
+                    }
+                    &__contact{
+                        font-size: 16px;
+                        padding-left: 0px;
+                    }
+                }
+            }
+            &__img{
+                width: 2em;
+                margin: 5px;
+                margin-left: 27px;
+                font-size: 0.8em;
+            }
+           
+        }
+
+    }
+
+
+}
+

@@ -1,0 +1,148 @@
+<div class="container">
+
+    <div class="row">    
+        <div class="col-md-12 col-12 col-lg-8">
+
+            <div>
+               <h1 class="text-center">
+                If you have bees, save their lives! <span class="pink-color">Contact us for a free estimate!</span>
+               </h1>
+               <p>          
+                    Got bees buzzing where they shouldn’t be? Don’t worry we’re here to help! At Abstract Beezzz, we specialize in the safe, live removal and relocation of Honey bees, protecting both you and these vital pollinators.
+                </p>
+        
+                <p class="pink-color">
+                    Why Choose Us?
+                </p>
+
+                <ul  clas>
+                    <li class="">
+                        <img src="assets/img/bee.png" alt=""> Safe live Honey bee removal and relocation.
+
+                       
+                    </li><br>
+                    <li class="">
+                        <img src="assets/img/bee.png" alt=""> Fully insured and professional service.
+                       
+                    </li><br>
+                    <li class="">
+                        <img src="assets/img/bee.png" alt="" > Supporting local beekeeping communities.
+                    </li><br>
+                    <li >
+                        <i class="bi bi-geo-alt-fill pink-color"></i> Proudly serving Martin County, Port St. Lucie, and Palm Beach Counties.
+                      
+                    </li><br>
+                       <li >
+                    <i class="bi bi-telephone pink-color " style="
+                    padding-left: 17px;"></i> Contact us today to ensure a safe, bee-friendly solution! Together, let’s make a difference.
+
+                      
+                    </li><br>
+                    
+                </ul>
+                <p>
+                    We are registered beekeepers with the Florida Department of Agriculture, fully authorized to remove and relocate live Honey bees safely.
+                </p>               
+                <p>
+                    Important: We cannot remove colonies that have been treated with pesticides.
+                </p>
+                <p class="pink-color">
+                    Dedicated to serving you while protecting the bees!
+                </p>
+              
+        
+
+            </div>
+
+
+            <form [formGroup]="contactForm" (submit)="onSubmit()" >
+           
+
+                <div class="col-12">
+                    <input type="text" class="form-control form-control-lg " id="name" formControlName="name" placeholder="Name:" > 
+                    <p class="text-danger" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+                        <small *ngIf="contactForm.get('name')?.errors?.['required']">This field is required</small>
+                    </p>
+                </div>
+                <div class="col-12">
+                    <input 
+                        type="text"
+                        class="form-control form-control-lg" 
+                        id="telephone"
+                        formControlName="telephone" 
+                        placeholder="Telephone: " 
+                        mask="000-000-0000"
+                    />
+                    <p class="text-danger" *ngIf="contactForm.get('telephone')?.touched && contactForm.get('telephone')?.invalid">
+                        <small *ngIf="contactForm.get('telephone')?.errors?.['required']">This field is required</small>
+                        <small *ngIf="contactForm.get('telephone')?.errors?.['maxlength']">Enter the 10 digits of your mobile number</small> 
+                        <small *ngIf="contactForm.get('telephone')?.errors?.['minlength']">Enter the 10 digits of your mobile number</small> 
+
+                    </p>
+                </div>
+                
+                <div class="col-12">
+                    <input type="email" class="form-control form-control-lg" id="email" formControlName="email"  placeholder="Email:">
+                    <p class="text-danger" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+                        <small *ngIf="contactForm.get('email')?.errors?.['required']">This field is required</small>
+                        <small *ngIf="contactForm.get('email')?.errors?.['email']">The form provided is incorrect</small>
+                    </p>
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control form-control-lg" id="address" formControlName="address"  placeholder="Address:">
+                    <p class="text-danger" *ngIf="contactForm.get('address')?.touched && contactForm.get('address')?.invalid">
+                        <small *ngIf="contactForm.get('address')?.errors?.['required']">This field is required</small>
+                      
+                    </p>
+                </div>
+
+                <div class="col-12">
+                    <textarea
+                    id="situation"
+                    formControlName="situation"
+                    placeholder="Describe the situation:"
+                    rows="5"
+                    class="form-control form-control-lg situation"></textarea>
+                    <p class="text-danger" *ngIf="contactForm.get('situation')?.touched && contactForm.get('situation')?.invalid">
+                        <small *ngIf="contactForm.get('situation')?.errors?.['required']">This field is required</small>
+                    </p>
+                </div>
+                <!-- <div class="col-12">
+                    <input type="text" class="form-control form-control-lg " id="photo" formControlName="photo"  placeholder="You can include an image: ">
+                </div> -->
+                <div class="row">
+                    <div class="col-6 text-center form-check"> 
+                        <button 
+                            type="button" 
+                            class="btn button" 
+                            [class.selected]="contactForm.get('robotCheck')?.value"
+                            (click)="toggleRobotCheck()">
+                            I’m not a robot
+                        </button>
+                        <p class="text-danger" *ngIf="contactForm.get('robotCheck')?.touched && contactForm.get('robotCheck')?.invalid">
+                            <small>This field is required</small>
+                          </p>
+                    </div>
+                    <div  class="col-6 text-center" >
+                        <button 
+                            type="submit" 
+                            class="btn button submit"
+                          >
+                                Submit
+                        </button>
+                       
+                    </div>
+                </div>
+             
+            </form>
+        </div>
+        <div class="col-md-12 col-12 col-lg-4">
+            <div class="information">
+                <app-information></app-information>
+            </div>
+        </div>
+    </div>
+
+</div>
+    
+    
