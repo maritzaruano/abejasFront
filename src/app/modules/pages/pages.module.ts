@@ -18,6 +18,8 @@ import { ContactComponent } from './contact/contact.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { BlogComponent } from './blog/blog.component';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterbannerComponent,
     ToastComponent,
     BlogDetailComponent,
+    BlogComponent,
     InformationComponent,
     AboutComponent,       // Asegúrate de declarar estos
     ContactComponent,
@@ -40,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule
