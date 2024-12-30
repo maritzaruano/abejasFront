@@ -12,6 +12,12 @@ import { FooterbannerComponent } from '../../pages/footerbanner/footerbanner.com
 import { ToastComponent } from '../../shared/toast/toast/toast.component';
 import { InformationComponent } from '../../pages/information/information.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { AboutComponent } from './about/about.component';
+import { ServicesComponent } from './services/services.component';
+import { ContactComponent } from './contact/contact.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { HomeComponent } from './home/home.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,11 +30,19 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
     BannerComponent,
     FooterbannerComponent,
     ToastComponent,
-    BlogDetailComponent
+    BlogDetailComponent,
+    InformationComponent,
+    AboutComponent,       // Asegúrate de declarar estos
+    ContactComponent,
+    GalleryComponent,
+    HomeComponent,
+    ServicesComponent
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class PagesModule { }
