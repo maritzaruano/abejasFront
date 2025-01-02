@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Importar FormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importar FormsModule
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -22,7 +22,8 @@ import { GalleryComponent } from './gallery/gallery.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

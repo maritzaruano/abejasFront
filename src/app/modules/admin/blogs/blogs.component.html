@@ -1,32 +1,36 @@
 <div class="container-fluid mt-4">
     <div class=" justify-content-between mb-3 text-end">
         <!-- Botón de añadir (icono de +) -->
-        <button class="btn btn-success" (click)="openModal()">
+        <button class="btn btn-success" (click)="add()">
             <i class="fas fa-plus"></i> Add
         </button>
     </div>
 
-    <!-- Tabla que ocupa todo el ancho -->
+
     <table class="table table-bordered w-100">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Created Date</th>
+                <th>Image</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Task 1</td>
-                <td>Description of Task 1</td>
+            <tr *ngFor="let item of blogs">
+                <td>{{item.title}}</td>
+                <td> {{item.description.slice(0 ,60) }} </td>
+                <td> {{item.image }} </td>
+                <td> {{item.created_at }} </td>
                 <td>
                     <!-- Botón Editar con margen derecho -->
-                    <button class="btn btn-warning btn-sm me-2">
+                    <button class="btn btn-warning btn-sm me-2" (click)="edit(item)">
                         <i class="fas fa-edit"></i> Edit
                     </button>
                     <!-- Botón Eliminar -->
-                    <button class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash-alt"></i> Delete
+                    <button class="btn btn-danger btn-sm" (click)="changeStatus(item.id)">
+                        <i class="fas fa-trash-alt" ></i> Delete
                     </button>
                 </td>
             </tr>
@@ -35,23 +39,54 @@
 
    <!-- Modal-form -->
 
-   <div class="modal fade" [ngClass]="{'show': isModalOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div [ngClass]="{'modal fade': !isModalOpen, 'modal show': isModalOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Task</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{action}} Task</h5>
                 <button type="button" class="btn-close" (click)="closeModal()"></button>
             </div>
             <div class="modal-body">
-                <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+                <form (ngSubmit)="onSubmit()" [formGroup]="blogForm" >
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" id="title" class="form-control" [(ngModel)]="task.title" name="title" required>
+                        <input 
+                            type="text" 
+                            id="title" 
+                            class="form-control" 
+                            formControlName="title" 
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea id="description" class="form-control" [(ngModel)]="task.description" name="description" required></textarea>
+                        <textarea 
+                        id="description" 
+                        class="form-control" 
+                        formControlName="description"  
+                        required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input
+                          id="image"
+                          type="file"
+                          class="form-control"
+                          (change)="onImageSelected($event)"
+                        />
+                        <div *ngIf="blogForm.controls['image'].invalid && blogForm.controls['image'].touched" class="text-danger">
+                          Image is required.
+                        </div>
+                    </div>
+                  
+                    <div *ngIf="imageUrl">
+                        <h5>Image Preview:</h5>
+                        <img 
+                            [src]="imageUrl" 
+                            alt="Image preview" 
+                            width="100" 
+                            height="100" />
+                    </div>
+                    <br>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

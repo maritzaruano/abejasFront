@@ -15,8 +15,8 @@ export class BlogDetailComponent {
       id: 1,
       title: 'Blog Principal',
       image: 'assets/img/live_bee.jpg',
-      date: new Date('2024-12-20'),
-      content: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet eros sed nunc varius, non volutpat sapien bibendum.</p>
+      created_at: new Date('2024-12-20'),
+      description: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet eros sed nunc varius, non volutpat sapien bibendum.</p>
       <p>Nulla facilisi. Proin laoreet, arcu ac sollicitudin efficitur, felis tortor posuere nisi, a venenatis justo lorem eget odio.</p>
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
       <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>`
@@ -25,8 +25,8 @@ export class BlogDetailComponent {
       id: 2,
       title: 'Blog Secundario',
       image: 'ruta-imagen-secundaria.jpg',
-      date: new Date('2024-12-21'),
-      content: 'Contenido completo del blog secundario. Incluye detalles interesantes sobre el tema.'
+      created_at: new Date('2024-12-21'),
+      description: 'Contenido completo del blog secundario. Incluye detalles interesantes sobre el tema.'
     }
     // Agrega más blogs aquí
   ];
