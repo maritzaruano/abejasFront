@@ -6,6 +6,9 @@
       <!-- Menú Lateral -->
       <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
         <div class="position-sticky">
+          <div class="img-bee">
+            <img src="/assets/img/bee.png" alt="">
+          </div>
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" routerLink="/admin" routerLinkActive="active-link">
@@ -37,8 +40,14 @@
       </nav>
   
       <!-- Contenido Principal -->
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <router-outlet></router-outlet>
+      <main class="col-md-9 col-lg-10 p0">
+        <div class="header-admin">
+
+        </div>
+        <div class=" px-md-4 ms-sm-auto">
+          <router-outlet></router-outlet>
+        </div>
+
       </main>
     </div>
   </div>

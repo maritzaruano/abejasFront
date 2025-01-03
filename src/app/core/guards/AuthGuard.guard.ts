@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
       let isAuthenticated = false;
-      console.log(isAuthenticated);
     
       // Verificar si estamos en el navegador antes de acceder a localStorage
       if (typeof window !== 'undefined' && window.localStorage) {
@@ -26,8 +25,6 @@ export class AuthGuard implements CanActivate {
           isAuthenticated = true;
         }
       }
-    
-      console.log('window.localStorage available:', typeof window !== 'undefined' && window.localStorage);
     
       if (!isAuthenticated) {
         // Si no está autenticado, redirigimos al login
