@@ -1,1 +1,99 @@
-<p>users works!</p>
+<div class="container-fluid mt-4">
+    <div class=" justify-content-between mb-3 text-end">
+        <button class="btn btn-success" (click)="add()">
+            <i class="fas fa-plus"></i> Add
+        </button>
+    </div>
+
+
+    <table class="table table-bordered w-100">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of users">
+                <td> {{item.name}} </td>
+                <td> {{item.lastname}} </td>
+                <td> {{item.email}} </td>
+                <td> {{item.created_at }} </td>
+                <td> {{item.status}} </td>
+                <td>
+                    <!-- Botón Editar con margen derecho -->
+                    <button class="btn btn-warning btn-sm me-2" (click)="edit(item)">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <!-- Botón Eliminar -->
+                    <button class="btn btn-danger btn-sm"  (click)="changeStatus(item.id)">
+                        <i class="fas fa-trash-alt" ></i> Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+   <!-- Modal-form -->
+
+    <div [ngClass]="{'modal fade': !isModalOpen, 'modal show': isModalOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{action}} Task</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="userForm" >
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                class="form-control" 
+                                formControlName="name" 
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input 
+                            type="text" 
+                            id="lastname"
+                            class="form-control" 
+                            formControlName="lastname"  
+                            required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input 
+                            type="email" 
+                            id="email" 
+                            class="form-control" 
+                            formControlName="email"  
+                            required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input 
+                            type="password" 
+                            id="password" 
+                            class="form-control" 
+                            formControlName="password"  
+                            required>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+ 
+
+</div>
