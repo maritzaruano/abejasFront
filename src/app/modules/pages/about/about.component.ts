@@ -9,6 +9,8 @@ import { Meta, Title } from '@angular/platform-browser';
 export class AboutComponent {
 
    constructor(private titleService: Title, private metaService: Meta) { 
+
+    
       // Establecemos el título de la página
       this.titleService.setTitle('About Abstract Beezzz | Professional Beekeeper & Bee Removal');
   
@@ -20,6 +22,8 @@ export class AboutComponent {
       this.metaService.updateTag({ name: 'lang', content: 'en'}) 
       this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
     
+    
     }
 
+   
 }
