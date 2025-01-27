@@ -11,6 +11,9 @@ export class BannerComponent implements OnInit {
   bannerImage: string = '';
   bannerText: string = '';
   currentUrl: string = '';
+  bannerAlt: string = '';
+  bannerTitle: string = '';
+
 
   constructor
     (
@@ -29,6 +32,8 @@ export class BannerComponent implements OnInit {
     const bannerData = this.bannerService.getBannerData(currentPages);
     this.bannerImage = bannerData.image;
     this.bannerText = bannerData.text
+    this.bannerAlt = bannerData.alt;  // Obtén el 'alt'
+    this.bannerTitle = bannerData.title;  // Obtén el 'title'
    });
   }
 
@@ -38,12 +43,12 @@ export class BannerComponent implements OnInit {
 
   isBlogOrBlogs(): boolean {
     const url = this.router.url;
-    return url === '/blogs' || url === '/gallery'|| url.startsWith('/blog/') 
+    return url === '/blogs' ||  url.startsWith('/blog/') 
   }
 
-  isGallery(): boolean {
-    const url = this.router.url;
-    return url === '/gallety'
-  }
+  // isGallery(): boolean {
+  //   const url = this.router.url;
+  //   return url === '/gallety'
+  // }
 
 }

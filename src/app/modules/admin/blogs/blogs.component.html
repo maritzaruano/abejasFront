@@ -24,12 +24,27 @@
                 <td> {{item.created_at }} </td>
                 <td>
                     <!-- Botón Editar con margen derecho -->
-                    <button class="btn btn-warning btn-sm me-2" (click)="edit(item)">
-                        <i class="fas fa-edit"></i> Edit
+                    <button 
+                        class="btn btn-warning btn-sm me-2" 
+                        data-toggle="tooltip" 
+                        title="Edit" 
+                        (click)="edit(item)">
+                        <i class="bi bi-pen"></i>
+                    </button>
+                    <button 
+                        class="btn btn-info btn-sm me-2" 
+                        data-toggle="tooltip" 
+                        title="Edit Image" 
+                        (click)="editImage(item)">
+                        <i class="bi bi-camera-fill"></i> 
                     </button>
                     <!-- Botón Eliminar -->
-                    <button class="btn btn-danger btn-sm" (click)="changeStatus(item.id)">
-                        <i class="fas fa-trash-alt" ></i> Delete
+                    <button 
+                        class="btn btn-danger btn-sm" 
+                        data-toggle="tooltip" 
+                        title="Delete" 
+                        (click)="changeStatus(item.id)">
+                        <i class="bi bi-trash"></i>
                     </button>
                 </td>
             </tr>
@@ -38,7 +53,12 @@
 
    <!-- Modal-form -->
 
-   <div [ngClass]="{'modal fade': !isModalOpen, 'modal show': isModalOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div 
+    [ngClass]="{'modal fade': !isModalOpen, 'modal show': isModalOpen}" 
+    tabindex="-1" 
+    style="display: block;" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,29 +75,42 @@
                             class="form-control" 
                             formControlName="title" 
                             required>
+                        <div 
+                            *ngIf="blogForm.controls['title'].invalid && blogForm.controls['title'].touched" 
+                            class="text-danger">
+                          Title is required.
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea 
-                        id="description" 
-                        class="form-control" 
-                        formControlName="description"  
-                        required></textarea>
+                            id="description" 
+                            class="form-control" 
+                            formControlName="description"  
+                            required></textarea>
+                        <div 
+                            *ngIf="blogForm.controls['description'].invalid && blogForm.controls['description'].touched" 
+                            class="text-danger">
+                          Textarea is required.
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="action == 'New'">
                         <label for="image">Image</label>
                         <input
                           id="image"
                           type="file"
                           class="form-control"
+                          #fileInput
                           (change)="onImageSelected($event)"
                         />
-                        <div *ngIf="blogForm.controls['image'].invalid && blogForm.controls['image'].touched" class="text-danger">
+                        <div 
+                            *ngIf="blogForm.controls['image'].invalid && blogForm.controls['image'].touched" 
+                            class="text-danger">
                           Image is required.
                         </div>
                     </div>
                   
-                    <div *ngIf="imageUrl">
+                    <div *ngIf="action != 'Edit' && imageUrl != ''">
                         <h5>Image Preview:</h5>
                         <img 
                             [src]="imageUrl" 
@@ -86,7 +119,10 @@
                             height="100" />
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">Save</button>
+
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary">Save</button>
                 </form>
             </div>
         </div>
@@ -95,4 +131,48 @@
 
  
 
+</div>
+
+<div 
+    [ngClass]="{'modal fade': !isModalImageOpen, 'modal show': isModalImageOpen}" 
+    tabindex="-1" 
+    style="display: block;" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{action}} Edit Image</h5>
+                <button type="button" class="btn-close" (click)="closeModalImage()"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Image Preview:</h5>
+                <img 
+                    [src]="imageUrlEdit" 
+                    alt="Image preview" 
+                    width="100" 
+                    height="100" />
+                <div class="form-group" >
+                    <label for="image">Image</label>
+                    <input
+                        id="image"
+                        type="file"
+                        class="form-control"
+                        #fileInput
+                        (change)="onImageSelectedUpdate($event)"
+                    />
+                    <div 
+                        *ngIf="blogForm.controls['image'].invalid && blogForm.controls['image'].touched" 
+                        class="text-danger">
+                        Image is required.
+                    </div>
+                </div>
+                <br>
+                <button 
+                    type="button"
+                    (click)="editImageForm()" 
+                    class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -3,35 +3,42 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrl: './gallery.component.scss'
+  styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent {
-  currentPage = 1;
-  blogsPerPage = 10;
-  totalPages: number[] = [];
-  
-  blogs = [];
+  // Lista de imágenes
+  images = [
+    '/assets/img/gallery6.jpg',
+    '/assets/img/1.jpg',
+    '/assets/img/3.jpg'
+  ];
+  currentImageIndex: number = 0;  // Índice de la imagen actual
 
-  constructor() {
-    this.calculateTotalPages();
+  // Abrir el modal con la imagen seleccionada
+  openModal(imageUrl: string) {
+    const index = this.images.indexOf(imageUrl);
+    if (index !== -1) {
+      this.currentImageIndex = index; // Establecemos el índice de la imagen que se ha seleccionado
+    }
   }
 
-  // Calcula el número total de páginas
-  calculateTotalPages() {
-    const totalBlogs = this.blogs.length;
-    const pages = Math.ceil(totalBlogs / this.blogsPerPage);
-    this.totalPages = Array.from({ length: pages }, (_, i) => i + 1);
+  // Cambiar a la siguiente imagen
+  nextImage() {
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
   }
 
-  // Cambia de página
-  changePage(page: number) {
-    if (page < 1 || page > this.totalPages.length) return;
-    this.currentPage = page;
+  // Cambiar a la imagen anterior
+  prevImage() {
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
   }
 
-  // Devuelve los blogs que se deben mostrar para la página actual
-  get blogsToShow() {
-    const startIndex = (this.currentPage - 1) * this.blogsPerPage;
-    return this.blogs.slice(startIndex, startIndex + this.blogsPerPage);
+  // Cerrar el modal
+  closeModal() {
+    this.currentImageIndex = -1;
+  }
+
+  // Obtener la imagen que se está mostrando en el modal
+  get modalImageUrl() {
+    return this.images[this.currentImageIndex];
   }
 }

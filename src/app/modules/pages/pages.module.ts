@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { BlogComponent } from './blog/blog.component';
     ContactComponent,
     GalleryComponent,
     HomeComponent,
-    ServicesComponent
+    ServicesComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     CommonModule,

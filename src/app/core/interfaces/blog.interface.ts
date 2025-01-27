@@ -5,3 +5,9 @@ export interface Blog {
     created_at: Date;
     description: string;
 }
+
+export interface BlogPut{
+    id: number;
+    title: string;
+    description: string;
+}

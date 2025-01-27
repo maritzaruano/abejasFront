@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Login, UserPost } from '../interfaces/users.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ export class UsersService {
   getUsers(){
     return this.http.get("https://www.abstractbeezzz.com/back/users.php")
   }
-
 
   changeStatusUsers(id: number) {
     const body = { id };
@@ -26,4 +26,16 @@ export class UsersService {
    return this.http.post('https://www.abstractbeezzz.com/back/users.php', formData)
 
   }
+
+  updateUser(userId: number, formData: UserPost): Observable<any> {
+    return this.http.put(
+      `https://www.abstractbeezzz.com/back/users.php?id=${userId}`, 
+      formData
+    );
+  }
+
+  login(formData: Login){
+    return this.http.post('https://www.abstractbeezzz.com/back/login.php', formData)
+  }
+  
 }

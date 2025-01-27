@@ -7,6 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { ServicesComponent } from './services/services.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent },
       { path: 'gallery', component: GalleryComponent },
       { path: 'services', component: ServicesComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

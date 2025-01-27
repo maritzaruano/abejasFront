@@ -20,6 +20,7 @@
             }         
             &__location{
                 font-size: 18px !important;
+                text-align: center;
 
             }
             &__links{
@@ -40,6 +41,12 @@
             &__policy{
                 font-weight: 300 !important;
                 font-size: 13px !important;
+                &__a{
+                    text-decoration: none !important;   
+                    color: black;    
+                    font-weight: 300 !important;
+                    font-size: 13px !important;               
+                }
             }
             &__i{
                 padding-left: 10px;
@@ -78,7 +85,8 @@
                     }
                     &__location{
                         font-size:18px !important ;
-                        padding: 0px
+                        padding: 0px;
+                        text-align: center;
                     }
                     &__links{
                         font-size: 18px !important;
@@ -114,6 +122,7 @@
                 &__location{
                     font-size:18px !important ;
                     padding: 0px;
+                    text-align: center;
                 }
                 &__links{
                     font-size: 18px !important;
@@ -156,6 +165,7 @@
                     &__location{
                         font-size: 15px !important;
                         padding-left: 0px;
+                        text-align: center;
                     }
                     &__links{
                         font-size: 15px !important;
@@ -249,7 +259,7 @@
         } 
     }   
     @media (max-width: 576px) {  
-        height: 630px;
+        height: 650px;
         .footer { 
         height: 150vh;   
             &__container{    

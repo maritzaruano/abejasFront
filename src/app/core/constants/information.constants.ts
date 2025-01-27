@@ -6,5 +6,6 @@ export const INFORMATION = {
     CONTACT_WHATSAPP: '772-486-2688',
     CONTACT_EMAIL: 'abstractbeezzz@gmail.com',
     CONTACT_INSTAGRAM: '@Abstractbeezzz',
-    CONTACT_ADRESS: 'Martin, Port St. Lucie, Palm Beach Counties FL'
+    CONTACT_ADRESS: 'Martin County,\n Port Saint Lucie County \nand Palm Beach County'
 }
+

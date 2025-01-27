@@ -6,6 +6,7 @@ import { AuthGuard } from '../../core/guards/AuthGuard.guard';
 import { UsersComponent } from './users/users.component';
 import { GalleryComponent } from './gallery/gallery.component';
 
+
 const routes: Routes = [
   {
     path: '',

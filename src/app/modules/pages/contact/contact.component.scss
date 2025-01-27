@@ -1,4 +1,4 @@
-input, textarea{
+input, textarea, label{
     background-color: #DDF6FA;
     border-top-left-radius: 15px;
     border-top-right-radius: 0px;
@@ -6,6 +6,16 @@ input, textarea{
     border-bottom-right-radius: 15px;
     margin-bottom: 1em;
    
+}
+
+
+.adjuntos{
+    background-color: #DDF6FA;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 15px;
+    margin-bottom: 1em;
 }
 
 .situation{
@@ -62,10 +72,16 @@ img{
     width: 35px;
 }
 
-h1{
+h2{
     font-weight: 600;
     font-size: 25px;
     margin-bottom: 1em;
+}
+h3{
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 1em;
+
 }
 
 /* HTML: <div class="loader"></div> */
@@ -84,3 +100,133 @@ h1{
     content:"Loading..."
   }
   @keyframes l7 {to{background-position: left}}
+
+
+  
+  /* Contenedor para las imágenes de vista previa */
+.preview-container {
+    display: flex; /* Esto permite alinear los elementos en fila */
+    flex-wrap: wrap; /* Permite que las imágenes se envuelvan en una nueva línea si no caben */
+    gap: 20px; /* Espacio entre las imágenes */
+    justify-content: start; /* Alineación a la izquierda (puedes cambiarlo por 'center' para centrarlas) */
+  }
+  
+  /* Contenedor individual de cada imagen */
+  .image-preview-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido dentro de cada imagen */
+    max-width: 300px; /* Aumentar el ancho máximo de las imágenes */
+    margin-bottom: 20px; /* Espacio debajo de cada imagen */
+  }
+  
+  /* Estilo para las imágenes de vista previa */
+  .preview-image {
+    width: 100%; /* Esto hace que la imagen ocupe todo el ancho disponible dentro del contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    max-width: 250px; /* Ajusta el tamaño máximo para hacerlo más grande */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  /* Opcional: Estilo para el texto debajo de la imagen */
+  .image-preview-item p {
+    text-align: center; /* Centra el texto debajo de la imagen */
+    margin-top: 8px; /* Espacio entre la imagen y el texto */
+    font-size: 16px; /* Tamaño de fuente más grande */
+    color: #333;
+  }
+  
+  /* Estilo del botón personalizado */
+.custom-file-btn {
+    background-color: #DDF6FA; /* Color de fondo */
+    color: #FE007E; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+
+    
+    cursor: pointer; /* Hacer que el cursor sea una mano */
+    border-radius: 5px; /* Bordes redondeados */
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Ocultar el input real (sin mostrar "No file chosen") */
+  .custom-file-btn input[type="file"] {
+    position: absolute; /* Colocar el input encima del botón */
+    opacity: 0; /* Hacerlo invisible */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Mantener la funcionalidad de clic */
+  }
+  
+  /* Cambiar el color al pasar el mouse */
+  .custom-file-btn:hover {
+   background-color: #DDF6FA;
+    color: #FE007E;
+  }
+  
+  /* Estilo para la vista previa de imágenes */
+  .preview-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las imágenes se ajusten cuando no caben en una sola línea */
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    gap: 20px; /* Espacio entre las imágenes */
+    text-align: center; /* Centra el texto en el contenedor */
+    align-items: center; /* Centra las imágenes verticalmente */
+  }
+  
+  /* Cada imagen individual dentro del contenedor */
+  .image-preview-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el texto debajo de la imagen */
+    justify-content: center; /* Asegura que la imagen esté centrada verticalmente */
+    max-width: 200px; /* Puedes ajustar este valor para cambiar el tamaño máximo de cada imagen */
+    width: 100%; /* Hace que cada imagen ocupe todo el espacio disponible dentro del contenedor */
+    text-align: center; /* Centra el texto debajo de la imagen */
+  }
+  
+  /* Estilo para las imágenes de vista previa */
+  .preview-image {
+    width: 100%; /* Hace que la imagen ocupe el 100% del contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    max-width: 250px; /* Establece un límite en el tamaño máximo de la imagen */
+    object-fit: cover; /* Hace que la imagen cubra el área sin deformarse */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  /* Estilo para el texto debajo de la imagen */
+  .image-preview-item p {
+    margin-top: 8px; /* Espacio entre la imagen y el texto */
+    font-size: 14px;
+    color: #333;
+  }
+
+  .remove-btn{
+    background-color: #DDF6FA; /* Color de fondo */
+    color: #FE007E; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 0; /* Espaciado interno */
+    margin: 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+
+
+    
+    cursor: pointer; /* Hacer que el cursor sea una mano */
+    border-radius: 5px; /* Bordes redondeados */
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  

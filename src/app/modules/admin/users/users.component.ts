@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Users } from '../../../core/interfaces/users.interface';
+import { UserPost, Users } from '../../../core/interfaces/users.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from '../../../core/services/users.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -10,24 +11,25 @@ import { UsersService } from '../../../core/services/users.service';
 })
 export class UsersComponent  implements OnInit {
   
+
   action = '';  
   isModalOpen = false;
   users: Users [] = [];
 
   formData: FormData = new FormData();
 
+  userId: number = 0;
 
   userForm : FormGroup;
 
 
-  constructor(private usersService : UsersService, private formBuilder: FormBuilder)
+  constructor(private usersService : UsersService, private formBuilder: FormBuilder, private route: ActivatedRoute)
   {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
-
     })
 
   }
@@ -55,15 +57,23 @@ export class UsersComponent  implements OnInit {
   add(){
     this.action = 'New';
     this.userForm.reset();
+    
+    this.userForm.controls["password"].setValidators([Validators.required]);
+    this.userForm.controls["password"].updateValueAndValidity();
+    
     this.openModal();
   }
 
   edit( item: Users){
-    this.action = 'Edit';  
+    this.action = 'Edit';
+    this.userId = item.id;  
     this.userForm.controls["name"].setValue(item.name);
     this.userForm.controls["lastname"].setValue(item.lastname);
     this.userForm.controls["email"].setValue(item.email);
     this.userForm.controls["password"].setValue(item.password);
+
+    this.userForm.controls["password"].clearValidators();
+    this.userForm.controls["password"].updateValueAndValidity();
 
     this.openModal();
   }
@@ -82,26 +92,54 @@ export class UsersComponent  implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-
-    const formValues = this.userForm.value;
-    this.formData.append('name', formValues.name);
-    this.formData.append('lastname', formValues.lastname);
-    this.formData.append('email', formValues.email);
-    this.formData.append('password', formValues.password);
+    
 
 
-    // Aquí hacemos la solicitud HTTP para crear el post
-    this.usersService.createUser(this.formData).subscribe(
-      (response) => {
-        console.log('User created successfully:', response);
-        // Puedes hacer algo con la respuesta, como mostrar un mensaje de éxito
-        this.getUsers();
-      },
-      (error) => {
-        console.error('Error creating user:', error);
-        // Puedes manejar errores, como mostrar un mensaje de error
+
+    if(this.action == "Edit"){
+      const formValues = this.userForm.value;
+      let userP : UserPost = {
+        name: formValues.name,
+        email: formValues.email ,
+        lastname: formValues.lastname
       }
-    );
+
+      this.usersService.updateUser(this.userId, userP).subscribe(
+        (response) => {
+          console.log('User updated successfully:', response);
+          this.getUsers();
+        },
+        (error) => {
+          console.error('Error updating user:', error);
+        }
+      );
+    }else{
+      const formValues = this.userForm.value;
+      this.formData.append('name', formValues.name);
+      this.formData.append('lastname', formValues.lastname);
+      this.formData.append('email', formValues.email);
+      this.formData.append('password', formValues.password);
+      //Aquí hacemos la solicitud HTTP para crear el post
+      this.usersService.createUser(this.formData).subscribe(
+        (response) => {
+          console.log('User created successfully:', response);
+          // Puedes hacer algo con la respuesta, como mostrar un mensaje de éxito
+          this.getUsers();
+        },
+        (error) => {
+          console.error('Error creating user:', error);
+          // Puedes manejar errores, como mostrar un mensaje de error
+        }
+      );
+    }
+
+
+
+    
+
+
+
+    
 
     this.closeModal(); // Cierra el modal después de enviar el formulario
 

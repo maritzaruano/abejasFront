@@ -1,35 +1,40 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://www.abstractbeezzz.com/contact" /> 
+</head>
+
 <div class="container">
 
     <div class="row">    
         <div class="col-md-12 col-12 col-lg-8">
 
             <div>
-               <h1 class="text-center">
+               <h2 class="text-center">
                 If you have bees, save their lives! <span class="pink-color">Contact us for a free estimate!</span>
-               </h1>
+               </h2>
                <p>          
                     Got bees buzzing where they shouldn’t be? Don’t worry we’re here to help! At Abstract Beezzz, we specialize in the safe, live removal and relocation of Honey bees, protecting both you and these vital pollinators.
                 </p>
         
-                <p class="pink-color">
-                    Why Choose Us?
-                </p>
+                <h3 class="pink-color">
+                    Why Abstract Beezzz is the Best Choice for Bee Removal and Relocation?
+                </h3>
 
                 <ul  clas>
                     <li class="">
-                        <img src="assets/img/bee.png" alt=""> Safe live Honey bee removal and relocation.
+                        <img src="assets/img/bee.png" alt="Abstract Beezzz, experts in live honey bee removal and relocation services, ensuring the safety of bees and your property" title="Logo of Abstract Beezzz Live Honey Bee Removal and relocation."> Safe live Honey bee removal and relocation.
 
                        
                     </li><br>
                     <li class="">
-                        <img src="assets/img/bee.png" alt=""> Fully insured and professional service.
+                        <img src="assets/img/bee.png" alt="Abstract Beezzz, experts in live honey bee removal and relocation services, ensuring the safety of bees and your property" title="Logo of Abstract Beezzz Live Honey Bee Removal and relocation."> Fully insured and professional service.
                        
                     </li><br>
                     <li class="">
-                        <img src="assets/img/bee.png" alt="" > Supporting local beekeeping communities.
+                        <img src="assets/img/bee.png" alt="Abstract Beezzz, experts in live honey bee removal and relocation services, ensuring the safety of bees and your property" title="Logo of Abstract Beezzz Live Honey Bee Removal and relocation."> Supporting local beekeeping communities.
                     </li><br>
                     <li >
-                        <i class="bi bi-geo-alt-fill pink-color"></i> Proudly serving Martin County, Port St. Lucie, and Palm Beach Counties.
+                        <i class="bi bi-geo-alt-fill pink-color"></i> Proudly serving Martin County, Port Saint Lucie, and Palm Beach Counties.
                       
                     </li><br>
                        <li >
@@ -107,9 +112,39 @@
                         <small *ngIf="contactForm.get('situation')?.errors?.['required']">This field is required</small>
                     </p>
                 </div>
-                <!-- <div class="col-12">
-                    <input type="text" class="form-control form-control-lg " id="photo" formControlName="photo"  placeholder="You can include an image: ">
-                </div> -->
+                <div>
+                    <label for="image" class="col-12" style="margin-top: 1em; padding-left: 1em; font-weight: 100;">You can include up to three images if you wish.
+                    <br>
+                    <button class="custom-file-btn" >
+                        <i class="bi bi-image-fill"> &nbsp;</i> Select up to 3 Images
+                        <input
+                            id="image"
+                            type="file"
+                            (change)="onImageSelected($event)"
+                            accept=".jpg,.jpeg,.png,.gif"
+                            multiple
+                            [disabled]="imageUrls.length >= 3"
+                            />
+                        </button>
+                      
+                      
+                      <div *ngIf="imageUrls.length > 0">
+                        <div class="preview-container">
+                          <div *ngFor="let imageUrl of imageUrls; let i = index" class="image-preview-item">
+                            <img [src]="imageUrl" [alt]="'Image ' + (i + 1)" class="preview-image" />
+                            <p>Image {{ i + 1 }}</p>
+              
+                            <button (click)="removeImage(i)" class="remove-btn">
+                                <i class="bi bi-trash3-fill"></i> Remove
+                            </button>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      
+                    
+                </label>
+                </div>
                 <div class="row">
                     <div class="col-6 text-center form-check"> 
                         <button 

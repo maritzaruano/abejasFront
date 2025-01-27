@@ -19,9 +19,9 @@ export class BlogComponent {
     { title: 'Blog 6', description: 'Descripción 6', date: new Date('2024-12-25'), image: 'assets/img/Imagen6.jpg' },
     { title: 'Blog 7', description: 'Descripción 7', date: new Date('2024-12-26'), image: 'assets/img/Imagen7.jpg' },
     { title: 'Blog 8', description: 'Descripción 8', date: new Date('2024-12-27'), image: 'assets/img/live_bee.jpg' },
-    { title: 'Blog 9', description: 'Descripción 9', date: new Date('2024-12-28'), image: 'assets/img/services_2.jpg' },
+    { title: 'Blog 9', description: 'Descripción 9', date: new Date('2024-12-28'), image: 'assets/img/beekeeper_collage_beekeeper.jpg' },
     { title: 'Blog 10', description: 'Descripción 10', date: new Date('2024-12-29'), image: 'assets/img/association_cell.jpg' },
-    { title: 'Blog 11', description: 'Descripción 11', date: new Date('2024-12-30'), image: 'assets/img/services.jpg' },
+    { title: 'Blog 11', description: 'Descripción 11', date: new Date('2024-12-30'), image: 'assets/img/bee_removal_comb_collage.jpg' },
     // Puedes agregar más blogs si lo deseas
   ];
 

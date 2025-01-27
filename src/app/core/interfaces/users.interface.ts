@@ -7,3 +7,14 @@ export interface Users {
     password: string;
     status: number;
 }
+
+export interface UserPost{
+    name: string;
+    lastname: string;
+    email: string;
+}
+
+export interface Login{
+    email: string;
+    password: string;
+}

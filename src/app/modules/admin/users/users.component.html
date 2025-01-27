@@ -77,7 +77,7 @@
                             formControlName="email"  
                             required>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="this.action == 'New'">
                             <label for="password" class="form-label">Password</label>
                             <input 
                             type="password" 
