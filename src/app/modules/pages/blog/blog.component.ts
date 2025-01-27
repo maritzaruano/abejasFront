@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BlogsInfoService } from '../../../core/services/blogs-info.service';
+import { Blog } from '../../../core/interfaces/blog.interface';
 
 @Component({
   selector: 'app-blog',
@@ -10,28 +12,32 @@ export class BlogComponent {
   bannerImage: string = 'assets/img/construccion.png';
   bannerText: string = 'Working on';
 
-  blogs = [
-    { title: 'Blog 1', description: 'Descripción 1', date: new Date('2024-12-20'), image: 'assets/img/association_cell.jpg' },
-    { title: 'Blog 2', description: 'Descripción 2', date: new Date('2024-12-21'), image: 'assets/img/Imagen2.jpg' },
-    { title: 'Blog 3', description: 'Descripción 3', date: new Date('2024-12-22'), image: 'assets/img/Imagen3.jpg' },
-    { title: 'Blog 4', description: 'Descripción 4', date: new Date('2024-12-23'), image: 'assets/img/Imagen4.jpg' },
-    { title: 'Blog 5', description: 'Descripción 5', date: new Date('2024-12-24'), image: 'assets/img/Imagen5.jpg' },
-    { title: 'Blog 6', description: 'Descripción 6', date: new Date('2024-12-25'), image: 'assets/img/Imagen6.jpg' },
-    { title: 'Blog 7', description: 'Descripción 7', date: new Date('2024-12-26'), image: 'assets/img/Imagen7.jpg' },
-    { title: 'Blog 8', description: 'Descripción 8', date: new Date('2024-12-27'), image: 'assets/img/live_bee.jpg' },
-    { title: 'Blog 9', description: 'Descripción 9', date: new Date('2024-12-28'), image: 'assets/img/beekeeper_collage_beekeeper.jpg' },
-    { title: 'Blog 10', description: 'Descripción 10', date: new Date('2024-12-29'), image: 'assets/img/association_cell.jpg' },
-    { title: 'Blog 11', description: 'Descripción 11', date: new Date('2024-12-30'), image: 'assets/img/bee_removal_comb_collage.jpg' },
-    // Puedes agregar más blogs si lo deseas
-  ];
+  blogs: any[] = [];
 
   // Variables para la paginación
   currentPage = 1;
   blogsPerPage = 10;
   totalPages: number[] = [];
 
-  constructor() {
-    this.calculateTotalPages();
+  constructor(private blogInfoService: BlogsInfoService) {
+
+    this.getBlogs();
+
+    
+  }
+
+  getBlogs() {
+    this.blogInfoService.obtenerBlogs(this.currentPage, this.blogsPerPage).subscribe(
+      (response: any) => {
+        this.blogs = response.data; // Solo los blogs de la página actual
+        this.currentPage = response.current_page; // Página actual desde el backend
+        this.totalPages = Array.from({ length: response.total_pages }, (_, i) => i + 1); // Total de páginas
+      },
+      (error) => {
+        console.error('Error al cargar blogs:', error);
+        this.blogs = [];
+      }
+    );
   }
 
   // Calcula el número total de páginas
@@ -45,6 +51,7 @@ export class BlogComponent {
   changePage(page: number) {
     if (page < 1 || page > this.totalPages.length) return;
     this.currentPage = page;
+    this.getBlogs(); // Vuelve a cargar los blogs de la nueva página
   }
 
   // Devuelve los blogs que se deben mostrar para la página actual

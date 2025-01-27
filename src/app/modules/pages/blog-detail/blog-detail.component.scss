@@ -21,3 +21,13 @@
     max-height: 500px;
     object-fit: cover;
   }
+
+
+  .blog-image {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajusta cómo se recorta la imagen */
+    border-radius: 8px; /* Opcional */
+  }
