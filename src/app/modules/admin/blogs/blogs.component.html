@@ -83,11 +83,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea 
-                            id="description" 
-                            class="form-control" 
-                            formControlName="description"  
-                            required></textarea>
+                        <editor
+                            [init]="init"
+                            apiKey="3y167mys5dmvulkhh3obocjxawljswkdcwonwj1x9nefcj99"
+                            formControlName="description"
+                        />
                         <div 
                             *ngIf="blogForm.controls['description'].invalid && blogForm.controls['description'].touched" 
                             class="text-danger">

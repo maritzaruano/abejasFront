@@ -3,6 +3,7 @@ import { BlogsService } from '../../../core/services/blogs.service';
 import { Blog, BlogPut } from '../../../core/interfaces/blog.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment.prod';
+import { EditorComponent } from '@tinymce/tinymce-angular';
 
 @Component({
   selector: 'app-blogs',
@@ -11,6 +12,10 @@ import { environment } from '../../../../environments/environment.prod';
 })
 export class BlogsComponent implements OnInit {
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
+
+  init: EditorComponent['init'] = {
+    plugins: 'lists link image table code help wordcount'
+  };
 
   otherImage = false;
   idSelected: number = 0;
@@ -36,6 +41,8 @@ export class BlogsComponent implements OnInit {
       description: ['', Validators.required],
       image: [null],
     });
+
+    
   }
 
   ngOnInit(): void {

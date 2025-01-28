@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from '../../../core/interfaces/blog.interface';
 import { BlogsInfoService } from '../../../core/services/blogs-info.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blog-detail',
@@ -10,11 +11,12 @@ import { BlogsInfoService } from '../../../core/services/blogs-info.service';
 })
 export class BlogDetailComponent {
   selectedBlog!: Blog;
-
+  safeDescription!: SafeHtml;
 
   constructor(private route: ActivatedRoute, 
     private router: Router,
-    private blogInfoService: BlogsInfoService
+    private blogInfoService: BlogsInfoService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -23,6 +25,7 @@ export class BlogDetailComponent {
 
     this.blogInfoService.obtenerBlogPorId(blogId).subscribe((data: any ) =>{
       this.selectedBlog = data.data;
+      this.safeDescription = this.sanitizer.bypassSecurityTrustHtml(this.selectedBlog.description); // Sanitizar el contenido HTML
     } )
 
     // if (!this.selectedBlog) {
@@ -30,6 +33,7 @@ export class BlogDetailComponent {
     //   this.router.navigate(['/blogs']);
     // }
   }
+
 
   goBack() {
     this.router.navigate(['/blogs']);

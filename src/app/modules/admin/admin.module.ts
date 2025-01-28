@@ -9,6 +9,7 @@ import { IndexComponent } from './index/index.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { UsersComponent } from './users/users.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { GalleryComponent } from './gallery/gallery.component';
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EditorComponent
   ]
 })
 export class AdminModule { }
