@@ -7,6 +7,7 @@ import { BlogPut } from '../interfaces/blog.interface';
   providedIn: 'root'
 })
 export class BlogsService {
+  [x: string]: any;
 
   constructor(private http : HttpClient) { }
 

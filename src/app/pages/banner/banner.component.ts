@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BannerService } from '../../services/banner.service';
 
+
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
