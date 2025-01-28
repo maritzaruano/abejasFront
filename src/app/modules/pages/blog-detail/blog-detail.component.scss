@@ -11,11 +11,7 @@
     color: #FE007E;
   }
   
-  .blog-content {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    font-weight: 100 !important;
-  }
+
   
   img {
     max-height: 500px;
@@ -30,4 +26,9 @@
     height: auto;
     object-fit: cover; /* Ajusta cómo se recorta la imagen */
     border-radius: 8px; /* Opcional */
+  }
+
+  .blog-content {
+    font-size: 1.2rem;
+    line-height: 1.8;
   }
