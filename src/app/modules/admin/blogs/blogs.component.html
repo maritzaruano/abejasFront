@@ -85,7 +85,7 @@
                         <label for="description" class="form-label">Description</label>
                         <editor
                             [init]="init"
-                            apiKey="3y167mys5dmvulkhh3obocjxawljswkdcwonwj1x9nefcj99"
+                            apiKey="86c6de4134iz0od6d2h6x2i9dxxdb0eynpylvvpk99h8qpzv"
                             formControlName="description"
                         />
                         <div 
@@ -160,6 +160,7 @@
                         class="form-control"
                         #fileInput
                         (change)="onImageSelectedUpdate($event)"
+                        accept=".jpg,.jpeg,.png,.gif"
                     />
                     <div 
                         *ngIf="blogForm.controls['image'].invalid && blogForm.controls['image'].touched" 

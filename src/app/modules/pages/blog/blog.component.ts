@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BlogsInfoService } from '../../../core/services/blogs-info.service';
 import { Blog } from '../../../core/interfaces/blog.interface';
 
@@ -7,7 +7,7 @@ import { Blog } from '../../../core/interfaces/blog.interface';
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
 })
-export class BlogComponent {
+export class BlogComponent implements OnInit {
 
   bannerImage: string = 'assets/img/construccion.png';
   bannerText: string = 'Working on';
@@ -21,9 +21,6 @@ export class BlogComponent {
 
   constructor(private blogInfoService: BlogsInfoService) {
 
-    this.getBlogs();
-
-    
   }
 
   getBlogs() {
@@ -58,5 +55,10 @@ export class BlogComponent {
   get blogsToShow() {
     const startIndex = (this.currentPage - 1) * this.blogsPerPage;
     return this.blogs.slice(startIndex, startIndex + this.blogsPerPage);
+  }
+
+
+  ngOnInit(){
+    this.getBlogs();
   }
 }

@@ -47,9 +47,9 @@ export class BannerComponent implements OnInit {
     return url === '/blogs' ||  url.startsWith('/blog/') 
   }
 
-  // isGallery(): boolean {
-  //   const url = this.router.url;
-  //   return url === '/gallety'
-  // }
+  isGallery(): boolean {
+    const url = this.router.url;
+    return url === '/gallety'
+  }
 
 }

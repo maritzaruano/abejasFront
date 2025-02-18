@@ -5,7 +5,8 @@ export const INFORMATION = {
     FOR_SPANISH: ' para español',
     CONTACT_WHATSAPP: '772-486-2688',
     CONTACT_EMAIL: 'abstractbeezzz@gmail.com',
+    CONTACT_EMAIL_BEE: 'livebeeremoval@\nabstractbeezzz.com',
     CONTACT_INSTAGRAM: '@Abstractbeezzz',
-    CONTACT_ADRESS: 'Martin County,\n Port Saint Lucie County \nand Palm Beach County'
+    CONTACT_ADRESS: 'Martin County,\nPort Saint Lucie County\nand Palm Beach County'
 }
 
