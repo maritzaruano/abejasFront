@@ -49,7 +49,7 @@ export class BannerComponent implements OnInit {
 
   isGallery(): boolean {
     const url = this.router.url;
-    return url === '/gallety'
+    return url === '/gallery'
   }
 
 }

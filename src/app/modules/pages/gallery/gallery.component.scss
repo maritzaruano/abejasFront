@@ -7,15 +7,19 @@
 
 .gallery {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap; /* Permite que los hexágonos se ajusten en varias filas */
+  justify-content: center;
+  gap: 20px; /* Espacio entre los hexágonos */
 }
 
 .hexagon-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap; /* Para que los hexágonos se acomoden en diferentes filas */
+  gap: 20px;
 }
 
+/* Estilo general para el hexágono */
 .hexagon {
   width: 300px;
   height: 300px;
@@ -24,7 +28,6 @@
   display: inline-block;
   margin: 0 -2px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-
 }
 
 /* Borde exterior */
@@ -37,11 +40,10 @@
   bottom: -4px;
   background-color: transparent;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-
   pointer-events: none;
 }
 
-/* Borde interno (nuevo div dentro de cada hexágono) */
+/* Borde interno */
 .inner-border {
   content: '';
   position: absolute;
@@ -49,9 +51,8 @@
   left: 5px;
   right: 5px;
   bottom: 5px;
-  background-color: transparent; /* No se ve, solo actúa como un contenedor para el borde */
+  background-color: transparent; /* No visible, acts as a container for the border */
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-
   pointer-events: none;
   background-size: cover;
   background-position: center;
@@ -69,9 +70,6 @@
   margin: 10px;
   margin-top: -60px;
 }
-
-
-
 
 /* Estilos del modal */
 .modal {
@@ -128,7 +126,39 @@
   border-radius: 5px; /* Bordes redondeados opcionales */
 }
 
-/* Opcional: botón de cerrar */
 .modal-footer {
   display: none;  /* Si no deseas pie de modal, puedes ocultarlo */
+}
+
+@media (max-width: 1200px) {
+  .hexagon {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Estilos para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .hexagon-container{
+    text-align: center;
+  }
+  .hexagon {
+    width: 70vw;   /* El tamaño del hexágono es más pequeño en pantallas pequeñas */
+    height: 70vw;  /* Mantiene la proporción de los hexágonos */
+  }
+
+  .gallery {
+    gap: 10px; /* Menor espacio entre los hexágonos en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 600px) {
+  .hexagon {
+    width: 80vw;  /* El tamaño del hexágono es aún más pequeño en pantallas más pequeñas */
+    height: 80vw;
+  }
+
+  .gallery {
+    gap: 20px; /* Espacio aún más pequeño entre hexágonos en dispositivos muy pequeños */
+  }
 }

@@ -1,30 +1,31 @@
-<!-- <div class="container mt-5">
+<div class="container mt-5">
   <h2 class="mb-4 blog-title">Gallery</h2>
-
 
   <div class="gallery">
     <div class="hexagon-container">
-      <div class="hexagon top" (click)="openModal('/assets/img/gallery6.jpg')">
-        <div class="inner-border" style="background-image: url('/assets/img/gallery6.jpg');"></div>
+      <div class="hexagon-row" *ngFor="let row of getRows(currentHexagons)">
+        <div *ngFor="let hexagon of row" class="hexagon top" (click)="openModal(hexagon)">
+          <div class="inner-border">
+            <img src="https://www.abstractbeezzz.com/back/{{ hexagon.image }}" [alt]="hexagon.description" [title]="hexagon.title" width="100%" height="100%" class="hexagon-img">
+            <span class="hexagon-title">{{ hexagon.title }}</span>
+          </div>
+        </div>
       </div>
-      <div class="hexagon top" (click)="openModal('/assets/img/1.jpg')">
-        <div class="inner-border" style="background-image: url('/assets/img/1.jpg');"></div>
-      </div>
-      <div class="hexagon top" (click)="openModal('/assets/img/3.jpg')">
-        <div class="inner-border" style="background-image: url('/assets/img/3.jpg');"></div>
-      </div>
-    </div>
-
-    <div class="hexagon-container">
-      <div class="hexagon top" (click)="openModal('/assets/img/gallery6.jpg')">
-        <div class="inner-border" style="background-image: url('/assets/img/gallery6.jpg');"></div>
-      </div>
-      <div class="hexagon top" (click)="openModal('/assets/img/1.jpg')">
-        <div class="inner-border" style="background-image: url('/assets/img/1.jpg');"></div>
-      </div>
-      
     </div>
   </div>
 
-
-</div> -->
+  <!-- Paginación -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="javascript:void(0);" (click)="goToPage(currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of totalPages; let i = index" class="page-item" [class.active]="currentPage === i + 1">
+        <a class="page-link" href="javascript:void(0);" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages.length">
+        <a class="page-link" href="javascript:void(0);" (click)="goToPage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
