@@ -11,6 +11,7 @@ export class BannerService {
     '/about-us': { image: 'assets/img/bee_removal_services.jpg', text: 'About Us' , title: 'Honey Bees from bee removal service', alt: 'Queen and worker bees during a live honey bee removal, illustrating safe relocation to protect the hive and bees.'},
     '/blogs': { image: 'assets/img/construccion.jpg', text: 'We’re working on it!', title: 'Honey Bees from bee removal service', alt: 'Queen and worker bees during a live honey bee removal, illustrating safe relocation to protect the hive and bees.' },
     '/services': { image: 'assets/img/bee_removal_services.jpg', text: 'Services', title: 'Honey Bees from bee removal service', alt: 'Queen and worker bees during a live honey bee removal, illustrating safe relocation to protect the hive and bees.' },
+    '/store': { image: 'assets/img/bee_removal_services.jpg', text: 'Store', title: 'Honey Bees from bee removal service', alt: 'Queen and worker bees during a live honey bee removal, illustrating safe relocation to protect the hive and bees.' },
     '/privacy-policy': { image: 'assets/img/bee_removal_services.jpg', text: 'Privacy Policy', title: 'Honey Bees from bee removal service', alt: 'Queen and worker bees during a live honey bee removal, illustrating safe relocation to protect the hive and bees.' },
     
   };

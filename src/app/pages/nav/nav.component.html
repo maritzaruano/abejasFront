@@ -2,7 +2,7 @@
     <div class="menu container ">
         <div class="menu__menu ">
          <ul class="menu__menu__ul" (click)="scrollbarTop()" >
-             <li 
+            <li 
                 class="menu__menu__ul__li" 
                 routerLink="/about-us"
                 routerLinkActive="active-link" 
@@ -12,6 +12,11 @@
                 routerLink="/services" 
                 (click)="scrollbarTop()"
                 routerLinkActive="active-link" >Services</li>
+            <li 
+                class="menu__menu__ul__li" 
+                routerLink="/store"
+                routerLinkActive="active-link" 
+                (click)="scrollbarTop()" >Store</li>
              <li 
                 class="menu__menu__ul__li" 
                 routerLink="/contact"
@@ -39,6 +44,7 @@
             <ul class="menu__menu__movil__ul" (click)="scrollbarTop()" >
                 <li class="menu__menu__movil__ul__li" routerLink="/about-us" (click)="toggleMenu()" (click)="scrollbarTop()">About Us</li>
                 <li class="menu__menu__movil__ul__li" routerLink="/services" (click)="toggleMenu()"(click)="scrollbarTop()" >Services</li>
+                <li class="menu__menu__movil__ul__li" routerLink="/store" (click)="toggleMenu()" (click)="scrollbarTop()">Store</li>
                 <li class="menu__menu__movil__ul__li" routerLink="/contact" (click)="toggleMenu()" (click)="scrollbarTop()">Contact Us</li>
                 <li class="menu__menu__movil__ul__li" routerLink="/gallery" (click)="toggleMenu()" (click)="scrollbarTop()">Gallery</li>
                 <li class="menu__menu__movil__ul__li" routerLink="/blogs" (click)="toggleMenu()" (click)="scrollbarTop()">Blogs</li>

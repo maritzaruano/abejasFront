@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { StoreComponent } from './store/store.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     GalleryComponent,
     HomeComponent,
     ServicesComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    StoreComponent
   ],
   imports: [
     CommonModule,
