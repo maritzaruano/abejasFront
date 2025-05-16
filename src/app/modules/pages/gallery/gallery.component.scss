@@ -23,7 +23,7 @@
 .hexagon {
   width: 300px;
   height: 300px;
-  background-color: #f4ea7b;
+  background-color: #FE007E;
   position: relative;
   display: inline-block;
   margin: 0 -2px;
@@ -88,10 +88,10 @@
 
 /* Contenedor del modal */
 .modal-dialog {
-  width: 60%;      /* 60% del ancho de la pantalla */
+  width: 100%;      /* 60% del ancho de la pantalla */
   max-width: 600px; /* Tamaño máximo de 600px */
   height: auto;    /* La altura se ajusta automáticamente */
-  background: white;
+
   border-radius: 10px;
   overflow: hidden; /* Impide que la imagen se desborde */
   display: flex;
@@ -107,6 +107,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  background-color: transparent;
 }
 
 /* Contenedor de la imagen */
@@ -137,20 +139,27 @@
   }
 }
 
-/* Estilos para pantallas más pequeñas */
 @media (max-width: 768px) {
-  .hexagon-container{
-    text-align: center;
-  }
   .hexagon {
-    width: 70vw;   /* El tamaño del hexágono es más pequeño en pantallas pequeñas */
-    height: 70vw;  /* Mantiene la proporción de los hexágonos */
-  }
-
-  .gallery {
-    gap: 10px; /* Menor espacio entre los hexágonos en pantallas pequeñas */
+    width: 150px;
+    height: 150px;
   }
 }
+
+/* Estilos para pantallas más pequeñas */
+// @media (max-width: 768px) {
+//   .hexagon-container{
+//     text-align: center;
+//   }
+//   .hexagon {
+//     width: 70vw;   /* El tamaño del hexágono es más pequeño en pantallas pequeñas */
+//     height: 70vw;  /* Mantiene la proporción de los hexágonos */
+//   }
+
+//   .gallery {
+//     gap: 10px; /* Menor espacio entre los hexágonos en pantallas pequeñas */
+//   }
+// }
 
 @media (max-width: 600px) {
   .hexagon {
@@ -162,3 +171,38 @@
     gap: 20px; /* Espacio aún más pequeño entre hexágonos en dispositivos muy pequeños */
   }
 }
+/* Modal */
+/* Contenedor de la imagen con el botón */
+.image-container {
+  position: relative; /* Necesario para posicionar el botón dentro de este contenedor */
+  width: 100%;
+  height: auto; /* La altura se ajustará automáticamente según la imagen */
+  display: inline-block;
+  max-width: 600px; /* Tamaño máximo de la imagen si es necesario */
+}
+
+/* Imagen del modal */
+.modal-body img {
+  width: 100%; /* La imagen ocupa todo el ancho disponible */
+  max-height: 80vh;  /* Limita la altura de la imagen al 80% de la pantalla */
+  object-fit: contain; /* Mantiene la proporción de la imagen */
+  display: block; /* Asegura que la imagen se comporte como bloque */
+  margin: 0 auto; /* Centra la imagen dentro del contenedor */
+}
+
+/* Botón de cierre */
+.close {
+  position: absolute;
+  top: 10px;   /* 10px desde la parte superior del contenedor */
+  right: 10px; /* 10px desde la parte derecha del contenedor */
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  z-index: 10; /* Asegura que el botón esté sobre la imagen */
+}
+
+.close:hover {
+  color: #FE007E; /* Color cuando se pasa el ratón sobre el botón */
+}   

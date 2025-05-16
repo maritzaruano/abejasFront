@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { GalleryInfoService } from '../../../core/services/gallery-info.service';
 
 export interface Hexagon {
@@ -13,21 +13,22 @@ export interface Hexagon {
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
-  // Usamos el modelo Hexagon en lugar de un array de strings
   hexagonImages: Hexagon[] = [];
-
   itemsPerPage: number = 10;
   currentPage: number = 1;
   currentHexagons: Hexagon[] = [];
   totalPages: number[] = [];
 
-  constructor(private galleryInfoService: GalleryInfoService) { 
-  }
+  // Variable para almacenar el hexágono seleccionado
+  selectedHexagon: Hexagon | null = null;
+  selectedHexagonIndex: number = -1; // Índice del hexágono seleccionado en la lista
+
+  constructor(private galleryInfoService: GalleryInfoService) { }
 
   ngOnInit(): void {
     this.galleryInfoService.obtenerGalleries().subscribe((data) => {
-      this.hexagonImages = data.data || []; // Evita errores si data.data es undefined
-      this.updatePagination(); // Llamar después de recibir los datos
+      this.hexagonImages = data.data || [];
+      this.updatePagination();
       this.loadHexagons();
     });
   }
@@ -79,7 +80,52 @@ export class GalleryComponent implements OnInit {
     return rows;
   }
 
+  // Método para abrir el modal
   openModal(hexagon: Hexagon) {
-    alert(`Abrir imagen: ${hexagon.title}\n${hexagon.description}`);
+    this.selectedHexagon = hexagon;
+    this.selectedHexagonIndex = this.hexagonImages.findIndex(h => h === hexagon);
+  }
+
+  // Método para cerrar el modal
+  closeModal() {
+    this.selectedHexagon = null;
+    this.selectedHexagonIndex = -1; // Restablecer el índice del hexágono seleccionado
+  }
+
+  // Método para ir a la imagen anterior
+  prevImage() {
+    if (this.selectedHexagonIndex > 0) {
+      this.selectedHexagonIndex--;
+      this.selectedHexagon = this.hexagonImages[this.selectedHexagonIndex];
+    }
+  }
+
+  // Método para ir a la imagen siguiente
+  nextImage() {
+    if (this.selectedHexagonIndex < this.hexagonImages.length - 1) {
+      this.selectedHexagonIndex++;
+      this.selectedHexagon = this.hexagonImages[this.selectedHexagonIndex];
+    }
+  }
+
+  // Detectar la tecla ESC para cerrar el modal
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && this.selectedHexagon) {
+      this.closeModal(); // Cierra el modal si se presiona ESC
+    }
+  }
+
+  // Detectar el botón de retroceso en dispositivos móviles (popstate)
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: PopStateEvent) {
+    if (this.selectedHexagon) {
+      this.closeModal(); // Cierra el modal si se presiona el botón de retroceso
+    }
+  }
+
+  // Metodo para asegurar que cuando el modal se cierre (ya sea por popstate o escape) la pagina no se desplace
+  scrollbarTop(){
+    window.scroll(0, 0);
   }
 }

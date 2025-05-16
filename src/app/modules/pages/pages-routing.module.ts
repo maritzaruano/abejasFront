@@ -9,10 +9,11 @@ import { ServicesComponent } from './services/services.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StoreComponent } from './store/store.component';
+import { BeeswaxComponent } from './store/beeswax/beeswax.component';
 
 const routes: Routes = [
   {
-    path: '', // Ruta base vacía
+    path: '',
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'about-us', component: AboutComponent },
@@ -21,15 +22,22 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent },
       { path: 'gallery', component: GalleryComponent },
       { path: 'services', component: ServicesComponent },
-      { path: 'privacy-policy', component: PrivacyPolicyComponent},
-      { path: 'store', component: StoreComponent},
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      {
+        path: 'store',
+        component: StoreComponent,
+        children: [
+          { path: 'beeswax', component: BeeswaxComponent }
+          // aquí puedes añadir más rutas hijas como camisas, velas, etc.
+        ]
+      },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-    ],
-  },
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PagesRoutingModule { }
+export class PagesRoutingModule {}
