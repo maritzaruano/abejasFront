@@ -1,8 +1,0 @@
-{
-  "/back": {
-    "target": "https://www.abstractbeezzz.com",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  }
-}
