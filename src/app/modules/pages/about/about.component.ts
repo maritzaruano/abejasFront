@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { LoadingService } from '../../../services/shared/loading.service';
 
 @Component({
   selector: 'app-about',
@@ -8,8 +9,12 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class AboutComponent {
 
-   constructor(private titleService: Title, private metaService: Meta) { 
+   constructor(
+      private titleService: Title, 
+      private metaService: Meta,
+      private loadingService: LoadingService) { 
 
+      this.loadingService.show();
     
       // Establecemos el título de la página
       this.titleService.setTitle('About Abstract Beezzz | Professional Beekeeper & Bee Removal');
@@ -21,7 +26,8 @@ export class AboutComponent {
       this.metaService.updateTag({ name: 'publisher', content: 'Abstract Beezzz'})
       this.metaService.updateTag({ name: 'lang', content: 'en'}) 
       this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
-    
+        
+      this.loadingService.hide();
     
     }
 

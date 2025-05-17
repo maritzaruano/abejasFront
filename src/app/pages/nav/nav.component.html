@@ -42,12 +42,48 @@
         </button>
         <div *ngIf="menuOpen" >
             <ul class="menu__menu__movil__ul" (click)="scrollbarTop()" >
-                <li class="menu__menu__movil__ul__li" routerLink="/about-us" (click)="toggleMenu()" (click)="scrollbarTop()">About Us</li>
-                <li class="menu__menu__movil__ul__li" routerLink="/services" (click)="toggleMenu()"(click)="scrollbarTop()" >Services</li>
-                <li class="menu__menu__movil__ul__li" routerLink="/store" (click)="toggleMenu()" (click)="scrollbarTop()">Store</li>
-                <li class="menu__menu__movil__ul__li" routerLink="/contact" (click)="toggleMenu()" (click)="scrollbarTop()">Contact Us</li>
-                <li class="menu__menu__movil__ul__li" routerLink="/gallery" (click)="toggleMenu()" (click)="scrollbarTop()">Gallery</li>
-                <li class="menu__menu__movil__ul__li" routerLink="/blogs" (click)="toggleMenu()" (click)="scrollbarTop()">Blogs</li>
+                <div class="menu__menu__movil__ul__closecontent">
+                    <div class="menu__menu__movil__ul__closecontent__icon" >
+                        <div (click)="toggleMenu()">
+                            <span class="bi bi-x" ></span>
+                        </div>
+                        
+                    </div>
+                </div>
+                <li 
+                    class="menu__menu__movil__ul__li" 
+                    routerLink="/about-us" (click)="toggleMenu()" 
+                    (click)="scrollbarTop()"
+                    routerLinkActive="menu__menu__movil__ul__li--active">About Us</li>
+                <li 
+                    class="menu__menu__movil__ul__li" 
+                    routerLink="/services" 
+                    (click)="toggleMenu()"
+                    (click)="scrollbarTop()"
+                    routerLinkActive="menu__menu__movil__ul__li--active">Services</li>
+                <li 
+                    class="menu__menu__movil__ul__li" 
+                    routerLink="/store" 
+                    (click)="toggleMenu()" 
+                    (click)="scrollbarTop()"
+                    routerLinkActive="menu__menu__movil__ul__li--active">Store</li>
+                <li 
+                    class="menu__menu__movil__ul__li" 
+                    routerLink="/contact" 
+                    (click)="toggleMenu()" 
+                    (click)="scrollbarTop()"
+                    routerLinkActive="menu__menu__movil__ul__li--active">Contact Us</li>
+                <li 
+                    class="menu__menu__movil__ul__li" 
+                    routerLink="/gallery" 
+                    (click)="toggleMenu()" 
+                    (click)="scrollbarTop()"
+                    routerLinkActive="menu__menu__movil__ul__li--active">Gallery</li>
+                <li class="menu__menu__movil__ul__li" 
+                    routerLink="/blogs" 
+                    (click)="toggleMenu()" 
+                    (click)="scrollbarTop()"
+                    routerLinkActive="menu__menu__movil__ul__li--active">Blogs</li>
             </ul>
         </div>
     </div>

@@ -39,3 +39,11 @@ h5{
     object-fit: cover; /* Ajusta cómo la imagen se recorta si es necesario */
     border-radius: 8px; /* Opcional, para esquinas redondeadas */
 }
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;       /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

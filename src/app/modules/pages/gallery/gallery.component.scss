@@ -19,11 +19,16 @@
   gap: 20px;
 }
 
+.hexagon-row:not(:first-of-type) {
+  /* Tu estilo aquí */
+  margin-top: -105px;
+}
+
 /* Estilo general para el hexágono */
 .hexagon {
   width: 300px;
-  height: 300px;
-  background-color: #FE007E;
+  height: 320px;
+  background-color: #DDF6FA;
   position: relative;
   display: inline-block;
   margin: 0 -2px;
@@ -59,7 +64,7 @@
 }
 
 .top {
-  margin: 10px;
+  margin: 1px;
 }
 
 .top2 {
@@ -100,6 +105,19 @@
   padding: 20px;
 }
 
+.hexagon-row {
+
+
+  &.two {
+    justify-content: space-between;
+  }
+
+  &.three {
+    justify-content: space-around;
+  }
+}
+
+
 /* Contenido del modal */
 .modal-content {
   width: 100%;
@@ -135,14 +153,31 @@
 @media (max-width: 1200px) {
   .hexagon {
     width: 200px;
-    height: 200px;
+    height: 210px;
+  }
+
+  .hexagon-row:not(:first-of-type) {
+      /* Tu estilo aquí */
+      margin-top: -80px;
   }
 }
 
 @media (max-width: 768px) {
   .hexagon {
     width: 150px;
-    height: 150px;
+    height: 160px;
+  }
+
+  .hexagon-row:not(:first-of-type) {
+    /* Tu estilo aquí */
+    margin-top: -65px;
+  }
+
+  .hexagon-row.two {
+    padding-top: 50px;
+  }
+  .hexagon-row.three {
+    padding-top: 50px;
   }
 }
 
@@ -165,6 +200,8 @@
   .hexagon {
     width: 80vw;  /* El tamaño del hexágono es aún más pequeño en pantallas más pequeñas */
     height: 80vw;
+    justify-content: center;
+    margin-left: 6vw;
   }
 
   .gallery {
@@ -194,8 +231,8 @@
 .close {
   position: absolute;
   top: 10px;   /* 10px desde la parte superior del contenedor */
-  right: 10px; /* 10px desde la parte derecha del contenedor */
-  font-size: 2rem;
+  right: 20px; /* 10px desde la parte derecha del contenedor */
+  font-size: 2.5rem;
   background: none;
   border: none;
   color: #FFF;
@@ -206,3 +243,97 @@
 .close:hover {
   color: #FE007E; /* Color cuando se pasa el ratón sobre el botón */
 }   
+
+.transp{
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 50px;
+}
+
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 80%;
+  background-color: #000; /* Fondo negro */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+
+  .main-image {
+    width: 80%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 5px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2.5rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+
+    &:hover {
+      color: #FE007E;
+    }
+  }
+
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    background: none;
+    border: none;
+    color: #FFD600;
+    cursor: pointer;
+    z-index: 5;
+
+    &.left {
+      left: 10px;
+    }
+
+    &.right {
+      right: 10px;
+    }
+
+    &:hover {
+      color: #FE007E;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  .image-description {
+    color: #fff;
+    font-size: 1rem;
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 468px) {
+  .image-container {
+    position: fixed;
+    width: 90%;
+  }
+
+  .main-image  {
+    width: 90% !important;
+  }
+  .nav-button{
+    top: 30% !important;
+  }
+
+  .image-description{
+    font-size: 0.7rem !important;
+  }
+}

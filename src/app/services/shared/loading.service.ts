@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,9 @@ export class LoadingService {
     }
   
     hide(): void {
-      this.visibilitySubject.next(false);
+      timer(1000).subscribe(() => {
+        this.visibilitySubject.next(false);
+      });
     }
   
     toggle(): void {

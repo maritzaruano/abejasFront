@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { GalleryInfoService } from '../../../core/services/gallery-info.service';
+import { LoadingService } from '../../../services/shared/loading.service';
 
 export interface Hexagon {
   image: string;
@@ -18,18 +19,24 @@ export class GalleryComponent implements OnInit {
   currentPage: number = 1;
   currentHexagons: Hexagon[] = [];
   totalPages: number[] = [];
+  loading: boolean = true;
 
   // Variable para almacenar el hexágono seleccionado
   selectedHexagon: Hexagon | null = null;
   selectedHexagonIndex: number = -1; // Índice del hexágono seleccionado en la lista
 
-  constructor(private galleryInfoService: GalleryInfoService) { }
+  constructor(private galleryInfoService: GalleryInfoService,
+    private loadingService: LoadingService,
+  ) { }
 
   ngOnInit(): void {
+    this.loadingService.show();
     this.galleryInfoService.obtenerGalleries().subscribe((data) => {
       this.hexagonImages = data.data || [];
       this.updatePagination();
       this.loadHexagons();
+      this.loadingService.hide();
+      this.loading = false;
     });
   }
 
@@ -37,17 +44,21 @@ export class GalleryComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.currentHexagons = this.hexagonImages.slice(startIndex, endIndex);
+
   }
 
   updatePagination() {
     const totalPages = Math.ceil(this.hexagonImages.length / this.itemsPerPage);
     this.totalPages = Array(totalPages).fill(0);
+
   }
 
   goToPage(page: number) {
+    this.loadingService.show();
     if (page < 1 || page > this.totalPages.length) return;
     this.currentPage = page;
     this.loadHexagons();
+    this.loadingService.hide();
   }
 
   getRows(hexagons: Hexagon[]): Hexagon[][] {

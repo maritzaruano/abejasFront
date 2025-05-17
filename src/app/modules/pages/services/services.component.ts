@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { LoadingService } from '../../../services/shared/loading.service';
 
 @Component({
   selector: 'app-services',
@@ -8,7 +9,12 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class ServicesComponent {
   
-  constructor(private titleService: Title, private metaService: Meta) { 
+  constructor(
+    private titleService: Title, 
+    private metaService: Meta,
+    private loadingService: LoadingService
+  ) { 
+    this.loadingService.show();
     this.titleService.setTitle('Bee relocation Services in Martin, St. Lucie & Palm Beach');
     this.metaService.updateTag({ name: 'description', content: 'Abstract Beezzz provides safe, expert, and humane live honey bee removal and relocation, ensuring the safety of bees and your property. We are the best option.'});
     this.metaService.updateTag({ name: 'keywords', content:'bee removing, bee removal company, bee relocation'})
@@ -16,5 +22,6 @@ export class ServicesComponent {
     this.metaService.updateTag({ name: 'publisher', content: 'Abstract Beezzz'})
     this.metaService.updateTag({ name: 'lang', content: 'en'}) 
     this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
+    this.loadingService.hide();
   }   
 }

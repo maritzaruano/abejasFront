@@ -3,7 +3,7 @@
 
   <div class="gallery">
     <div class="hexagon-container">
-      <div class="hexagon-row" *ngFor="let row of getRows(currentHexagons)">
+      <div class="hexagon-row" *ngFor="let row of getRows(currentHexagons)" [ngClass]="{'two': row.length === 2, 'three': row.length === 3}">
         <div *ngFor="let hexagon of row" class="hexagon top" (click)="openModal(hexagon)">
           <div class="inner-border">
             <img src="https://www.abstractbeezzz.com/back/{{ hexagon.image }}" [alt]="hexagon.description" [title]="hexagon.title" width="100%" height="100%" class="hexagon-img">
@@ -29,23 +29,52 @@
     </ul>
   </nav>
 
-<!-- Modal (solo se muestra si hay un hexágono seleccionado) -->
+  <!-- Modal (solo se muestra si hay un hexágono seleccionado) -->
   <div class="modal" *ngIf="selectedHexagon">
-    <div class="modal-dialog">
+    <button type="button" class="close" (click)="closeModal()">×</button>
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
-          <!-- Contenedor de la imagen con el botón de cierre sobre ella -->
-          <div class="image-container">
-            <img [src]="'https://www.abstractbeezzz.com/back/' + selectedHexagon.image" 
-                [alt]="selectedHexagon.description" 
-                [title]="selectedHexagon.title" 
-                class="img-fluid">
-            <!-- Botón de cierre en la esquina superior derecha de la imagen -->
-            <button type="button" class="close" (click)="closeModal()">×</button>
+          <div class="image-container bg-black text-white">
+            <!-- Imagen actual -->
+            <img 
+              [src]="'https://www.abstractbeezzz.com/back/' + selectedHexagon.image" 
+              [alt]="selectedHexagon.description" 
+              [title]="selectedHexagon.title" 
+              class="img-fluid main-image"
+            />
+
+            <!-- Botón cerrar -->
+            
+
+            <!-- Botón anterior -->
+            <button 
+              type="button" 
+              class="nav-button left" 
+              (click)="prevImage()" 
+              [disabled]="selectedHexagonIndex === 0">
+              ‹
+            </button>
+
+            <!-- Botón siguiente -->
+            <button 
+              type="button" 
+              class="nav-button right" 
+              (click)="nextImage()" 
+              [disabled]="selectedHexagonIndex === currentHexagons.length - 1">
+              ›
+            </button>
+
+            <!-- Descripción debajo -->
+            <div class="image-description mt-3 text-center">
+              {{ selectedHexagon.description }}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 
 </div>

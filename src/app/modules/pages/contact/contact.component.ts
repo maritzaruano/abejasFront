@@ -64,7 +64,10 @@ export class ContactComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadingService.show();
+    this.loadingService.hide();
+  }
 
   // Método para manejar la selección de imágenes
   onImageSelected(event: any): void {

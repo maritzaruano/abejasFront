@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogsInfoService } from '../../../core/services/blogs-info.service';
 import { Blog } from '../../../core/interfaces/blog.interface';
+import { LoadingService } from '../../../services/shared/loading.service';
 
 @Component({
   selector: 'app-blog',
@@ -12,6 +13,8 @@ export class BlogComponent implements OnInit {
   bannerImage: string = 'assets/img/construccion.png';
   bannerText: string = 'Working on';
 
+  loading: boolean = true;
+
   blogs: any[] = [];
 
   // Variables para la paginación
@@ -19,8 +22,10 @@ export class BlogComponent implements OnInit {
   blogsPerPage = 10;
   totalPages: number[] = [];
 
-  constructor(private blogInfoService: BlogsInfoService) {
-
+  constructor(private blogInfoService: BlogsInfoService,
+    private loadingService: LoadingService,
+  ) {
+    this.loadingService.show();
   }
 
   getBlogs() {
@@ -29,10 +34,14 @@ export class BlogComponent implements OnInit {
         this.blogs = response.data; // Solo los blogs de la página actual
         this.currentPage = response.current_page; // Página actual desde el backend
         this.totalPages = Array.from({ length: response.total_pages }, (_, i) => i + 1); // Total de páginas
+        this.loadingService.hide();
+         this.loading = false;
       },
       (error) => {
         console.error('Error al cargar blogs:', error);
         this.blogs = [];
+        this.loadingService.hide();
+        this.loading = false;
       }
     );
   }
