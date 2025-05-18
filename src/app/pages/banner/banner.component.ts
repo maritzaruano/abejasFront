@@ -52,4 +52,10 @@ export class BannerComponent implements OnInit {
     return url === '/gallery'
   }
 
+  isStore(): boolean {
+    const url = this.router.url;
+    return url === '/store' ||  url.startsWith('/store/') 
+  }
+
+
 }

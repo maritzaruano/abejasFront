@@ -1,5 +1,5 @@
 <div class="banner">    
-    <ng-container *ngIf="!isBlogOrBlogs() && !isGallery() ">
+    <ng-container *ngIf="!isBlogOrBlogs() && !isGallery() && !isStore()">
         <div class="banner__banner" [ngStyle]="{ 'background-image': 'url(' + bannerImage + ')' }">
             <div class="banner__banner__text">
             <h1 class="banner__banner__text__h1 pink-color" [innerHTML]="bannerText"></h1>

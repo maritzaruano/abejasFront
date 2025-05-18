@@ -22,7 +22,6 @@ import { RouterModule } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StoreComponent } from './store/store.component';
-import { BeeswaxComponent } from './store/beeswax/beeswax.component';
 
 
 @NgModule({
@@ -44,8 +43,7 @@ import { BeeswaxComponent } from './store/beeswax/beeswax.component';
     HomeComponent,
     ServicesComponent,
     PrivacyPolicyComponent,
-    StoreComponent,
-    BeeswaxComponent
+    StoreComponent
   ],
   imports: [
     CommonModule,

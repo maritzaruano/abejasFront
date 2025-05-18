@@ -9,7 +9,6 @@ import { ServicesComponent } from './services/services.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StoreComponent } from './store/store.component';
-import { BeeswaxComponent } from './store/beeswax/beeswax.component';
 
 const routes: Routes = [
   {
@@ -27,7 +26,6 @@ const routes: Routes = [
         path: 'store',
         component: StoreComponent,
         children: [
-          { path: 'beeswax', component: BeeswaxComponent }
           // aquí puedes añadir más rutas hijas como camisas, velas, etc.
         ]
       },

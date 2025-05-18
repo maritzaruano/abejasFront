@@ -1,1 +1,100 @@
-<p>store works!</p>
+<div class="container mt-5">
+    <h2 class="mb-4 blog-title">Store</h2>
+  
+    <!-- <div>
+        <img src="/assets/img/abeja_const.png" alt="" width="100%">
+    </div> -->
+
+    <!-- Menú deslizante -->
+    <div class="menu-wrapper">
+        <button class="scroll-btn left" (click)="scrollLeft()">‹</button>
+
+        <div class="menu-scroll" #scrollContainer>
+            <div *ngFor="let option of menuOptions" class="menu-item">
+            {{ option }}
+            </div>
+        </div>
+
+        <button class="scroll-btn right" (click)="scrollRight()">›</button>
+    </div>
+
+    <!-- Miga de pan -->
+    <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Store</a></li>
+            <li class="breadcrumb-item"><a href="#">Category</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Subcategory</li>
+        </ol>
+    </nav>
+
+    <!-- Filtros y subcategorías -->
+    <div class="filters-subcategories mt-4">
+        <!-- Subcategorías -->
+        <div class="dropdown custom-dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" (click)="toggleSubcatDropdown()">
+                {{ subcategoriaSeleccionada || 'Subcategory' }}
+            </button>
+            <div class="dropdown-menu show" *ngIf="mostrarSubcat">
+                <div *ngFor="let sub of subcategorias" 
+                    class="dropdown-item" 
+                    (click)="seleccionarSubcategoria(sub)"
+                    (keypress)="seleccionarSubcategoria(sub)">
+                {{ sub }}
+                </div>
+            </div>
+        </div>
+        <!-- Filtros -->
+        <div class="dropdown custom-dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" (click)="toggleFiltroDropdown()">
+                Filter
+            </button>
+            <div class="dropdown-menu show" *ngIf="mostrarFiltro">
+                <label *ngFor="let filtro of filtros" class="dropdown-item">
+                <input type="checkbox" [(ngModel)]="filtro.checked" />
+                {{ filtro.nombre }}
+                </label>
+            </div>
+        </div>
+
+     
+    </div>
+
+
+    <!-- Listado de productos -->
+    <div class="product-list mt-4">
+    <div class="row">
+        <div class="col-md-3 mb-4" *ngFor="let producto of productosPaginados">
+        <div class="card product-card">
+            <div class="image-wrapper">
+            <span class="category-tag">{{ producto.categoria }}</span>
+            <img [src]="producto.imagen" class="card-img-top" alt="{{ producto.nombre }}" />
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text"><strong>{{ producto.precio | currency: 'USD' }}</strong></p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Paginador -->
+    <nav class="mt-4" *ngIf="totalPaginas > 1">
+        <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</a>
+        </li>
+        <li
+            class="page-item"
+            *ngFor="let pagina of paginas"
+            [class.active]="pagina === paginaActual"
+        >
+            <a class="page-link" (click)="cambiarPagina(pagina)">{{ pagina }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+        </li>
+        </ul>
+    </nav>
+    </div>
+
+</div>
