@@ -10,6 +10,7 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { UsersComponent } from './users/users.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CategoryComponent } from './category/category.component';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
     IndexComponent,
     BlogsComponent,
     UsersComponent,
-    GalleryComponent
+    GalleryComponent,
+    CategoryComponent,
+
   ],
   imports: [
     CommonModule,

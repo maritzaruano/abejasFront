@@ -5,6 +5,9 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { AuthGuard } from '../../core/guards/AuthGuard.guard';
 import { UsersComponent } from './users/users.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { CategoryComponent } from './category/category.component';
+
+
 
 
 const routes: Routes = [
@@ -33,6 +36,12 @@ const routes: Routes = [
     component: UsersComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'category',
+    component: CategoryComponent,
+    canActivate: [AuthGuard]
+  },
+
 ];
 
 @NgModule({

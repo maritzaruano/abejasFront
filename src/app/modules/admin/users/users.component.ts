@@ -133,14 +133,6 @@ export class UsersComponent  implements OnInit {
       );
     }
 
-
-
-    
-
-
-
-    
-
     this.closeModal(); // Cierra el modal después de enviar el formulario
 
   }
