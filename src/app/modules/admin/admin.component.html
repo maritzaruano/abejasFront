@@ -1,6 +1,3 @@
-
-
-
 <div class="container-fluid">
     <div class="row">
       <!-- Menú Lateral -->
@@ -16,33 +13,58 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/users" routerLinkActive="active-link">
-                <i class="bi bi-person-circle"></i> Users
-              </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/admin/blogs" routerLinkActive="active-link">
-                  <i class="bi bi-newspaper"></i> Blogs
-                </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/gallery" routerLinkActive="active-link">
-                <i class="bi bi-camera-fill"></i> Galleries
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/admin/category" routerLinkActive="active-link">
-                <i class="bi bi-list-check"></i> Categories
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" (click)="logout()">
-                <i class="bi bi-box-arrow-right" ></i> Logout
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#pagesMenu" role="button" aria-expanded="false" aria-controls="pagesMenu">
+              <span><i class="bi bi-folder"></i> Pages</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="pagesMenu">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/admin/users" routerLinkActive="active-link">
+                    <i class="bi bi-person-circle"></i> Users
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/admin/blogs" routerLinkActive="active-link">
+                    <i class="bi bi-newspaper"></i> Blogs
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/admin/gallery" routerLinkActive="active-link">
+                    <i class="bi bi-camera-fill"></i> Galleries
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#storeMenu" role="button" aria-expanded="false" aria-controls="storeMenu">
+              <span><i class="bi bi-shop"></i> Store</span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="storeMenu">
+              <ul class="nav flex-column ms-3">
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/admin/category" routerLinkActive="active-link">
+                    <i class="bi bi-list-check"></i> Categories
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/admin/subcategory" routerLinkActive="active-link">
+                    <i class="bi bi-filter-left"></i> Subcategory
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>  
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+              <i class="bi bi-box-arrow-right" ></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   
       <!-- Contenido Principal -->
       <main class="col-md-9 col-lg-10 p0">
@@ -55,4 +77,4 @@
 
       </main>
     </div>
-  </div>
+  </div> 
