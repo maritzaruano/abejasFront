@@ -54,7 +54,7 @@ export class BannerComponent implements OnInit {
 
   isStore(): boolean {
     const url = this.router.url;
-    return url === '/store' ||  url.startsWith('/store/') 
+    return url === '/store' ||  url.startsWith('/store') 
   }
 
 
