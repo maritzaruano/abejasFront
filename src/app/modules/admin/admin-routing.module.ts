@@ -7,6 +7,7 @@ import { UsersComponent } from './users/users.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { CategoryComponent } from './category/category.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
+import { ProductsComponent } from './products/products.component';
 
 
 
@@ -42,12 +43,16 @@ const routes: Routes = [
     component: CategoryComponent,
     canActivate: [AuthGuard]
   },
-    {
+  {
     path: 'subcategory',
     component: SubcategoryComponent,
     canActivate: [AuthGuard]
   },
-
+  {
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [AuthGuard]
+  },
 
 ];
 

@@ -1,1 +1,87 @@
-<p>subcategory works!</p>
+<div class="container-fluid mt-4">
+    <div class=" justify-content-between mb-3 text-end">
+        <button class="btn btn-success" (click)="add()">
+            <i class="fas fa-plus"></i> Add
+        </button>
+    </div>
+
+
+    <table class="table table-bordered w-100">
+        <thead class="table-danger">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Categoria</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of subcategory">
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.category}}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm me-2" (click)="edit(item)" >
+                        <i class="bi bi-pen"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm"  (click)="changeStatusCategory(item.id)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+   <!-- Modal-form -->
+
+   <div [ngClass]="{'modal fade': !isModalOpen, 'modal show': isModalOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{action}} Task</h5>
+                <button type="button" class="btn-close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmit()" [formGroup]="categoryForm" >
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            class="form-control" 
+                            formControlName="name" 
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input 
+                        type="text" 
+                        id="description"
+                        class="form-control" 
+                        formControlName="description"  
+                        required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Category</label>
+                        <select 
+                            id="id_category"
+                            class="form-control" 
+                            formControlName="id_category"  
+                            required>
+                            <option value=""> Select an option </option>
+                            <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+                        </select>
+                    </div>
+                    
+                    <br>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+ 
+
+</div>

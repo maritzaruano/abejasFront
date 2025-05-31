@@ -35,10 +35,8 @@ export class CategoryComponent implements OnInit{
 
   getCategory() {
     this.categoryService.getCategory().subscribe((data: any) => {
-      console.log(data);
       this.category = data;
     });
-    console.log(this.getCategory)
   }
 
   changeStatusCategory(id: number) {
@@ -89,15 +87,18 @@ export class CategoryComponent implements OnInit{
           description: formValues.description
         }
   
-        this.categoryService.updateCategory(this.categoryId, categoryP).subscribe(
-          (response) => {
-            console.log('Category updated successfully:', response);
+        this.categoryService.updateCategory(this.categoryId, categoryP).subscribe({
+          next: (response) => {
             this.getCategory();
           },
-          (error) => {
-            console.error('Error updating category:', error);
+          error: (error) => {
+            this.getCategory(); // Asegúrate de que tiene sentido llamar también en caso de error
+          },
+          complete: () => {
+
           }
-        );
+        });
+
       }else{
         const formValues = this.categoryForm.value;
         this.formData.append('name', formValues.name);

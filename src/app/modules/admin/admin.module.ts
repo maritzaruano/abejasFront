@@ -12,6 +12,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { CategoryComponent } from './category/category.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
+import { ProductsComponent } from './products/products.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
     GalleryComponent,
     CategoryComponent,
     SubcategoryComponent,
+    ProductsComponent,
 
   ],
   imports: [

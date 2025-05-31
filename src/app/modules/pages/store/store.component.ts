@@ -8,7 +8,7 @@ import { Subcategory } from '../../../core/interfaces/Subcategory.interface';
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
-  styleUrl: './store.component.scss'
+  styleUrls: ['./store.component.scss']
 })
 export class StoreComponent implements OnInit {
 
@@ -23,6 +23,9 @@ export class StoreComponent implements OnInit {
 
   categoriaSeleccionada: number | null = null;
   subcategoriaSeleccionada: number | null = null;
+
+  mostrarOrdenar = false;
+criterioOrden: string = '';
 
   paginaActual = 1;
   productosPorPagina = 20;
@@ -42,22 +45,52 @@ export class StoreComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.show();
 
-    this.route.queryParams.subscribe(params => {
-      this.categoriaSeleccionada = params['name'] || null;
-      this.subcategoriaSeleccionada = null;
+    this.obtenerCategorias(); // cargar primero
 
-      // this.obtenerProductos();
-      this.obtenerCategorias();
+    this.route.queryParams.subscribe(params => {
+      const name = params['name'] || null;
+      const subName = params['sub'] || null;
+
+      if (!name && !subName) {
+        // Sin filtros en la URL, limpiar selección
+        this.categoriaSeleccionada = null;
+        this.subcategoriaSeleccionada = null;
+        this.subcategorias = [];
+        this.obtenerProductos();
+        return;
+      }
+
+      if (name && this.categorias.length) {
+        const categoria = this.categorias.find(c => c.name === name);
+        this.categoriaSeleccionada = categoria ? categoria.id : null;
+      }
+
+      if (this.categoriaSeleccionada) {
+        this.categoryService.getSubcategoriesByCategory(this.categoriaSeleccionada).subscribe(subs => {
+          this.subcategorias = subs;
+
+          if (subName) {
+            const sub = subs.find(s => s.name === subName);
+            this.subcategoriaSeleccionada = sub ? sub.id : null;
+          }
+
+          this.obtenerProductos();
+        });
+      } else {
+        this.subcategoriaSeleccionada = null;
+        this.obtenerProductos();
+      }
     });
 
     this.loadingService.hide();
   }
 
 
- get subcategoriaSeleccionadaNombre(): string {
-  const sub = this.subcategorias.find(s => s.id === this.subcategoriaSeleccionada);
-  return sub ? sub.name : 'Subcategory';
-}
+
+  get subcategoriaSeleccionadaNombre(): string {
+    const sub = this.subcategorias.find(s => s.id === this.subcategoriaSeleccionada);
+    return sub ? sub.name : 'Subcategory';
+  }
 
   obtenerProductos() {
     this.categoryService.getProducts().subscribe(data => {
@@ -66,15 +99,15 @@ export class StoreComponent implements OnInit {
     });
   }
 
-  obtenerSubcategoriasPorCategoria(idCategoria : number){
+  obtenerSubcategoriasPorCategoria(idCategoria: number) {
+    this.subcategorias = [];
     this.categoryService.getSubcategoriesByCategory(idCategoria).subscribe(data => {
       this.subcategorias = data;
-      console.log(this.subcategorias)
-    })
+    });
   }
-  
+
   obtenerCategorias() {
-    this.categoryService.getCategory().subscribe((data : Category[]) => {
+    this.categoryService.getCategories().subscribe((data: Category[]) => {
       this.categorias = data;
     });
   }
@@ -82,34 +115,27 @@ export class StoreComponent implements OnInit {
   aplicarFiltros() {
     let resultado = [...this.productos];
 
-    if (this.categoriaSeleccionada) {
-      resultado = resultado.filter(p => p.categoria === this.categoriaSeleccionada);
-    }
-
     if (this.subcategoriaSeleccionada) {
-      resultado = resultado.filter(p => p.subcategoria === this.subcategoriaSeleccionada);
+      resultado = resultado.filter(p => p.subcategoryId === this.subcategoriaSeleccionada);
+    } else if (this.categoriaSeleccionada) {
+      resultado = resultado.filter(p => p.categoryId === this.categoriaSeleccionada);
     }
 
     this.productosFiltrados = resultado;
-
-    // Obtener subcategorías disponibles en base al resultado actual
-    // const subcategoriasSet = new Set(this.productosFiltrados.map(p => p.subcategoria).filter(Boolean));
-    // this.subcategorias = Array.from(subcategoriasSet);
-    // this.mostrarSubcat = this.subcategorias.length > 0;
-
     this.paginaActual = 1;
     this.configurarPaginacion();
   }
 
+
   configurarPaginacion() {
-    const fuente = this.productosFiltrados.length ? this.productosFiltrados : this.productos;
+    const fuente = this.productosFiltrados; // usar siempre los filtrados
     this.totalPaginas = Math.ceil(fuente.length / this.productosPorPagina);
     this.paginas = Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
     this.actualizarListado();
   }
 
   actualizarListado() {
-    const fuente = this.productosFiltrados.length ? this.productosFiltrados : this.productos;
+    const fuente = this.productosFiltrados; // usar siempre los filtrados
     const inicio = (this.paginaActual - 1) * this.productosPorPagina;
     const fin = inicio + this.productosPorPagina;
     this.productosPaginados = fuente.slice(inicio, fin);
@@ -121,24 +147,36 @@ export class StoreComponent implements OnInit {
     this.actualizarListado();
   }
 
-  seleccionarCategoria(idCategoria: number , name: string) {
+  seleccionarCategoria(idCategoria: number, name: string) {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { name },
+      queryParams: { name, sub: null }, // limpia sub
       queryParamsHandling: 'merge'
     });
 
-    this.obtenerSubcategoriasPorCategoria(idCategoria);
     this.categoriaSeleccionada = idCategoria;
     this.subcategoriaSeleccionada = null;
+    this.obtenerSubcategoriasPorCategoria(idCategoria);
     this.aplicarFiltros();
   }
 
-  seleccionarSubcategoria(sub: number) {
-    this.subcategoriaSeleccionada = sub;
-    this.aplicarFiltros();
-    this.mostrarSubcat = false;
-  }
+
+ seleccionarSubcategoria(idSubcategoria: number) {
+  this.subcategoriaSeleccionada = idSubcategoria;
+
+  // Buscar nombre de la subcategoría para mantener consistencia
+  const subcategoria = this.subcategorias.find(s => s.id === idSubcategoria);
+  const subName = subcategoria?.name || null;
+
+  this.router.navigate([], {
+    relativeTo: this.route,
+    queryParams: { sub: subName },
+    queryParamsHandling: 'merge'
+  });
+
+  this.aplicarFiltros();
+  this.mostrarSubcat = false;
+}
 
   toggleFiltroDropdown() {
     this.mostrarFiltro = !this.mostrarFiltro;
@@ -157,4 +195,9 @@ export class StoreComponent implements OnInit {
   scrollRight() {
     this.scrollContainer.nativeElement.scrollBy({ left: 200, behavior: 'smooth' });
   }
+
+ordenarPor(criterio: string) {
+  this.criterioOrden = criterio;
+  this.mostrarOrdenar = false; // Oculta el menú después de seleccionar
+}
 }
