@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { ApiResponse, ProductRequest, ProductUpdate } from '../interfaces/products.interface';
 import { Observable } from 'rxjs';
+import { ApiResponse, Product, ProductPost, ProductPut } from '../interfaces/product.interface';
 
 
 
@@ -12,18 +12,18 @@ import { Observable } from 'rxjs';
 })
 export class ProductsService {
 
-    private productUrl = 'https://www.abstractbeezzz.com/back/products.php'; // Cambia la URL según tu backend
+    private productUrl = 'https://www.abstractbeezzz.com/back/product.php'; // Cambia la URL según tu backend
 
 
     constructor(private http: HttpClient) {}
 
     // Método para crear producto
-    create(data: ProductRequest): Observable<ApiResponse> {
+    create(data: FormData): Observable<ApiResponse> {
         return this.http.post<ApiResponse>(this.productUrl, data);
     }
 
-    update(data: ProductUpdate): Observable<ApiResponse> {
-        return this.http.put<ApiResponse>(this.productUrl, data);
+    update(data: FormData): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.productUrl, data);
     }
 
     get(): Observable<ApiResponse> {

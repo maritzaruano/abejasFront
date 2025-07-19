@@ -36,4 +36,8 @@ export class SubcategoryService {
     return this.http.get("https://www.abstractbeezzz.com/back/subcategories.php", { withCredentials: true })
   }
   
+  getSubCategoriesByCategory(id : number){
+    return this.http.get(`https://www.abstractbeezzz.com/back/subcategories.php?id_category=${id}`, { withCredentials: true })
+  }
+  
 }

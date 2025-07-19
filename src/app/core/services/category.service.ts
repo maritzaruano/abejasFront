@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Category, CategoryPost } from '../interfaces/category';
 import { Subcategory } from '../interfaces/Subcategory.interface';
-import { Product } from '../interfaces/product.interface';
+import { Product, ProductCategory } from '../interfaces/product.interface';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class CategoryService {
     { id: 301, name: 'Sub C1', id_category: 3 , description: '' }
   ];
 
-  private productos: Product[] = [
+  private productos: ProductCategory[] = [
     {
       id: 1,
       name: 'Camisa Azul',
@@ -33,8 +33,9 @@ export class CategoryService {
       image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
       categoryId: 1,
       categoryName: 'prueba1',
-      subcategoryId: 101,
-      subCategoryName: 'Sub A1'
+      id_subcategory: 101,
+      subCategoryName: 'Sub A1',
+      description:'',
     },
     {
       id: 2,
@@ -43,8 +44,9 @@ export class CategoryService {
       image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
       categoryId: 2,
       categoryName: 'prueba2',
-      subcategoryId: 201,
-      subCategoryName: 'Sub B1'
+      id_subcategory: 201,
+      subCategoryName: 'Sub B1',
+      description:''
     },
     {
       id: 3,
@@ -53,8 +55,9 @@ export class CategoryService {
       image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
       categoryId: 2,
       categoryName: 'prueba2',
-      subcategoryId: 201,
-      subCategoryName: 'Sub B1'
+      id_subcategory: 201,
+      subCategoryName: 'Sub B1',
+      description:'',
     },
     {
       id: 4,
@@ -63,13 +66,14 @@ export class CategoryService {
       image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
       categoryId: 1,
       categoryName: 'prueba2',
-      subcategoryId: 102,
-      subCategoryName: 'Sub B1'
+      id_subcategory: 102,
+      subCategoryName: 'Sub B1',
+      description:'test'
     }
   ];
 
   getCategories(): Observable<Category[]> {
-    return of(this.categorias);
+    return this.http.get<Category[]>('https://www.abstractbeezzz.com/back/category.php');
   }
 
   getSubcategoriesByCategory(categoriaId: number): Observable<Subcategory[]> {
@@ -77,7 +81,7 @@ export class CategoryService {
     return of(filtradas);
   }
 
-  getProducts(): Observable<Product[]> {
+  getProducts(): Observable<ProductCategory[]> {
     return of(this.productos);
   }
 
