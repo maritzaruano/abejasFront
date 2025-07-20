@@ -48,7 +48,7 @@ export class ProductsComponent {
       length_in: ['', [Validators.required]],
       width_in: ['', [Validators.required]],
       height_in: ['', [Validators.required]],
-      image_1_url: [null, [Validators.required]], // ahora guardará File
+      image_1_url: [null],
       image_2_url: [null],
       image_3_url: [null],
       sku: ['', [Validators.required]],
@@ -90,28 +90,52 @@ export class ProductsComponent {
 
   changeStatusCategory(id: number) {
     if (confirm('¿Está seguro que desea eliminar esta imagen de la galeria?')) {
-      this.subcategoryService.changeStatusCategory(id).subscribe((data: any) => {
-        console.log(data);
+      this.productService.delete(id).subscribe((data: any) => {
+        this.getProducts();
       });
     }
   }
 
-  add(){
+  add() {
     this.action = 'New';
     this.productForm.reset();
+
+    // limpiar nombres y previews de imágenes
+    this.currentImage1Name = null;
+    this.currentImage2Name = null;
+    this.currentImage3Name = null;
+    this.currentImage1 = null;
+    this.currentImage2 = null;
+    this.currentImage3 = null;
+
+    // Para nuevo producto, las imágenes son obligatorias
+    this.productForm.get('image_1_url')?.setValidators([Validators.required]);
+    this.productForm.get('image_2_url')?.setValidators([Validators.required]);
+    this.productForm.get('image_3_url')?.setValidators([Validators.required]);
+
+    this.productForm.get('image_1_url')?.updateValueAndValidity();
+    this.productForm.get('image_2_url')?.updateValueAndValidity();
+    this.productForm.get('image_3_url')?.updateValueAndValidity();
+
     this.openModal();
   }
   
-  edit(item: Product){
+  edit(item: Product) {
     this.action = 'Edit';
     this.productId = item.id_product;
 
     this.currentImage1 = item.image_1_url;
-    this.currentImage1Name = item.image_1_url ? item.image_1_url.split('/').pop() ?? null : null;
+    this.currentImage1Name = null;
     this.currentImage2 = item.image_2_url;
-    this.currentImage2Name = item.image_2_url ? item.image_2_url.split('/').pop() ?? null : null;
+    this.currentImage2Name = null;
     this.currentImage3 = item.image_3_url;
-    this.currentImage3Name = item.image_3_url ? item.image_3_url.split('/').pop() ?? null : null;
+    this.currentImage3Name = null;
+
+    // Quitar los requeridos porque en edición las imágenes no son obligatorias
+    ['image_1_url', 'image_2_url', 'image_3_url'].forEach(control => {
+      this.productForm.get(control)?.clearValidators();
+      this.productForm.get(control)?.updateValueAndValidity();
+    });
 
     this.productForm.patchValue({
       name: item.name,
@@ -153,43 +177,66 @@ export class ProductsComponent {
       this.productForm.patchValue({
         [controlName]: file
       });
+      this.productForm.get(controlName)?.markAsTouched();
+
+      const previewUrl = URL.createObjectURL(file);
 
       if (controlName === 'image_1_url') {
-        this.currentImage1 = null;  // Oculta la imagen anterior
-        this.currentImage1Name = file.name; // Muestra el nuevo nombre si quieres
+        this.currentImage1 = previewUrl; // para mostrar preview
+        this.currentImage1Name = file.name;
       }
-       if (controlName === 'image_2_url') {
-        this.currentImage2 = null;  // Oculta la imagen anterior
-        this.currentImage2Name = file.name; // Muestra el nuevo nombre si quieres
+      if (controlName === 'image_2_url') {
+        this.currentImage2 = previewUrl;
+        this.currentImage2Name = file.name;
       }
-       if (controlName === 'image_3_url') {
-        this.currentImage3 = null;  // Oculta la imagen anterior
-        this.currentImage2Name = file.name; // Muestra el nuevo nombre si quieres
+      if (controlName === 'image_3_url') {
+        this.currentImage3 = previewUrl;
+        this.currentImage3Name = file.name;
       }
     }
   }
 
-  private buildFormData(data: any): FormData {
-    const formData = new FormData();
-    Object.keys(data).forEach(key => {
-      if (data[key] !== null && data[key] !== undefined) {
-        formData.append(key, data[key]);
-      }
-    });
-    return formData;
-  }
+
 
   onSubmit() {
-     if (this.productForm.invalid) {
-      // Marca todos los controles como "tocados" para que aparezcan los errores
+    if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
-      return; // Evita el envío
+      return; // Evita envío si el formulario no es válido
     }
 
     const formValues = this.productForm.value;
-    const formData = this.buildFormData(formValues);
 
-    if (this.action === "Edit") {
+    // Validación: si es creación y no hay imágenes seleccionadas
+    if (this.action !== 'Edit') {
+      const hasAnyImage =
+        formValues.image_1_url instanceof File ||
+        formValues.image_2_url instanceof File ||
+        formValues.image_3_url instanceof File;
+
+      if (!hasAnyImage) {
+        alert('Debes subir al menos una imagen para crear un producto.');
+        return;
+      }
+    }
+
+    const formData = new FormData();
+
+    // Agregar todos los campos excepto imágenes
+    for (const key in formValues) {
+      if (!['image_1_url', 'image_2_url', 'image_3_url'].includes(key)) {
+        formData.append(key, formValues[key]);
+      }
+    }
+
+    // Agregar imágenes SOLO si son archivos nuevos
+    ['image_1_url', 'image_2_url', 'image_3_url'].forEach(imgKey => {
+      const file = formValues[imgKey];
+      if (file instanceof File) {
+        formData.append(imgKey, file);
+      }
+    });
+
+    if (this.action === 'Edit') {
       formData.append('id_product', this.productId.toString());
       this.productService.update(formData).subscribe({
         next: () => this.getProducts(),
@@ -204,4 +251,6 @@ export class ProductsComponent {
 
     this.closeModal();
   }
+
+
 }

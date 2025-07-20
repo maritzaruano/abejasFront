@@ -42,7 +42,7 @@
                     <button class="btn btn-warning btn-sm me-2" (click)="edit(item)" >
                         <i class="bi bi-pen"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm"  (click)="changeStatusCategory(item.id)">
+                    <button class="btn btn-danger btn-sm"  (click)="changeStatusCategory(item.id_product)">
                         <i class="bi bi-trash"></i>
                     </button>
                 </td>
@@ -238,20 +238,28 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="image_1_url" class="form-label">Image 1</label>
-                        <input type="file" id="image_1_url" class="form-control"
+                        <input 
+                            type="file" 
+                            id="image_1_url"
+                            class="form-control"
                             accept="image/*"
-                            (change)="onFileSelected($event, 'image_1_url')"
-                            [required]="action !== 'Edit'"
-                            [ngClass]="{'is-invalid': productForm.get('image_1_url')?.invalid && productForm.get('image_1_url')?.touched}">
+                            formControlName="image_1_url"
+                            (change)="onFileSelected($event, 'image_1_url')">
 
-                        <div *ngIf="action === 'Edit' && currentImage1">
-                            <small class="text-muted">{{ currentImage1Name }}</small><br>
+                        <!-- Nombre del archivo seleccionado -->
+                        <small *ngIf="currentImage1Name" class="text-muted">{{ currentImage1Name }}</small>
+
+                        <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
+                        <div *ngIf="action === 'Edit' && currentImage1 && !currentImage1Name">
+                            <small class="text-muted">{{ currentImage1 }}</small><br>
                             <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage1" 
                                 alt="Current Image" 
                                 class="img-thumbnail mt-2" 
                                 width="100">
                         </div>
-                        <div *ngIf="productForm.get('image_1_url')?.invalid && productForm.get('image_1_url')?.touched" class="invalid-feedback">
+
+                        <!-- Mensaje de validación -->
+                        <div *ngIf="productForm.get('image_1_url')?.invalid && productForm.get('image_1_url')?.touched" class="text-danger">
                             Image 1 is required.
                         </div>
                     </div>
@@ -263,20 +271,27 @@
                             id="image_2_url"
                             class="form-control"
                             accept="image/*"
-                            (change)="onFileSelected($event, 'image_2_url')"
-                            [required]="action !== 'Edit'">
+                            formControlName="image_2_url"
+                            (change)="onFileSelected($event, 'image_2_url')">
 
-                        <div *ngIf="action === 'Edit' && currentImage2">
-                            <small class="text-muted">{{ currentImage2Name }}</small><br>
+                        <!-- Nombre del archivo seleccionado -->
+                        <small *ngIf="currentImage2Name" class="text-muted">{{ currentImage2Name }}</small>
+
+                        <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
+                        <div *ngIf="action === 'Edit' && currentImage2 && !currentImage2Name">
+                            <small class="text-muted">{{ currentImage2 }}</small><br>
                             <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage2" 
                                 alt="Current Image" 
                                 class="img-thumbnail mt-2" 
                                 width="100">
                         </div>
-                        <div *ngIf="productForm.get('image_2_url')?.invalid && productForm.get('image_2_url')?.touched" class="invalid-feedback">
+
+                        <!-- Mensaje de validación -->
+                        <div *ngIf="productForm.get('image_2_url')?.invalid && productForm.get('image_2_url')?.touched" class="text-danger">
                             Image 2 is required.
                         </div>
                     </div>
+
 
                     <div class="col-md-6 mb-3">
                         <label for="image_3_url" class="form-label">Image 3</label>
@@ -285,17 +300,23 @@
                             id="image_3_url"
                             class="form-control"
                             accept="image/*"
-                            (change)="onFileSelected($event, 'image_3_url')"
-                            [required]="action !== 'Edit'">
+                            formControlName="image_3_url"
+                            (change)="onFileSelected($event, 'image_3_url')">
 
-                        <div *ngIf="action === 'Edit' && currentImage3">
-                            <small class="text-muted">{{ currentImage3Name }}</small><br>
+                        <!-- Nombre del archivo seleccionado -->
+                        <small *ngIf="currentImage1Name" class="text-muted">{{ currentImage1Name }}</small>
+
+                        <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
+                        <div *ngIf="action === 'Edit' && currentImage3 && !currentImage3Name">
+                            <small class="text-muted">{{ currentImage3 }}</small><br>
                             <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage3" 
                                 alt="Current Image" 
                                 class="img-thumbnail mt-2" 
                                 width="100">
                         </div>
-                        <div *ngIf="productForm.get('image_3_url')?.invalid && productForm.get('image_3_url')?.touched" class="invalid-feedback">
+
+                        <!-- Mensaje de validación -->
+                        <div *ngIf="productForm.get('image_3_url')?.invalid && productForm.get('image_3_url')?.touched" class="text-danger">
                             Image 3 is required.
                         </div>
                     </div>
