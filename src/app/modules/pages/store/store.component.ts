@@ -4,6 +4,9 @@ import { CategoryService } from '../../../core/services/category.service';
 import { LoadingService } from '../../../services/shared/loading.service';
 import { Category } from '../../../core/interfaces/category';
 import { Subcategory } from '../../../core/interfaces/Subcategory.interface';
+import { ProductCategory } from '../../../core/interfaces/product.interface';
+import { ProductShop } from '../../../core/interfaces/product-shop.interface';
+import { ProductShopService } from '../../../core/services/pages/product-shop.service';
 
 @Component({
   selector: 'app-store',
@@ -14,9 +17,9 @@ export class StoreComponent implements OnInit {
 
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
-  productos: any[] = [];
-  productosFiltrados: any[] = [];
-  productosPaginados: any[] = [];
+  productos: ProductShop[] = [];
+  productosFiltrados: ProductShop[] = [];
+  productosPaginados: ProductShop[] = [];
 
   categorias: Category[] = [];
   subcategorias: Subcategory[] = [];
@@ -25,7 +28,7 @@ export class StoreComponent implements OnInit {
   subcategoriaSeleccionada: number | null = null;
 
   mostrarOrdenar = false;
-criterioOrden: string = '';
+  criterioOrden: string = '';
 
   paginaActual = 1;
   productosPorPagina = 20;
@@ -37,6 +40,7 @@ criterioOrden: string = '';
 
   constructor(
     private loadingService: LoadingService,
+    private productShopService: ProductShopService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router
@@ -93,17 +97,32 @@ criterioOrden: string = '';
   }
 
   obtenerProductos() {
-    this.categoryService.getProducts().subscribe(data => {
-      this.productos = data;
-      this.aplicarFiltros();
+    this.productShopService.get().subscribe({
+      next: (response) => {
+        this.productos = response;  // aquí está el arreglo real
+        this.aplicarFiltros();
+      },
+      error: (error) => {
+        console.error('Error obteniendo productos:', error);
+      }
     });
+
   }
 
   obtenerSubcategoriasPorCategoria(idCategoria: number) {
     this.subcategorias = [];
-    this.categoryService.getSubcategoriesByCategory(idCategoria).subscribe(data => {
+    this.categoryService.getSubcategoriesByCategory(idCategoria).subscribe({
+    next: (data) => {
       this.subcategorias = data;
-    });
+    },
+    error: (err) => {
+      console.error('Error al obtener subcategorías:', err);
+      alert('Hubo un error al cargar las subcategorías. Intenta nuevamente.');
+    },
+    complete: () => {
+      console.log('Petición completada');
+    }
+  });
   }
 
   obtenerCategorias() {
@@ -113,18 +132,46 @@ criterioOrden: string = '';
   }
 
   aplicarFiltros() {
-    let resultado = [...this.productos];
+    const orderParam = this.criterioOrden === 'precio' ? 'price' :
+                      this.criterioOrden === 'nombre' ? 'name' : undefined;
 
     if (this.subcategoriaSeleccionada) {
-      resultado = resultado.filter(p => p.subcategoryId === this.subcategoriaSeleccionada);
+      this.productShopService.getByIdSubCategory(this.subcategoriaSeleccionada, orderParam).subscribe({
+        next: (data) => {
+          this.productosFiltrados = Array.isArray(data) ? data : [data];
+          this.paginaActual = 1;
+          this.configurarPaginacion();
+        },
+        error: (err) => {
+          console.error('Error obteniendo productos por subcategoría:', err);
+        }
+      });
     } else if (this.categoriaSeleccionada) {
-      resultado = resultado.filter(p => p.categoryId === this.categoriaSeleccionada);
+      this.productShopService.getByIdCategory(this.categoriaSeleccionada, orderParam).subscribe({
+        next: (data) => {
+          this.productosFiltrados = Array.isArray(data) ? data : [data];
+          this.paginaActual = 1;
+          this.configurarPaginacion();
+        },
+        error: (err) => {
+          console.error('Error obteniendo productos por categoría:', err);
+        }
+      });
+    } else {
+      this.productShopService.get(orderParam).subscribe({
+        next: (data) => {
+          this.productosFiltrados = data;
+          this.paginaActual = 1;
+          this.configurarPaginacion();
+        },
+        error: (err) => {
+          console.error('Error obteniendo todos los productos:', err);
+        }
+      });
     }
-
-    this.productosFiltrados = resultado;
-    this.paginaActual = 1;
-    this.configurarPaginacion();
   }
+
+
 
 
   configurarPaginacion() {
@@ -161,22 +208,22 @@ criterioOrden: string = '';
   }
 
 
- seleccionarSubcategoria(idSubcategoria: number) {
-  this.subcategoriaSeleccionada = idSubcategoria;
+  seleccionarSubcategoria(idSubcategoria: number) {
+    this.subcategoriaSeleccionada = idSubcategoria;
 
-  // Buscar nombre de la subcategoría para mantener consistencia
-  const subcategoria = this.subcategorias.find(s => s.id === idSubcategoria);
-  const subName = subcategoria?.name || null;
+    // Buscar nombre de la subcategoría para mantener consistencia
+    const subcategoria = this.subcategorias.find(s => s.id === idSubcategoria);
+    const subName = subcategoria?.name || null;
 
-  this.router.navigate([], {
-    relativeTo: this.route,
-    queryParams: { sub: subName },
-    queryParamsHandling: 'merge'
-  });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { sub: subName },
+      queryParamsHandling: 'merge'
+    });
 
-  this.aplicarFiltros();
-  this.mostrarSubcat = false;
-}
+    this.aplicarFiltros();
+    this.mostrarSubcat = false;
+  }
 
   toggleFiltroDropdown() {
     this.mostrarFiltro = !this.mostrarFiltro;
@@ -196,8 +243,13 @@ criterioOrden: string = '';
     this.scrollContainer.nativeElement.scrollBy({ left: 200, behavior: 'smooth' });
   }
 
-ordenarPor(criterio: string) {
-  this.criterioOrden = criterio;
-  this.mostrarOrdenar = false; // Oculta el menú después de seleccionar
-}
+  ordenarPor(criterio: string) {
+    this.criterioOrden = criterio;
+    this.mostrarOrdenar = false;
+    this.aplicarFiltros(); // volver a cargar la lista ordenada
+  }
+
+  irAStore() {
+    this.router.navigate(['/store'], { queryParams: {} });
+  }
 }

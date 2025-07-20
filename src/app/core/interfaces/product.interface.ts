@@ -79,9 +79,9 @@ export interface ProductCategory{
   name: string;
   description: string;
   price: number;
-  image: string;
+  image_1_url: string;
   id_subcategory: number;
   subCategoryName: string;
-  categoryId: number;
-  categoryName: string;
+  CategoryId: number;
+  CategoryName: string;
 }

@@ -20,63 +20,17 @@ export class CategoryService {
     { id: 301, name: 'Sub C1', id_category: 3 , description: '' }
   ];
 
-  private productos: ProductCategory[] = [
-    {
-      id: 1,
-      name: 'Camisa Azul',
-      price: 45,
-      image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
-      categoryId: 1,
-      categoryName: 'prueba1',
-      id_subcategory: 101,
-      subCategoryName: 'Sub A1',
-      description:'',
-    },
-    {
-      id: 2,
-      name: 'Camisa Roja',
-      price: 50,
-      image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
-      categoryId: 2,
-      categoryName: 'prueba2',
-      id_subcategory: 201,
-      subCategoryName: 'Sub B1',
-      description:''
-    },
-    {
-      id: 3,
-      name: 'Camisa Verde',
-      price: 80,
-      image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
-      categoryId: 2,
-      categoryName: 'prueba2',
-      id_subcategory: 201,
-      subCategoryName: 'Sub B1',
-      description:'',
-    },
-    {
-      id: 4,
-      name: 'Camisa Olivo',
-      price: 80,
-      image: 'https://ichef.bbci.co.uk/ace/ws/624/amz/worldservice/live/assets/images/2014/08/27/140827134553_bee_galeria_2_624x351_getty.jpg.webp',
-      categoryId: 1,
-      categoryName: 'prueba2',
-      id_subcategory: 102,
-      subCategoryName: 'Sub B1',
-      description:'test'
-    }
-  ];
 
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>('https://www.abstractbeezzz.com/back/category.php');
   }
 
   getSubcategoriesByCategory(categoriaId: number): Observable<Subcategory[]> {
-    return this.http.get<Subcategory[]>('https://www.abstractbeezzz.com/back/subcategory.php?'+categoriaId);
+    return this.http.get<Subcategory[]>('https://www.abstractbeezzz.com/back/subcategories.php?id='+categoriaId);
   }
 
   getProducts(): Observable<ProductCategory[]> {
-    return of(this.productos);
+    return this.http.get<ProductCategory[]>('https://www.abstractbeezzz.com/back/product.php');
   }
 
   createCategory(formData: FormData) : Observable <any> {    
