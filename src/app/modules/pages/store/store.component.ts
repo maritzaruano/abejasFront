@@ -7,6 +7,7 @@ import { Subcategory } from '../../../core/interfaces/Subcategory.interface';
 import { ProductCategory } from '../../../core/interfaces/product.interface';
 import { ProductShop } from '../../../core/interfaces/product-shop.interface';
 import { ProductShopService } from '../../../core/services/pages/product-shop.service';
+import { CartService } from '../../../core/services/pages/cart.service';
 
 @Component({
   selector: 'app-store',
@@ -38,13 +39,21 @@ export class StoreComponent implements OnInit {
   mostrarFiltro = false;
   mostrarSubcat = false;
 
+  cartCount = 0;
+  
   constructor(
     private loadingService: LoadingService,
     private productShopService: ProductShopService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
+    private cartService: CartService,
     private router: Router
-  ) {}
+  ) {
+    
+    this.cartService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
+  }
 
   ngOnInit(): void {
     this.loadingService.show();
@@ -97,17 +106,10 @@ export class StoreComponent implements OnInit {
   }
 
   obtenerProductos() {
-    this.productShopService.get().subscribe({
-      next: (response) => {
-        this.productos = response;  // aquí está el arreglo real
-        this.aplicarFiltros();
-      },
-      error: (error) => {
-        console.error('Error obteniendo productos:', error);
-      }
-    });
-
+    this.paginaActual = 1; // reset página al cambiar filtro
+    this.aplicarFiltros();
   }
+
 
   obtenerSubcategoriasPorCategoria(idCategoria: number) {
     this.subcategorias = [];
@@ -132,44 +134,77 @@ export class StoreComponent implements OnInit {
   }
 
   aplicarFiltros() {
-    const orderParam = this.criterioOrden === 'precio' ? 'price' :
-                      this.criterioOrden === 'nombre' ? 'name' : undefined;
+    const orderParam =
+      this.criterioOrden === 'precio'
+        ? 'price'
+        : this.criterioOrden === 'nombre'
+        ? 'name'
+        : undefined;
 
     if (this.subcategoriaSeleccionada) {
-      this.productShopService.getByIdSubCategory(this.subcategoriaSeleccionada, orderParam).subscribe({
-        next: (data) => {
-          this.productosFiltrados = Array.isArray(data) ? data : [data];
-          this.paginaActual = 1;
-          this.configurarPaginacion();
-        },
-        error: (err) => {
-          console.error('Error obteniendo productos por subcategoría:', err);
-        }
-      });
+      this.productShopService
+        .getByIdSubCategory(
+          this.subcategoriaSeleccionada,
+          this.paginaActual,
+          this.productosPorPagina,
+          orderParam
+        )
+        .subscribe({
+          next: (response) => {
+            this.productosFiltrados = response.items;
+            this.totalPaginas = response.totalPages;
+            this.paginas = Array.from(
+              { length: this.totalPaginas },
+              (_, i) => i + 1
+            );
+            this.productosPaginados = this.productosFiltrados;
+          },
+          error: (err) => {
+            console.error('Error obteniendo productos por subcategoría:', err);
+          },
+        });
     } else if (this.categoriaSeleccionada) {
-      this.productShopService.getByIdCategory(this.categoriaSeleccionada, orderParam).subscribe({
-        next: (data) => {
-          this.productosFiltrados = Array.isArray(data) ? data : [data];
-          this.paginaActual = 1;
-          this.configurarPaginacion();
-        },
-        error: (err) => {
-          console.error('Error obteniendo productos por categoría:', err);
-        }
-      });
+      this.productShopService
+        .getByIdCategory(
+          this.categoriaSeleccionada,
+          this.paginaActual,
+          this.productosPorPagina,
+          orderParam
+        )
+        .subscribe({
+          next: (response) => {
+            this.productosFiltrados = response.items;
+            this.totalPaginas = response.totalPages;
+            this.paginas = Array.from(
+              { length: this.totalPaginas },
+              (_, i) => i + 1
+            );
+            this.productosPaginados = this.productosFiltrados;
+          },
+          error: (err) => {
+            console.error('Error obteniendo productos por categoría:', err);
+          },
+        });
     } else {
-      this.productShopService.get(orderParam).subscribe({
-        next: (data) => {
-          this.productosFiltrados = data;
-          this.paginaActual = 1;
-          this.configurarPaginacion();
-        },
-        error: (err) => {
-          console.error('Error obteniendo todos los productos:', err);
-        }
-      });
+      this.productShopService
+        .get(this.paginaActual, this.productosPorPagina, orderParam)
+        .subscribe({
+          next: (response) => {
+            this.productosFiltrados = response.items;
+            this.totalPaginas = response.totalPages;
+            this.paginas = Array.from(
+              { length: this.totalPaginas },
+              (_, i) => i + 1
+            );
+            this.productosPaginados = this.productosFiltrados;
+          },
+          error: (err) => {
+            console.error('Error obteniendo todos los productos:', err);
+          },
+        });
     }
   }
+
 
 
 
@@ -195,33 +230,33 @@ export class StoreComponent implements OnInit {
   }
 
   seleccionarCategoria(idCategoria: number, name: string) {
+    this.categoriaSeleccionada = idCategoria;
+    this.subcategoriaSeleccionada = null;
+
+    // Actualiza la URL; queryParams.subscribe disparará obtenerProductos()
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { name, sub: null }, // limpia sub
+      queryParams: { name, sub: null },
       queryParamsHandling: 'merge'
     });
 
-    this.categoriaSeleccionada = idCategoria;
-    this.subcategoriaSeleccionada = null;
     this.obtenerSubcategoriasPorCategoria(idCategoria);
-    this.aplicarFiltros();
   }
 
 
   seleccionarSubcategoria(idSubcategoria: number) {
     this.subcategoriaSeleccionada = idSubcategoria;
 
-    // Buscar nombre de la subcategoría para mantener consistencia
     const subcategoria = this.subcategorias.find(s => s.id === idSubcategoria);
     const subName = subcategoria?.name || null;
 
+    // Actualiza la URL; queryParams.subscribe disparará obtenerProductos()
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { sub: subName },
       queryParamsHandling: 'merge'
     });
 
-    this.aplicarFiltros();
     this.mostrarSubcat = false;
   }
 
@@ -251,5 +286,14 @@ export class StoreComponent implements OnInit {
 
   irAStore() {
     this.router.navigate(['/store'], { queryParams: {} });
+  }
+
+  //Carro de compra
+  irAlCarrito() {
+    this.router.navigate(['/cart']);
+  }
+
+  verDetalleProducto(producto: ProductShop) {
+    this.router.navigate(['/product-detail', producto.id]);
   }
 }

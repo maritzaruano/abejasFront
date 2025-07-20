@@ -1,8 +1,20 @@
 <div class="container mt-5">
 
-    <h2 class="mb-4 blog-title">
-        <a (click)="irAStore()">Store</a>
-    </h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="blog-title mb-0">
+            <a (click)="irAStore()" class="text-decoration-none">Store</a>
+        </h2>
+
+        <div class="cart-icon position-relative mb-0" (click)="irAlCarrito()" style="cursor: pointer;margin-top: 40px;margin-right:0ch;">
+            <i class="bi bi-cart3" style="font-size: 1.5rem;"></i>
+            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                {{ cartCount }}
+            </span>
+        </div>
+    </div>
+
+
+  
     
     <!-- Barra de categorías -->
     <div class="menu-wrapper">
@@ -101,54 +113,73 @@
 
     <!-- Lista de productos -->
     <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let producto of productosPaginados">
+        <div class="col-md-3 mb-3" *ngFor="let producto of productosPaginados" 
+                (click)="verDetalleProducto(producto)"
+                style="cursor: pointer;">
             <div class="card h-100 position-relative">
 
-            <!-- Carrusel de imágenes -->
-            <div id="carousel-{{ producto.id }}" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img [src]="'https://abstractbeezzz.com/back/' + producto.image_1_url" class="d-block w-100" [alt]="producto.description" height="200px">
-                </div>
-                <div class="carousel-item" *ngIf="producto.image_2_url">
-                    <img [src]="'https://abstractbeezzz.com/back/' + producto.image_2_url" class="d-block w-100" [alt]="producto.description" height="200px">
-                </div>
-                <div class="carousel-item" *ngIf="producto.image_3_url">
-                    <img [src]="'https://abstractbeezzz.com/back/' + producto.image_3_url" class="d-block w-100" [alt]="producto.description" height="200px">
-                </div>
-                </div>
+                <!-- Carrusel de imágenes -->
+                <div id="carousel-{{ producto.id }}" class="carousel slide" data-bs-ride="carousel"
+                    (click)="$event.stopPropagation()">
+                    <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img [src]="'https://abstractbeezzz.com/back/' + producto.image_1_url"
+                            class="d-block w-100"
+                            [alt]="producto.description"
+                            height="200px">
+                    </div>
+                    <div class="carousel-item" *ngIf="producto.image_2_url">
+                        <img [src]="'https://abstractbeezzz.com/back/' + producto.image_2_url"
+                            class="d-block w-100"
+                            [alt]="producto.description"
+                            height="200px">
+                    </div>
+                    <div class="carousel-item" *ngIf="producto.image_3_url">
+                        <img [src]="'https://abstractbeezzz.com/back/' + producto.image_3_url"
+                            class="d-block w-100"
+                            [alt]="producto.description"
+                            height="200px">
+                    </div>
+                    </div>
 
-                <!-- Indicadores (puntos) -->
-                <div class="carousel-indicators d-flex justify-content-center mb-2">
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id" data-bs-slide-to="1" *ngIf="producto.image_2_url"></button>
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id" data-bs-slide-to="2" *ngIf="producto.image_3_url"></button>
-                </div>
+                    <!-- Indicadores (puntos) -->
+                    <div class="carousel-indicators d-flex justify-content-center mb-2">
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide-to="0" class="active" (click)="$event.stopPropagation()"></button>
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide-to="1" *ngIf="producto.image_2_url" (click)="$event.stopPropagation()"></button>
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide-to="2" *ngIf="producto.image_3_url" (click)="$event.stopPropagation()"></button>
+                    </div>
 
-
-                <!-- Controles de navegación -->
-                <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-' + producto.id" data-bs-slide="prev">
+                    <!-- Controles de navegación -->
+                    <button class="carousel-control-prev" type="button"
+                            [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide="prev" (click)="$event.stopPropagation()">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Anterior</span>
-                </button>
-                <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-' + producto.id" data-bs-slide="next">
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                            [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide="next" (click)="$event.stopPropagation()">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Siguiente</span>
-                </button>
-            </div>
+                    </button>
+                </div>
 
-            <!-- Categoría -->
-            <div class="category-tag">
-                {{ producto.CategoryName }}
-            </div>
+                <!-- Categoría -->
+                <div class="category-tag">
+                    {{ producto.CategoryName }}
+                </div>
 
-            <div class="card-body">
-                <h5 class="card-title"><b>{{ producto.name }}</b></h5>
-                <p class="card-text">Price: ${{ producto.price }}</p>
-            </div>
+                <div class="card-body">
+                    <h5 class="card-title"><b>{{ producto.name }}</b></h5>
+                    <p class="card-text">Price: ${{ producto.price }}</p>
+                </div>
             </div>
         </div>
     </div>
+
 
 
 

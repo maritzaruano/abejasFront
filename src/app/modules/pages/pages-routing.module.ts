@@ -9,6 +9,7 @@ import { ServicesComponent } from './services/services.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StoreComponent } from './store/store.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const routes: Routes = [
   {
@@ -25,10 +26,8 @@ const routes: Routes = [
       {
         path: 'store',
         component: StoreComponent,
-        children: [
-          // aquí puedes añadir más rutas hijas como camisas, velas, etc.
-        ]
       },
+      { path: 'product-detail/:id', component: ProductDetailComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   }

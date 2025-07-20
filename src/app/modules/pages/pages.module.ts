@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StoreComponent } from './store/store.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { StoreComponent } from './store/store.component';
     HomeComponent,
     ServicesComponent,
     PrivacyPolicyComponent,
-    StoreComponent
+    StoreComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

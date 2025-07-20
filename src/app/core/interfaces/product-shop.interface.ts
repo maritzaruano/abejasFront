@@ -10,4 +10,7 @@ export interface ProductShop{
   subCategoryName: string;
   CategoryId: number;
   CategoryName: string;
+  weight: string;
+  stock: string;
+  color: string;
 }
