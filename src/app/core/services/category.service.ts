@@ -12,11 +12,6 @@ export class CategoryService {
 
   constructor(private http : HttpClient) { }
 
-  private categorias: Category[] = [
-    { id: 1, name: 'prueba1', description : '' },
-    { id: 2, name: 'prueba2', description : '' },
-    { id: 3, name: 'prueba3', description : '' }
-  ];
 
   private subcategorias: Subcategory[] = [
     { id: 101, name: 'Sub A1', id_category: 1 , description: '' },
@@ -77,8 +72,7 @@ export class CategoryService {
   }
 
   getSubcategoriesByCategory(categoriaId: number): Observable<Subcategory[]> {
-    const filtradas = this.subcategorias.filter(s => s.id_category === categoriaId);
-    return of(filtradas);
+    return this.http.get<Subcategory[]>('https://www.abstractbeezzz.com/back/subcategory.php?'+categoriaId);
   }
 
   getProducts(): Observable<ProductCategory[]> {

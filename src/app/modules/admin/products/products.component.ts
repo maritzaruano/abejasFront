@@ -98,27 +98,30 @@ export class ProductsComponent {
 
   add() {
     this.action = 'New';
-    this.productForm.reset();
 
-    // limpiar nombres y previews de imágenes
-    this.currentImage1Name = null;
-    this.currentImage2Name = null;
-    this.currentImage3Name = null;
+    this.productForm.reset({
+      image_1_url: null,
+      image_2_url: null,
+      image_3_url: null
+    });
+
     this.currentImage1 = null;
     this.currentImage2 = null;
     this.currentImage3 = null;
 
-    // Para nuevo producto, las imágenes son obligatorias
-    this.productForm.get('image_1_url')?.setValidators([Validators.required]);
-    this.productForm.get('image_2_url')?.setValidators([Validators.required]);
-    this.productForm.get('image_3_url')?.setValidators([Validators.required]);
+    this.currentImage1Name = null;
+    this.currentImage2Name = null;
+    this.currentImage3Name = null;
 
-    this.productForm.get('image_1_url')?.updateValueAndValidity();
-    this.productForm.get('image_2_url')?.updateValueAndValidity();
-    this.productForm.get('image_3_url')?.updateValueAndValidity();
+    // Imágenes obligatorias en nuevo producto
+    ['image_1_url', 'image_2_url', 'image_3_url'].forEach(control => {
+      this.productForm.get(control)?.setValidators([Validators.required]);
+      this.productForm.get(control)?.updateValueAndValidity();
+    });
 
     this.openModal();
   }
+
   
   edit(item: Product) {
     this.action = 'Edit';
@@ -174,22 +177,21 @@ export class ProductsComponent {
   onFileSelected(event: any, controlName: string) {
     const file = event.target.files[0];
     if (file) {
-      this.productForm.patchValue({
-        [controlName]: file
-      });
+      // Actualiza el FormControl sin tocar el DOM del input
+      this.productForm.get(controlName)?.setValue(file, { emitModelToViewChange: false });
       this.productForm.get(controlName)?.markAsTouched();
 
       const previewUrl = URL.createObjectURL(file);
 
       if (controlName === 'image_1_url') {
-        this.currentImage1 = previewUrl; // para mostrar preview
+        this.currentImage1 = previewUrl;
         this.currentImage1Name = file.name;
-      }
-      if (controlName === 'image_2_url') {
+      } 
+      else if (controlName === 'image_2_url') {
         this.currentImage2 = previewUrl;
         this.currentImage2Name = file.name;
-      }
-      if (controlName === 'image_3_url') {
+      } 
+      else if (controlName === 'image_3_url') {
         this.currentImage3 = previewUrl;
         this.currentImage3Name = file.name;
       }
@@ -197,8 +199,9 @@ export class ProductsComponent {
   }
 
 
-
   onSubmit() {
+    debugger;
+
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return; // Evita envío si el formulario no es válido
@@ -208,6 +211,8 @@ export class ProductsComponent {
 
     // Validación: si es creación y no hay imágenes seleccionadas
     if (this.action !== 'Edit') {
+      debugger;
+
       const hasAnyImage =
         formValues.image_1_url instanceof File ||
         formValues.image_2_url instanceof File ||

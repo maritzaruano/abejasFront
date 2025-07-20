@@ -304,7 +304,7 @@
                             (change)="onFileSelected($event, 'image_3_url')">
 
                         <!-- Nombre del archivo seleccionado -->
-                        <small *ngIf="currentImage1Name" class="text-muted">{{ currentImage1Name }}</small>
+                        <small *ngIf="currentImage3Name" class="text-muted">{{ currentImage3Name }}</small>
 
                         <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
                         <div *ngIf="action === 'Edit' && currentImage3 && !currentImage3Name">
