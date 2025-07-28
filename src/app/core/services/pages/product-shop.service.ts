@@ -47,4 +47,8 @@ export class ProductShopService {
     }
     return this.http.get<any>(`${this.productUrl}${params}`);
   }
+
+  getById(id: number): Observable<ProductShop> {
+    return this.http.get<ProductShop>(`${this.productUrl}?id=${id}`);
+  }
 }

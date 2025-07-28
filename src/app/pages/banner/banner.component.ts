@@ -62,4 +62,8 @@ export class BannerComponent implements OnInit {
     return url === '/product-detail' ||  url.startsWith('/product-detail') 
   }
 
+  isCheckout(): boolean {
+    const url = this.router.url;
+    return url === '/checkout' ||  url.startsWith('/checkout') 
+  }
 }

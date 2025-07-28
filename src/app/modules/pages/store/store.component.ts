@@ -294,6 +294,6 @@ export class StoreComponent implements OnInit {
   }
 
   verDetalleProducto(producto: ProductShop) {
-    this.router.navigate(['/product-detail', producto.id]);
+    this.router.navigate(['/product-detail', producto.id_product]);
   }
 }

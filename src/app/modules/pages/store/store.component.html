@@ -1,8 +1,8 @@
 <div class="container mt-5">
 
-    <img src="/assets/img/abeja_const.png" alt="" width="100%">
+    <!-- <img src="/assets/img/abeja_const.png" alt="" width="100%"> -->
 
-    <!-- <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="blog-title mb-0">
             <a (click)="irAStore()" class="text-decoration-none">Store</a>
         </h2>
@@ -13,13 +13,13 @@
                 {{ cartCount }}
             </span>
         </div>
-    </div> -->
+    </div>
 
 
   
     
     <!-- Barra de categorías -->
-    <!-- <div class="menu-wrapper">
+    <div class="menu-wrapper">
         <button class="scroll-btn left" (click)="scrollLeft()" aria-label="Scroll categories left">‹</button>
 
         <div class="menu-scroll" #scrollContainer>
@@ -34,10 +34,10 @@
         </div>
 
         <button class="scroll-btn right" (click)="scrollRight()" aria-label="Scroll categories right">›</button>
-    </div> -->
+    </div>
 
     <!-- Miga de pan -->
-    <!-- <nav aria-label="breadcrumb" class="mt-3">
+    <nav aria-label="breadcrumb" class="mt-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a (click)="irAStore()">Store</a>
@@ -53,10 +53,10 @@
                 SubCategories
             </li>
         </ol>
-    </nav> -->
+    </nav>
 
     <!-- Dropdowns de filtro -->
-    <!-- <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         
         <div class="dropdown" *ngIf="subcategorias.length">
@@ -110,19 +110,20 @@
         </div>
 
 
-    </div> -->
+    </div>
 
 
     <!-- Lista de productos -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-3 mb-3" *ngFor="let producto of productosPaginados" 
                 (click)="verDetalleProducto(producto)"
+                (keypress)="verDetalleProducto(producto)"
                 style="cursor: pointer;">
             <div class="card h-100 position-relative">
 
                 
-                <div id="carousel-{{ producto.id }}" class="carousel slide" data-bs-ride="carousel"
-                    (click)="$event.stopPropagation()">
+                <div id="carousel-{{ producto.id_product }}" class="carousel slide" data-bs-ride="carousel"
+                    (click)="$event.stopPropagation()" (keypress)="$event.stopPropagation()">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img [src]="'https://abstractbeezzz.com/back/' + producto.image_1_url"
@@ -145,23 +146,23 @@
                     </div>
 
                     <div class="carousel-indicators d-flex justify-content-center mb-2">
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id_product"
                             data-bs-slide-to="0" class="active" (click)="$event.stopPropagation()"></button>
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id_product"
                             data-bs-slide-to="1" *ngIf="producto.image_2_url" (click)="$event.stopPropagation()"></button>
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id_product"
                             data-bs-slide-to="2" *ngIf="producto.image_3_url" (click)="$event.stopPropagation()"></button>
                     </div>
 
                     
                     <button class="carousel-control-prev" type="button"
-                            [attr.data-bs-target]="'#carousel-' + producto.id"
+                            [attr.data-bs-target]="'#carousel-' + producto.id_product"
                             data-bs-slide="prev" (click)="$event.stopPropagation()">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
                     </button>
                     <button class="carousel-control-next" type="button"
-                            [attr.data-bs-target]="'#carousel-' + producto.id"
+                            [attr.data-bs-target]="'#carousel-' + producto.id_product"
                             data-bs-slide="next" (click)="$event.stopPropagation()">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Siguiente</span>
@@ -179,14 +180,14 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 
 
 
 
     <!-- Paginación -->
-    <!-- <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
         <li class="page-item" [class.disabled]="paginaActual === 1">
             <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</button>
@@ -200,7 +201,7 @@
             <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
         </li>
         </ul>
-    </nav> -->
+    </nav>
 
 </div>
 

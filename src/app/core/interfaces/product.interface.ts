@@ -22,7 +22,48 @@ export interface Product {
   image_3_url: string;
   size: string;
   shiping_cost: number;
+
 }
+
+export interface ProductAdmin {
+  id: number; // id variant
+  name: string;
+  description: string;
+  id_subcategory: number;
+  subCategoryName: string;
+  status: boolean;
+  CategoryId: number;
+  CategoryName: string;
+  variants: VariantAdmin[];
+}
+
+export interface VariantAdmin {
+  id: number; // id variant
+  description_variant	: string;
+  id_product: number;
+  price: number;
+  options: string;
+  image: string;
+  stock: string;
+  tax: number,
+  weight_oz: string;
+  length_in: string;
+  width_in: string;
+  height_in: string;
+  image_1_url: string;
+  sku: string;
+  image_2_url: string;
+  image_3_url: string;
+  size: string;
+  shiping_cost: number;
+
+}
+
+export interface ProductList {
+  id: number; // id variant
+  name: string;
+}
+
 
 export interface ProductPost {
   name: string;

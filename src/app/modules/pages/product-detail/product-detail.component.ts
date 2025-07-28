@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductShop } from '../../../core/interfaces/product-shop.interface';
+import { ProductShopService } from '../../../core/services/pages/product-shop.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '../../../core/services/pages/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,27 +12,42 @@ export class ProductDetailComponent implements OnInit {
   producto!: ProductShop;
   cartCount = 0;
   mainImageUrl = '';
+  id!: number;
+
+  quantity = 1; // cantidad seleccionada por defecto
+
+  constructor(
+    private productShopService: ProductShopService,
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // Simulación de un producto
-    this.producto = {
-      id: 1,
-      name: 'Auriculares Bluetooth',
-      description: 'Auriculares inalámbricos con cancelación de ruido y batería de larga duración.',
-      price: 250,
-      CategoryName: 'Electrónica',
-      image_1_url: 'UploadsImageProducts/image_687d18be52bd26.13752753.JPEG',
-      image_2_url: 'UploadsImageProducts/image_687c4abff41ac5.72166441.jpg',
-      image_3_url: 'UploadsImageProducts/image_687d18be52bd26.13752753.JPEG',
-      weight: "12",
-      CategoryId: 1,
-      SubcategoryId: 1,
-      subCategoryName: "Leds",
-      stock: "1",
-      color: "blue"
-    };
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!this.id) {
+      console.error('ID de producto no válido');
+      this.router.navigate(['/store']);
+      return;
+    }
 
-    this.mainImageUrl = 'https://abstractbeezzz.com/back/' + this.producto.image_1_url;
+    // Suscribirse al contador del carrito
+    this.cartService.cartCount$.subscribe(count => this.cartCount = count);
+
+    this.getProducto(this.id);
+  }
+
+  getProducto(id: number) {
+    this.productShopService.getById(id).subscribe({
+      next: (producto) => {
+        this.producto = producto;
+        this.mainImageUrl = 'https://abstractbeezzz.com/back/' + this.producto.image_1_url;
+      },
+      error: (err) => {
+        console.error('Error obteniendo producto:', err);
+        this.router.navigate(['/store']);
+      }
+    });
   }
 
   cambiarImagen(url: string) {
@@ -37,11 +55,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
   agregarAlCarrito(producto: ProductShop) {
-    // Aquí actualizarías el carrito en localStorage o un servicio temporal
-    this.cartCount++;
+    if (this.quantity < 1) {
+      this.quantity = 1; // validación mínima
+    }
+
+    const productToAdd = { ...producto, quantity: this.quantity };
+    this.cartService.addToCart(productToAdd);
   }
 
   irAlCarrito() {
-    // navegación a carrito
+    this.router.navigate(['/checkout']); // redirige a la página del carrito/checkout
   }
 }

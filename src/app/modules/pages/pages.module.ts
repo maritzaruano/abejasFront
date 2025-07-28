@@ -23,6 +23,7 @@ import { BlogComponent } from './blog/blog.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { StoreComponent } from './store/store.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     ServicesComponent,
     PrivacyPolicyComponent,
     StoreComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    CheckoutComponent
   ],
   imports: [
     CommonModule,

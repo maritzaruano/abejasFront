@@ -1,7 +1,10 @@
 <div class="container-fluid mt-4">
     <div class=" justify-content-between mb-3 text-end">
-        <button class="btn btn-success" (click)="add()">
-            <i class="fas fa-plus"></i> Add
+        <button class="btn btn-success mr-3" (click)="add()">
+            <i class="fas fa-plus"></i> Add Product
+        </button> &nbsp;
+         <button class="btn btn-success ml-3" (click)="addVariant()">
+            <i class="fas fa-plus"></i> Add Variant
         </button>
     </div>
 
@@ -13,12 +16,8 @@
                 <th>Description</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
-                <th>Price</th>
-                <th>Size</th>
-                <th>Tax</th>
-                <th>Stock</th>
-                <th>Options</th>
-                <th>images</th>
+                <th>Variants</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,23 +27,35 @@
                 <td>{{item.description}}</td>
                 <td>{{item.CategoryName}}</td>
                 <td>{{item.subCategoryName}}</td>
-                <td>{{item.price | currency}}</td>
-                <td>{{item.size}}</td>
-                <td>{{item.tax}}%</td>
-                <td>{{item.stock}}%</td>
-                <td>{{item.options}}</td>
-                <td>
-                    <img [src]="'https://www.abstractbeezzz.com/back/'+item.image_1_url" alt="Image 1" width="50" style="margin:4px">
-                    <img [src]="'https://www.abstractbeezzz.com/back/'+item.image_2_url" alt="Image 2" width="50" style="margin:4px">
-                    <img [src]="'https://www.abstractbeezzz.com/back/'+item.image_3_url" alt="Image 3" width="50" style="margin:4px">
+                <td> 
+                    <ng-container>
+                        <ng-container *ngIf="item?.variants && item.variants.length > 0; else noVariants">
+                           <select name="variant" id="variant" (change)="editVariant($event, item.variants)">
+                                <option value="">Select an option</option>
+                                <option *ngFor="let variant of item.variants" [value]="variant.id">
+                                    {{ variant.description_variant }}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-template #noVariants>
+                            <span>No variants associated <br> with this product</span>
+                        </ng-template>
+                    </ng-container>
+
+
                 </td>
+                <td>{{item.status ? 'Active' : 'Deactive'}}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm me-2" (click)="edit(item)" >
-                        <i class="bi bi-pen"></i>
-                    </button>
-                    <button class="btn btn-danger btn-sm"  (click)="changeStatusCategory(item.id_product)">
-                        <i class="bi bi-trash"></i>
-                    </button>
+                    <ng-container *ngIf="item.status" >
+                        <button class="btn btn-warning btn-sm me-2" (click)="edit(item)" data-toggle="tooltip" title="Edit Product" >
+                            <i class="bi bi-pen"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" (click)="changeStatusCategory(item)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </ng-container>
+
                 </td>
 
             </tr>
@@ -52,285 +63,313 @@
         </tbody>
     </table>
 
-    <!-- Modal-form -->
 
     <div [ngClass]="{'modal fade': !isModalOpen, 'modal show': isModalOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl"> <!-- más ancho -->
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{action}} Product</h5>
-                <button type="button" class="btn-close" (click)="closeModal()"></button>
-            </div>
-            <div class="modal-body">
-                <form (ngSubmit)="onSubmit()" [formGroup]="productForm">
-                <div class="row">
-                    <!-- Category -->
-                    <div class="col-md-6 mb-3">
-                        <label for="id_category" class="form-label">Category</label>
-                        <select id="id_category" class="form-control"
-                                formControlName="id_category"
-                                [ngClass]="{'is-invalid': productForm.get('id_category')?.invalid && productForm.get('id_category')?.touched}"
-                                (change)="getSubCategory($event)">
-                            <option value="">Select an option</option>
-                            <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
-                        </select>
-                        <div *ngIf="productForm.get('id_category')?.invalid && productForm.get('id_category')?.touched" class="invalid-feedback">
-                            Category is required.
-                        </div>
-                    </div>
-
-                    <!-- Subcategory -->
-                    <div class="col-md-6 mb-3">
-                        <label for="id_subcategory" class="form-label">Subcategory</label>
-                        <select id="id_subcategory" class="form-control"
-                                formControlName="id_subcategory"
-                                [ngClass]="{'is-invalid': productForm.get('id_subcategory')?.invalid && productForm.get('id_subcategory')?.touched}">
-                        <option value="">Select an option</option>
-                        <option *ngFor="let sub of subcategory" [value]="sub.id">{{sub.name}}</option>
-                        </select>
-                        <div *ngIf="productForm.get('id_subcategory')?.invalid && productForm.get('id_subcategory')?.touched" class="invalid-feedback">
-                        Subcategory is required.
-                        </div>
-                    </div>
-
-                    <!-- Name -->
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" id="name" class="form-control"
-                            formControlName="name"
-                            [ngClass]="{'is-invalid': productForm.get('name')?.invalid && productForm.get('name')?.touched}">
-                        <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="invalid-feedback">
-                        Name is required.
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="col-md-6 mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <input type="text" id="description" class="form-control"
-                            formControlName="description"
-                            [ngClass]="{'is-invalid': productForm.get('description')?.invalid && productForm.get('description')?.touched}">
-                        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="invalid-feedback">
-                        Description is required.
-                        </div>
-                    </div>
-
-                    <!-- Options -->
-                    <div class="col-md-6 mb-3">
-                        <label for="options" class="form-label">Options</label>
-                        <input type="text" id="options" class="form-control"
-                            formControlName="options"
-                            [ngClass]="{'is-invalid': productForm.get('options')?.invalid && productForm.get('options')?.touched}">
-                        <div *ngIf="productForm.get('options')?.invalid && productForm.get('options')?.touched" class="invalid-feedback">
-                        Options are required.
-                        </div>
-                    </div>
-
-                    <!-- Price -->
-                    <div class="col-md-4 mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" id="price" class="form-control"
-                            formControlName="price"
-                            [ngClass]="{'is-invalid': productForm.get('price')?.invalid && productForm.get('price')?.touched}">
-                        <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="invalid-feedback">
-                        Price is required.
-                        </div>
-                    </div>
-
-                    <!-- Tax -->
-                    <div class="col-md-2 mb-3">
-                        <label for="tax" class="form-label">Tax</label>
-                        <input type="number" id="tax" class="form-control"
-                            formControlName="tax"
-                            [ngClass]="{'is-invalid': productForm.get('tax')?.invalid && productForm.get('tax')?.touched}">
-                        <div *ngIf="productForm.get('tax')?.invalid && productForm.get('tax')?.touched" class="invalid-feedback">
-                        Tax is required.
-                        </div>
-                    </div>
-
-                    <!-- Stock -->
-                    <div class="col-md-4 mb-3">
-                        <label for="stock" class="form-label">Stock</label>
-                        <input type="text" id="stock" class="form-control"
-                            formControlName="stock"
-                            [ngClass]="{'is-invalid': productForm.get('stock')?.invalid && productForm.get('stock')?.touched}">
-                        <div *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched" class="invalid-feedback">
-                        Stock is required.
-                        </div>
-                    </div>
-
-                    <!-- Weight -->
-                    <div class="col-md-4 mb-3">
-                        <label for="weight_oz" class="form-label">Weight</label>
-                        <input type="text" id="weight_oz" class="form-control"
-                                formControlName="weight_oz"
-                                [ngClass]="{'is-invalid': productForm.get('weight_oz')?.invalid && productForm.get('weight_oz')?.touched}">
-                        <div *ngIf="productForm.get('weight_oz')?.invalid && productForm.get('weight_oz')?.touched" class="invalid-feedback">
-                            Weight is required.
-                        </div>
-                    </div>
-
-                    <!-- Length -->
-                    <div class="col-md-4 mb-3">
-                        <label for="length_in" class="form-label">Length</label>
-                        <input type="text" id="length_in" class="form-control"
-                                formControlName="length_in"
-                                [ngClass]="{'is-invalid': productForm.get('length_in')?.invalid && productForm.get('length_in')?.touched}">
-                        <div *ngIf="productForm.get('length_in')?.invalid && productForm.get('length_in')?.touched" class="invalid-feedback">
-                            Length is required.
-                        </div>
-                    </div>
-
-                    <!-- Width -->
-                    <div class="col-md-3 mb-3">
-                        <label for="width_in" class="form-label">Width</label>
-                        <input type="text" id="width_in" class="form-control"
-                                formControlName="width_in"
-                                [ngClass]="{'is-invalid': productForm.get('width_in')?.invalid && productForm.get('width_in')?.touched}">
-                        <div *ngIf="productForm.get('width_in')?.invalid && productForm.get('width_in')?.touched" class="invalid-feedback">
-                            Width is required.
-                        </div>
-                    </div>
-
-                    <!-- Height -->
-                    <div class="col-md-3 mb-3">
-                        <label for="height_in" class="form-label">Height</label>
-                        <input type="text" id="height_in" class="form-control"
-                                formControlName="height_in"
-                                [ngClass]="{'is-invalid': productForm.get('height_in')?.invalid && productForm.get('height_in')?.touched}">
-                        <div *ngIf="productForm.get('height_in')?.invalid && productForm.get('height_in')?.touched" class="invalid-feedback">
-                            Height is required.
-                        </div>
-                    </div>
-
-                    <!-- Size -->
-                    <div class="col-md-3 mb-3">
-                        <label for="size" class="form-label">Size</label>
-                        <input type="text" id="size" class="form-control"
-                                formControlName="size"
-                                [ngClass]="{'is-invalid': productForm.get('size')?.invalid && productForm.get('size')?.touched}">
-                        <div *ngIf="productForm.get('size')?.invalid && productForm.get('size')?.touched" class="invalid-feedback">
-                            Size is required.
-                        </div>
-                    </div>
-
-                    <!-- Shipping Cost -->
-                    <div class="col-md-3 mb-3">
-                        <label for="shiping_cost" class="form-label">Shipping Cost</label>
-                        <input type="text" id="shiping_cost" class="form-control"
-                                formControlName="shiping_cost"
-                                [ngClass]="{'is-invalid': productForm.get('shiping_cost')?.invalid && productForm.get('shiping_cost')?.touched}">
-                        <div *ngIf="productForm.get('shiping_cost')?.invalid && productForm.get('shiping_cost')?.touched" class="invalid-feedback">
-                            Shipping cost is required.
-                        </div>
-                    </div>
-
-                    <!-- SKU -->
-                    <div class="col-md-6 mb-3">
-                        <label for="sku" class="form-label">Sku</label>
-                        <input type="text" id="sku" class="form-control"
-                                formControlName="sku"
-                                [ngClass]="{'is-invalid': productForm.get('sku')?.invalid && productForm.get('sku')?.touched}">
-                        <div *ngIf="productForm.get('sku')?.invalid && productForm.get('sku')?.touched" class="invalid-feedback">
-                            SKU is required.
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="image_1_url" class="form-label">Image 1</label>
-                        <input 
-                            type="file" 
-                            id="image_1_url"
-                            class="form-control"
-                            accept="image/*"
-                            formControlName="image_1_url"
-                            (change)="onFileSelected($event, 'image_1_url')">
-
-                        <!-- Nombre del archivo seleccionado -->
-                        <small *ngIf="currentImage1Name" class="text-muted">{{ currentImage1Name }}</small>
-
-                        <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
-                        <div *ngIf="action === 'Edit' && currentImage1 && !currentImage1Name">
-                            <small class="text-muted">{{ currentImage1 }}</small><br>
-                            <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage1" 
-                                alt="Current Image" 
-                                class="img-thumbnail mt-2" 
-                                width="100">
-                        </div>
-
-                        <!-- Mensaje de validación -->
-                        <div *ngIf="productForm.get('image_1_url')?.invalid && productForm.get('image_1_url')?.touched" class="text-danger">
-                            Image 1 is required.
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="image_2_url" class="form-label">Image 2</label>
-                        <input 
-                            type="file" 
-                            id="image_2_url"
-                            class="form-control"
-                            accept="image/*"
-                            formControlName="image_2_url"
-                            (change)="onFileSelected($event, 'image_2_url')">
-
-                        <!-- Nombre del archivo seleccionado -->
-                        <small *ngIf="currentImage2Name" class="text-muted">{{ currentImage2Name }}</small>
-
-                        <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
-                        <div *ngIf="action === 'Edit' && currentImage2 && !currentImage2Name">
-                            <small class="text-muted">{{ currentImage2 }}</small><br>
-                            <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage2" 
-                                alt="Current Image" 
-                                class="img-thumbnail mt-2" 
-                                width="100">
-                        </div>
-
-                        <!-- Mensaje de validación -->
-                        <div *ngIf="productForm.get('image_2_url')?.invalid && productForm.get('image_2_url')?.touched" class="text-danger">
-                            Image 2 is required.
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6 mb-3">
-                        <label for="image_3_url" class="form-label">Image 3</label>
-                        <input 
-                            type="file" 
-                            id="image_3_url"
-                            class="form-control"
-                            accept="image/*"
-                            formControlName="image_3_url"
-                            (change)="onFileSelected($event, 'image_3_url')">
-
-                        <!-- Nombre del archivo seleccionado -->
-                        <small *ngIf="currentImage3Name" class="text-muted">{{ currentImage3Name }}</small>
-
-                        <!-- Imagen anterior (solo en edición y si no hay nueva seleccionada) -->
-                        <div *ngIf="action === 'Edit' && currentImage3 && !currentImage3Name">
-                            <small class="text-muted">{{ currentImage3 }}</small><br>
-                            <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage3" 
-                                alt="Current Image" 
-                                class="img-thumbnail mt-2" 
-                                width="100">
-                        </div>
-
-                        <!-- Mensaje de validación -->
-                        <div *ngIf="productForm.get('image_3_url')?.invalid && productForm.get('image_3_url')?.touched" class="text-danger">
-                            Image 3 is required.
-                        </div>
-                    </div>
-
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{action}} Product</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
                 </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="productForm">
+                    <div class="row">
+                    
+                        <div class="col-md-6 mb-3">
+                            <label for="id_category" class="form-label">Category</label>
+                            <select id="id_category" class="form-control"
+                                    formControlName="id_category"
+                                    [ngClass]="{'is-invalid': productForm.get('id_category')?.invalid && productForm.get('id_category')?.touched}"
+                                    (change)="getSubCategory($event)">
+                                <option value="">Select an option</option>
+                                <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
+                            </select>
+                            <div *ngIf="productForm.get('id_category')?.invalid && productForm.get('id_category')?.touched" class="invalid-feedback">
+                                Category is required.
+                            </div>
+                        </div>
 
-                <br>
-                <button type="submit" class="btn btn-primary">Save</button>
-                </form>
-            </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_subcategory" class="form-label">Subcategory</label>
+                            <select id="id_subcategory" class="form-control"
+                                    formControlName="id_subcategory"
+                                    [ngClass]="{'is-invalid': productForm.get('id_subcategory')?.invalid && productForm.get('id_subcategory')?.touched}">
+                            <option value="">Select an option</option>
+                            <option *ngFor="let sub of subcategory" [value]="sub.id">{{sub.name}}</option>
+                            </select>
+                            <div *ngIf="productForm.get('id_subcategory')?.invalid && productForm.get('id_subcategory')?.touched" class="invalid-feedback">
+                            Subcategory is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" class="form-control"
+                                formControlName="name"
+                                [ngClass]="{'is-invalid': productForm.get('name')?.invalid && productForm.get('name')?.touched}">
+                            <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="invalid-feedback">
+                            Name is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-6 mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <input type="text" id="description" class="form-control"
+                                formControlName="description"
+                                [ngClass]="{'is-invalid': productForm.get('description')?.invalid && productForm.get('description')?.touched}">
+                            <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="invalid-feedback">
+                            Description is required.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
- 
+</div>
 
+
+<div [ngClass]="{'modal fade': !isModalVariantOpen, 'modal show': isModalVariantOpen}" tabindex="-1" style="display: block;" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{action}} Variant</h5>
+                <button type="button" class="btn-close" (click)="closeModalVariant()"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmitVariant()" [formGroup]="variantForm">
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="id_product" class="form-label">Products</label>
+                            <select id="id_product" class="form-control"
+                                    formControlName="id_product"
+                                    [ngClass]="{'is-invalid': variantForm.get('id_product')?.invalid && variantForm.get('id_product')?.touched}">
+                                <option value="">Select an option</option>
+                                <option *ngFor="let pro of productList" [value]="pro.id">{{pro.name}}</option>
+                            </select>
+                            <div *ngIf="variantForm.get('id_product')?.invalid && variantForm.get('id_product')?.touched" class="invalid-feedback">
+                                Product is required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="description_variant" class="form-label">Description Variant</label>
+                            <input type="text" id="description_variant" class="form-control"
+                                formControlName="description_variant"
+                                [ngClass]="{'is-invalid': variantForm.get('description_variant')?.invalid && variantForm.get('description_variant')?.touched}">
+                            <div *ngIf="variantForm.get('description_variant')?.invalid && variantForm.get('description_variant')?.touched" class="invalid-feedback">
+                            Description is required
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" id="price" class="form-control"
+                                formControlName="price"
+                                [ngClass]="{'is-invalid': variantForm.get('price')?.invalid && variantForm.get('price')?.touched}">
+                            <div *ngIf="variantForm.get('price')?.invalid && variantForm.get('price')?.touched" class="invalid-feedback">
+                            Price is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-2 mb-3">
+                            <label for="tax" class="form-label">Tax</label>
+                            <input type="number" id="tax" class="form-control"
+                                formControlName="tax"
+                                [ngClass]="{'is-invalid': variantForm.get('tax')?.invalid && variantForm.get('tax')?.touched}">
+                            <div *ngIf="variantForm.get('tax')?.invalid && variantForm.get('tax')?.touched" class="invalid-feedback">
+                            Tax is required.
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="text" id="stock" class="form-control"
+                                formControlName="stock"
+                                [ngClass]="{'is-invalid': variantForm.get('stock')?.invalid && variantForm.get('stock')?.touched}">
+                            <div *ngIf="variantForm.get('stock')?.invalid && variantForm.get('stock')?.touched" class="invalid-feedback">
+                            Stock is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-4 mb-3">
+                            <label for="weight_oz" class="form-label">Weight</label>
+                            <input type="text" id="weight_oz" class="form-control"
+                                    formControlName="weight_oz"
+                                    [ngClass]="{'is-invalid': variantForm.get('weight_oz')?.invalid && variantForm.get('weight_oz')?.touched}">
+                            <div *ngIf="variantForm.get('weight_oz')?.invalid && variantForm.get('weight_oz')?.touched" class="invalid-feedback">
+                                Weight is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-4 mb-3">
+                            <label for="length_in" class="form-label">Length</label>
+                            <input type="text" id="length_in" class="form-control"
+                                    formControlName="length_in"
+                                    [ngClass]="{'is-invalid': variantForm.get('length_in')?.invalid && variantForm.get('length_in')?.touched}">
+                            <div *ngIf="variantForm.get('length_in')?.invalid && variantForm.get('length_in')?.touched" class="invalid-feedback">
+                                Length is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-3 mb-3">
+                            <label for="width_in" class="form-label">Width</label>
+                            <input type="text" id="width_in" class="form-control"
+                                    formControlName="width_in"
+                                    [ngClass]="{'is-invalid': variantForm.get('width_in')?.invalid && variantForm.get('width_in')?.touched}">
+                            <div *ngIf="variantForm.get('width_in')?.invalid && variantForm.get('width_in')?.touched" class="invalid-feedback">
+                                Width is required.
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-md-3 mb-3">
+                            <label for="height_in" class="form-label">Height</label>
+                            <input type="text" id="height_in" class="form-control"
+                                    formControlName="height_in"
+                                    [ngClass]="{'is-invalid': variantForm.get('height_in')?.invalid && variantForm.get('height_in')?.touched}">
+                            <div *ngIf="variantForm.get('height_in')?.invalid && variantForm.get('height_in')?.touched" class="invalid-feedback">
+                                Height is required.
+                            </div>
+                        </div>
+
+                
+                        <div class="col-md-3 mb-3">
+                            <label for="size" class="form-label">Size</label>
+                            <input type="text" id="size" class="form-control"
+                                    formControlName="size"
+                                    [ngClass]="{'is-invalid': variantForm.get('size')?.invalid && variantForm.get('size')?.touched}">
+                            <div *ngIf="variantForm.get('size')?.invalid && variantForm.get('size')?.touched" class="invalid-feedback">
+                                Size is required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="shiping_cost" class="form-label">Shipping Cost</label>
+                            <input type="text" id="shiping_cost" class="form-control"
+                                    formControlName="shiping_cost"
+                                    [ngClass]="{'is-invalid': variantForm.get('shiping_cost')?.invalid && variantForm.get('shiping_cost')?.touched}">
+                            <div *ngIf="variantForm.get('shiping_cost')?.invalid && variantForm.get('shiping_cost')?.touched" class="invalid-feedback">
+                                Shipping cost is required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="options" class="form-label">Options</label>
+                            <input type="text" id="options" class="form-control"
+                                formControlName="options"
+                                [ngClass]="{'is-invalid': variantForm.get('options')?.invalid && variantForm.get('options')?.touched}">
+                            <div *ngIf="variantForm.get('options')?.invalid && variantForm.get('options')?.touched" class="invalid-feedback">
+                            Options are required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="sku" class="form-label">Sku</label>
+                            <input type="text" id="sku" class="form-control"
+                                    formControlName="sku"
+                                    [ngClass]="{'is-invalid': variantForm.get('sku')?.invalid && variantForm.get('sku')?.touched}">
+                            <div *ngIf="variantForm.get('sku')?.invalid && variantForm.get('sku')?.touched" class="invalid-feedback">
+                                SKU is required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="image_1_url" class="form-label">Image 1</label>
+                            <input 
+                                type="file" 
+                                id="image_1_url"
+                                class="form-control"
+                                accept="image/*"
+                                formControlName="image_1_url"
+                                (change)="onFileSelected($event, 'image_1_url')">
+
+                            <small *ngIf="currentImage1Name" class="text-muted">{{ currentImage1Name }}</small>
+
+                            <div *ngIf="actionVariant === 'Edit' && currentImage1 && !currentImage1Name">
+                                <small class="text-muted">{{ currentImage1 }}</small><br>
+                                <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage1" 
+                                    alt="Current Image" 
+                                    class="img-thumbnail mt-2" 
+                                    width="100">
+                            </div>
+
+                            <div *ngIf="variantForm.get('image_1_url')?.invalid && variantForm.get('image_1_url')?.touched" class="text-danger">
+                                Image 1 is required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="image_2_url" class="form-label">Image 2</label>
+                            <input 
+                                type="file" 
+                                id="image_2_url"
+                                class="form-control"
+                                accept="image/*"
+                                formControlName="image_2_url"
+                                (change)="onFileSelected($event, 'image_2_url')">
+
+                            <small *ngIf="currentImage2Name" class="text-muted">{{ currentImage2Name }}</small>
+
+                            <div *ngIf="actionVariant === 'Edit' && currentImage2 && !currentImage2Name">
+                                <small class="text-muted">{{ currentImage2 }}</small><br>
+                                <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage2" 
+                                    alt="Current Image" 
+                                    class="img-thumbnail mt-2" 
+                                    width="100">
+                            </div>
+
+                            <div *ngIf="variantForm.get('image_2_url')?.invalid && variantForm.get('image_2_url')?.touched" class="text-danger">
+                                Image 2 is required.
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 mb-3">
+                            <label for="image_3_url" class="form-label">Image 3</label>
+                            <input 
+                                type="file" 
+                                id="image_3_url"
+                                class="form-control"
+                                accept="image/*"
+                                formControlName="image_3_url"
+                                (change)="onFileSelected($event, 'image_3_url')">
+
+                            <small *ngIf="currentImage3Name" class="text-muted">{{ currentImage3Name }}</small>
+
+                            <div *ngIf="actionVariant === 'Edit' && currentImage3 && !currentImage3Name">
+                                <small class="text-muted">{{ currentImage3 }}</small><br>
+                                <img [src]="'https://www.abstractbeezzz.com/back/' + currentImage3" 
+                                    alt="Current Image" 
+                                    class="img-thumbnail mt-2" 
+                                    width="100">
+                            </div>
+
+                            <div *ngIf="variantForm.get('image_3_url')?.invalid && variantForm.get('image_3_url')?.touched" class="text-danger">
+                                Image 3 is required.
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

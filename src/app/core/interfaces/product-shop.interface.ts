@@ -1,5 +1,5 @@
 export interface ProductShop{
-  id: number;
+  id: number; //variant
   name: string;
   description: string;
   price: number;
@@ -10,7 +10,9 @@ export interface ProductShop{
   subCategoryName: string;
   CategoryId: number;
   CategoryName: string;
-  weight: string;
+  weight_oz: string;
   stock: string;
   color: string;
+  id_product: number;
+  quantity: number;
 }
