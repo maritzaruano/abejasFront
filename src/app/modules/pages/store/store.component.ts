@@ -8,6 +8,7 @@ import { ProductCategory } from '../../../core/interfaces/product.interface';
 import { ProductShop } from '../../../core/interfaces/product-shop.interface';
 import { ProductShopService } from '../../../core/services/pages/product-shop.service';
 import { CartService } from '../../../core/services/pages/cart.service';
+import { CartCheckoutService } from '../../../services/shared/cart.checkout.service';
 
 @Component({
   selector: 'app-store',
@@ -47,6 +48,7 @@ export class StoreComponent implements OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private cartService: CartService,
+    private cartCheckoutService: CartCheckoutService,
     private router: Router
   ) {
     
@@ -295,5 +297,9 @@ export class StoreComponent implements OnInit {
 
   verDetalleProducto(producto: ProductShop) {
     this.router.navigate(['/product-detail', producto.id_product]);
+  }
+
+  showCart(){
+    this.cartCheckoutService.show();
   }
 }

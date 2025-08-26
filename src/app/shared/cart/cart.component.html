@@ -1,0 +1,46 @@
+<div class="modal-right" *ngIf="isOpen">
+  <div class="content-model-right">
+    <!-- Header -->
+    <div class="content-model-right-header">
+      <span>Carrito</span>
+      <button class="close-btn" (click)="close()">&times;</button>
+    </div>
+
+    <!-- Contenido (items del carrito) -->
+    <div class="content-model-right-content">
+      <div class="cart-item">
+        <img src="https://via.placeholder.com/60" alt="Producto">
+        <div class="cart-item-info">
+          <h4>Speedo</h4>
+          <p>Camiseta Manga Larga Sunshine</p>
+          <p>Color: Negro | Talla: S</p>
+          <span>$169.900</span>
+        </div>
+        <button class="delete-btn">🗑️</button>
+      </div>
+
+      <div class="cart-item">
+        <img src="https://via.placeholder.com/60" alt="Producto">
+        <div class="cart-item-info">
+          <h4>Speedo</h4>
+          <p>Pantaloneta de Baño Jammer</p>
+          <p>Color: Gris | Talla: 30</p>
+          <span>$139.900</span>
+        </div>
+        <button class="delete-btn">🗑️</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="content-model-right-footer">
+      <!-- <p class="free-shipping">¡Felicidades! Obtienes envío gratis!</p> -->
+      <div class="totals">
+        <span>Subtotal</span><span>$309.800</span>
+      </div>
+      <div class="totals total">
+        <span>Total</span><span>$309.800</span>
+      </div>
+      <button class="checkout-btn" (click)="irAlCheckout()">IR AL CHECKOUT</button>
+    </div>
+  </div>
+</div>

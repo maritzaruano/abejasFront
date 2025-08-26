@@ -24,12 +24,15 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { StoreComponent } from './store/store.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CartComponent } from '../../shared/cart/cart.component';
+
 
 
 @NgModule({
   declarations: [
     PagesComponent,
     LoadingComponent,
+    CartComponent,
     HeaderComponent,
     FooterComponent,
     NavComponent,
@@ -47,7 +50,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     PrivacyPolicyComponent,
     StoreComponent,
     ProductDetailComponent,
-    CheckoutComponent
+    CheckoutComponent,
   ],
   imports: [
     CommonModule,
