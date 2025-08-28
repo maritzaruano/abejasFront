@@ -1,0 +1,20 @@
+.checkout-steps {
+  .step {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px solid #ddd;
+    font-weight: 500;
+    color: #777;
+
+    &.active {
+      border-color: #FE007E; // rojo
+      color: #FE007E;
+    }
+  }
+}
+
+.btn-fucsia{
+    background-color: #FE007E;
+    border: none;
+}

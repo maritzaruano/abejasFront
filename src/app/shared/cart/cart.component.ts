@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartCheckoutService } from '../../services/shared/cart.checkout.service';
 import { Router } from '@angular/router';
+import { ProductShop } from '../../core/interfaces/product-shop.interface';
+import { CartService } from '../../core/services/pages/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,19 +14,30 @@ export class CartComponent {
   isOpen = false;
   private subscription: Subscription | undefined;
 
+  cartItems: ProductShop[] = [];
+  subtotal = 0;
+  shipping = 0; // costo fijo de envío
+  total = 0;
+
   constructor(
-    private cartService: CartCheckoutService,
-    private router: Router
+    private cartService: CartService,
+    private cartCheckoutService: CartCheckoutService,
+    private router: Router,
+    
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.cartService.visibility$.subscribe(
+    
+    this.subscription = this.cartCheckoutService.visibility$.subscribe(
       visible => this.isOpen = visible
     );
-  }
 
+    this.cartItems = this.cartService.getItems();
+    this.calcularTotales();
+  }
+  // #region status modal
   close(): void {
-    this.cartService.hide();
+    this.cartCheckoutService.hide();
   }
 
   ngOnDestroy(): void {
@@ -32,7 +45,23 @@ export class CartComponent {
   }
 
   irAlCheckout(): void {
-    this.cartService.hide();
+    this.cartCheckoutService.hide();
     this.router.navigate(['/checkout']);
   }
+  //#endregion
+
+  removeFromCart(productId: number) {
+    debugger;
+    this.cartService.removeFromCart(productId);
+    this.cartItems = this.cartService.getItems();
+    this.calcularTotales()
+  }
+
+calcularTotales() {
+  this.subtotal = this.cartItems.reduce(
+    (sum, item) => sum + item.price * (item.quantity || 1), 
+    0
+  );
+  this.total = this.subtotal + this.shipping;
+}
 }

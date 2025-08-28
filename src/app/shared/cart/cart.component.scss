@@ -22,6 +22,7 @@
 
 /* Header */
 .content-model-right-header {
+  flex-shrink: 0; /* se mantiene fijo arriba */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,10 +38,10 @@
   cursor: pointer;
 }
 
-/* Contenido */
+/* Contenido con scroll */
 .content-model-right-content {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1;              /* ocupa todo el espacio disponible */
+  overflow-y: auto;     /* solo este hace scroll */
   padding: 16px;
 }
 .cart-item {
@@ -75,17 +76,17 @@
   border: none;
   cursor: pointer;
   font-size: 18px;
+  color: #FE007E;
 }
 
-/* Footer */
+/* Footer fijo abajo SIN absolute */
 .content-model-right-footer {
-  padding: 16px;
-  border-top: 1px solid #eee;
-}
-.free-shipping {
-  color: green;
-  font-size: 14px;
-  margin-bottom: 8px;
+    position: fixed;
+    bottom: 0;
+    padding: 16px;
+    border-top: 1px solid #eee;
+    background: #fff;
+    width: 400px;
 }
 .totals {
   display: flex;
@@ -109,8 +110,84 @@
   border-radius: 6px;
 }
 
+/* Carrito vacío */
+.empty-cart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.empty-cart h4 {
+  margin-top: 20px;
+  color: #555;
+}
+
 /* Animación */
 @keyframes slideIn {
   from { transform: translateX(100%); }
   to { transform: translateX(0); }
+}
+
+/* Controles de cantidad */
+.cart-item {
+  display: flex;
+  align-items: center;   /* centra verticalmente todo */
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centra verticalmente dentro del bloque */
+}
+
+/* Controles de cantidad */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centra el bloque */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 8px;
+  width: fit-content;
+}
+
+.qty-btn {
+  background: #f9f9f9;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: #FE007E;   /* tu color principal */
+  color: #fff;
+}
+
+.qty-input {
+  width: 40px;
+  height: 32px;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

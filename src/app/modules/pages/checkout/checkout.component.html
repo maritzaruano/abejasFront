@@ -1,62 +1,128 @@
-<div class="container mt-5" *ngIf="cartItems.length > 0; else emptyCart">
-    <h2 class="mb-4">Checkout</h2>
+<div class="container my-5" *ngIf="cartItems.length > 0; else emptyCart">
+  <br>
+  <!-- Paso de proceso -->
+  <div class="checkout-steps d-flex justify-content-between mb-4 mt-3">
+    <div class="step" [class.active]="step == 1">Carrito de compras</div>
+    <div class="step" [class.active]="step == 2">Identifícate</div>
+    <div class="step" [class.active]="step == 3">Envío y pago</div>
+    <div class="step" [class.active]="step == 4">Pedido confirmado</div>
+  </div>
 
-    <!-- Lista de productos -->
-    <div class="list-group mb-4">
-        <div class="list-group-item d-flex justify-content-between align-items-center"
-            *ngFor="let item of cartItems; let i = index">
-            <div class="d-flex align-items-center">
+  <div *ngIf="step === 1">
+      <div class="row">
+        <!-- Columna productos -->
+        <div class="col-md-8">
+          <div class="list-group mb-4">
+            <div class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let item of cartItems; let i = index">
+              <div class="d-flex align-items-center">
                 <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url"
                     alt="{{ item.name }}" class="img-thumbnail me-3"
                     style="width: 80px; height: 80px; object-fit: cover;">
                 <div>
-                <h5 class="mb-1">{{ item.name }}</h5>
-                <small class="text-muted">Cantidad: {{ item.quantity }}</small>
+                  <h5 class="mb-1">{{ item.name }}</h5>
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-outline-secondary me-2"
+                            (click)="item.quantity = item.quantity! - 1; calcularTotales()"
+                            [disabled]="item.quantity! <= 1">-</button>
+                    <span>{{ item.quantity }}</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-2"
+                            (click)="item.quantity = item.quantity! + 1; calcularTotales()">+</button>
+                  </div>
                 </div>
-            </div>
-            <div>
+              </div>
+              <div>
                 <h5 class="text-success mb-0">$ {{ item.price * item.quantity | number:'1.0-0' }}</h5>
                 <button class="btn btn-sm btn-outline-danger mt-2"
                         (click)="removeFromCart(i)">
-                Eliminar
+                  ✕
                 </button>
+              </div>
             </div>
+          </div>
+
+          <!-- Opciones de envío -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5>Entrega</h5>
+              <p class="text-muted">Vea todas las opciones de envío para sus productos, incluyendo plazos y precios</p>
+              <button class="btn btn-outline-dark">Calcular</button>
+            </div>
+          </div>
         </div>
-    </div>
 
-    <!-- Resumen -->
-    <div class="card mb-4">
-        <div class="card-body">
-        <h5>Resumen de compra</h5>
-        <p>Subtotal: $ {{ subtotal | number:'1.0-0' }}</p>
-        <p>Envío: $ {{ shipping | number:'1.0-0' }}</p>
-        <h4>Total: $ {{ total | number:'1.0-0' }}</h4>
+        <!-- Columna resumen -->
+        <div class="col-md-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="mb-3">Resumen de compra</h5>
+              <div class="d-flex justify-content-between">
+                <span>Subtotal</span>
+                <span>$ {{ subtotal | number:'1.0-0' }}</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Envío</span>
+                <span>$ {{ shipping | number:'1.0-0' }}</span>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between fw-bold">
+                <span>Total</span>
+                <span>$ {{ total | number:'1.0-0' }}</span>
+              </div>
+              <button class="btn btn-danger btn-fucsia btn-lg w-100 mt-3"
+                      (click)="step = 2">Finalizar compra</button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+      <!-- tu carrito existente -->
+      <!-- <button class="btn btn-danger w-100 mt-3" (click)="step = 2">Continuar</button> -->
+  </div>
 
-  <!-- Formulario de datos -->
-  <form (ngSubmit)="finalizarCompra()" #checkoutForm="ngForm">
-    <div class="mb-3">
-      <label for="name" class="form-label">Nombre completo</label>
-      <input type="text" id="name" class="form-control" [(ngModel)]="customer.name" name="name" required>
-    </div>
-    <div class="mb-3">
-      <label for="address" class="form-label">Dirección de envío</label>
-      <input type="text" id="address" class="form-control" [(ngModel)]="customer.address" name="address" required>
-    </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Correo electrónico</label>
-      <input type="email" id="email" class="form-control" [(ngModel)]="customer.email" name="email" required>
-    </div>
+  <!-- Paso 2: Identifícate -->
+  <div *ngIf="step === 2">
+    <h4>Datos del comprador</h4>
+    <form (ngSubmit)="guardarDatos()" #datosForm="ngForm">
+      <div class="mb-3">
+        <label>Nombre</label>
+        <input type="text" class="form-control" required  name="nombre">
+      </div>
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" required name="email">
+      </div>
+      <div class="mb-3">
+        <label>Dirección</label>
+        <input type="text" class="form-control" required name="direccion">
+      </div>
+      <button class="btn btn-secondary me-2" type="button" (click)="step = 1">Atrás</button>
+      <button class="btn btn-primary" type="button" (click)="step = 3">Continuar al pago</button>
+    </form>
+  </div>
 
-    <button type="submit" class="btn btn-success btn-lg w-100">Confirmar compra</button>
-  </form>
+  <!-- Paso 3: Pago con Stripe -->
+  <div *ngIf="step === 3">
+    <h4>Pago</h4>
+    <p>Total a pagar: <strong>$ {{ total | number:'1.0-0' }}</strong></p>
+    <button class="btn btn-secondary me-2" (click)="step = 2">Atrás</button>
+    <button class="btn btn-success" (click)="pagarConStripe()">Pagar con Stripe</button>
+  </div>
+
+  <!-- Paso 4: Confirmación -->
+  <div *ngIf="step === 4">
+    <h4 *ngIf="pagoExitoso">🎉 Pedido confirmado</h4>
+    <h4 *ngIf="!pagoExitoso">❌ El pago no se completó</h4>
+    <p *ngIf="pagoExitoso">Gracias por tu compra, recibirás un correo con los detalles.</p>
+    <p *ngIf="!pagoExitoso">Puedes intentarlo de nuevo.</p>
+    <button class="btn btn-primary" (click)="volverATienda()">Volver a la tienda</button>
+  </div>
+
+
 </div>
 
 <ng-template #emptyCart>
-    <div class="text-center mt-5 mb-4">
-        <br><br>
-        <h4>Tu carrito está vacío</h4>
-        <button class="btn btn-primary mt-3" (click)="volverATienda()">Volver a la tienda</button>
-    </div>
+  <div class="text-center mt-5 mb-4">
+    <h4>Tu carrito está vacío</h4>
+    <button class="btn btn-primary mt-3" (click)="volverATienda()">Volver a la tienda</button>
+  </div>
 </ng-template>
