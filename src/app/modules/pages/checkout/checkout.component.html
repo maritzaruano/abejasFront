@@ -32,12 +32,12 @@
                 </div>
               </div>
               <div>
-                <h5 class="text-success mb-0">$ {{ item.price * item.quantity | number:'1.0-0' }}</h5>
-                <button class="btn btn-sm btn-outline-danger mt-2"
-                        (click)="removeFromCart(i)">
-                  ✕
-                </button>
-              </div>
+                <div class="text-success">
+                  <span class="text-price-det">$ {{ item.price * item.quantity | number:'1.0-0' }} </span>
+
+                  <button class="btn btn-xs btn-outline-danger mt-2" (click)="removeFromCart(item.id)"> ✕ </button></div>
+                
+                </div>
             </div>
           </div>
 

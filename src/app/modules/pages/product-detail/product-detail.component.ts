@@ -3,6 +3,7 @@ import { ProductShop } from '../../../core/interfaces/product-shop.interface';
 import { ProductShopService } from '../../../core/services/pages/product-shop.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../../core/services/pages/cart.service';
+import { CartCheckoutService } from '../../../services/shared/cart.checkout.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,6 +20,7 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private productShopService: ProductShopService,
     private cartService: CartService,
+    private cartCheckoutService: CartCheckoutService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -61,9 +63,11 @@ export class ProductDetailComponent implements OnInit {
 
     const productToAdd = { ...producto, quantity: this.quantity };
     this.cartService.addToCart(productToAdd);
+
+    this.router.navigate(['/checkout']); 
   }
 
   irAlCarrito() {
-    this.router.navigate(['/checkout']); // redirige a la página del carrito/checkout
+    this.cartCheckoutService.show();
   }
 }
