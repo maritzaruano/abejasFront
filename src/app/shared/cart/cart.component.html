@@ -3,14 +3,14 @@
     <div *ngIf="cartItems.length > 0; else emptyCart">
       <!-- Header -->
       <div class="content-model-right-header">
-        <span>Carrito</span>
+        <span>Cart</span>
         <button class="close-btn" (click)="close()">&times;</button>
       </div>
 
-      <!-- Contenido (items del carrito) -->
+      <!-- Cart items -->
       <div class="content-model-right-content">
         <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-          <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url" alt="Producto">
+          <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url" alt="Product">
           <div class="cart-item-info">
             <h4>{{item.name}}</h4>
             <p>{{item.description}}</p>
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <!-- Footer fijo -->
+      <!-- Fixed Footer -->
       <div class="content-model-right-footer">
         <div class="totals">
           <span>Subtotal</span><span>$309.800</span>
@@ -30,43 +30,44 @@
         <div class="totals total">
           <span>Total</span><span>$309.800</span>
         </div>
-        <button class="checkout-btn" (click)="irAlCheckout()">IR AL CHECKOUT</button>
+        <button class="checkout-btn" (click)="irAlCheckout()">GO TO CHECKOUT</button>
       </div>
     </div>
 
-    <!-- Carrito vacío -->
+    <!-- Empty Cart -->
     <ng-template #emptyCart>
       <div class="content-model-right-header">
-        <span>Carrito</span>
+        <span>Cart</span>
         <button class="close-btn" (click)="close()">&times;</button>
       </div>
       <div class="empty-cart">
-        <img src="assets/img/panalVacio.jpg" width="80%">
-        <h4>Tu carrito está vacío</h4>
+        <img src="assets/img/panalVacio.jpg" width="80%" alt="Your cart is empty">
+        <h4>Your cart is empty</h4>
       </div>
     </ng-template>
   </div>
 </div>
+
 <div class="modal-right" *ngIf="isOpen">
   <div class="content-model-right">
     <div *ngIf="cartItems.length > 0; else emptyCart">
         <!-- Header -->
         <div class="content-model-right-header">
-            <span>Carrito</span>
+            <span>Cart</span>
             <button class="close-btn" (click)="close()">&times;</button>
         </div>
 
-        <!-- Contenido (items del carrito) -->
+        <!-- Cart items -->
         <div class="content-model-right-content">
             <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-                <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url" alt="Producto">
+                <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url" alt="Product">
 
                 <div class="cart-item-info">
                     <h4>{{item.name}}</h4>
                     <p>{{item.description}}</p>
                     <span>$ {{ item.price * item.quantity | number:'1.0-0' }}</span>
 
-                    <!-- Controles de cantidad -->
+                    <!-- Quantity controls -->
                     
                 </div>
                 <div class="quantity-controls">
@@ -83,7 +84,7 @@
         </div>
 
 
-      <!-- Footer fijo -->
+      <!-- Fixed Footer -->
       <div class="content-model-right-footer">
         <div class="totals">
           <span>Subtotal</span><span>$ {{ subtotal | number:'1.0-0' }}</span>
@@ -91,19 +92,19 @@
         <div class="totals total">
           <span>Total</span><span>$ {{ total | number:'1.0-0' }}</span>
         </div>
-        <button class="checkout-btn" (click)="irAlCheckout()">IR AL CHECKOUT</button>
+        <button class="checkout-btn" (click)="irAlCheckout()">GO TO CHECKOUT</button>
       </div>
     </div>
 
-    <!-- Carrito vacío -->
+    <!-- Empty Cart -->
     <ng-template #emptyCart>
       <div class="content-model-right-header">
-        <span>Carrito</span>
+        <span>Cart</span>
         <button class="close-btn" (click)="close()">&times;</button>
       </div>
       <div class="empty-cart">
-        <img src="assets/img/panalVacio.jpg" width="80%">
-        <h4>Tu carrito está vacío</h4>
+        <img src="assets/img/panalVacio.jpg" width="80%" alt="Your cart is empty">
+        <h4>Your cart is empty</h4>
       </div>
     </ng-template>
   </div>

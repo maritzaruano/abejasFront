@@ -302,4 +302,15 @@ export class StoreComponent implements OnInit {
   showCart(){
     this.cartCheckoutService.show();
   }
+
+  descargarCatalogo() {
+    const link = document.createElement('a');
+    link.href = 'https://www.abstractbeezzz.com/back/pdf/catalogo.pdf';
+    link.target = '_blank'; 
+    link.download = 'Catalog2025.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
 }

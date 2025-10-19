@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { ProductShop } from '../../interfaces/product-shop.interface';
 
@@ -9,14 +10,19 @@ export class CartService {
   private cartKey = 'cart_items';
   private items: ProductShop[] = [];
   private cartCount = new BehaviorSubject<number>(0);
+  private isBrowser: boolean;
 
   cartCount$ = this.cartCount.asObservable();
 
-  constructor() {
-    const stored = localStorage.getItem(this.cartKey);
-    if (stored) {
-      this.items = JSON.parse(stored);
-      this.cartCount.next(this.getTotalQuantity());
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+
+    if (this.isBrowser) {
+      const stored = localStorage.getItem(this.cartKey);
+      if (stored) {
+        this.items = JSON.parse(stored);
+        this.cartCount.next(this.getTotalQuantity());
+      }
     }
   }
 
@@ -28,10 +34,8 @@ export class CartService {
     const existing = this.items.find(p => p.id === product.id);
 
     if (existing) {
-      // Si ya existe, solo incrementamos la cantidad
       existing.quantity = (existing.quantity || 1) + (product.quantity || 1);
     } else {
-      // Si no existe, lo agregamos con cantidad = 1 (o la que venga)
       this.items.push({ ...product, quantity: product.quantity || 1 });
     }
 
@@ -49,7 +53,9 @@ export class CartService {
   }
 
   private updateStorage() {
-    localStorage.setItem(this.cartKey, JSON.stringify(this.items));
+    if (this.isBrowser) {
+      localStorage.setItem(this.cartKey, JSON.stringify(this.items));
+    }
     this.cartCount.next(this.getTotalQuantity());
   }
 
