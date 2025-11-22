@@ -9,6 +9,7 @@ import { ProductShop } from '../../../core/interfaces/product-shop.interface';
 import { ProductShopService } from '../../../core/services/pages/product-shop.service';
 import { CartService } from '../../../core/services/pages/cart.service';
 import { CartCheckoutService } from '../../../services/shared/cart.checkout.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-store',
@@ -49,9 +50,23 @@ export class StoreComponent implements OnInit {
     private route: ActivatedRoute,
     private cartService: CartService,
     private cartCheckoutService: CartCheckoutService,
-    private router: Router
-  ) {
-    
+    private router: Router,
+    private titleService: Title, 
+    private metaService: Meta,
+  ) 
+  {
+   // Establecemos el título de la página
+      this.titleService.setTitle('Abstract Beezzz | Local Raw Honey & Beeswax Candles Florida');
+
+      // Establecemos la metadata de la página (descripción, palabras clave, etc.)
+      this.metaService.updateTag({ name: 'description', content: '100% pure & natural beeswax & candles & raw local honey by Abstract Beezzz. Natural, clean,  made in Florida. Stuart, Port St. Lucie, Palm Beach, Palm City.' });
+      this.metaService.updateTag({ name: 'keywords', content:'Local Raw Honey, Honey, Honey Stuart, Pure Honey, Beeswax, Beeswax Candle, Candles, Pure Candle, Gitfs Honey, Gitfs Candle' })
+      this.metaService.updateTag({ name: 'author', content: 'Abstract Beezzz'});
+      this.metaService.updateTag({ name: 'publisher', content: 'Abstract Beezzz'})
+      this.metaService.updateTag({ name: 'lang', content: 'en'}) 
+      this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
+      this.loadingService.hide();  
+
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
     });
