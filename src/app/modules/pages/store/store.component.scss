@@ -136,3 +136,15 @@
   height: 10px;
   border-radius: 50%;
 }
+
+/* styles.css */
+
+@media (max-width: 770px) {
+  .mb-responsive {
+    margin-bottom: 20px;
+  }
+}
+
+.img-fluid{
+  cursor: pointer;
+}
