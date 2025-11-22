@@ -9,7 +9,6 @@ import { ProductShop } from '../../../core/interfaces/product-shop.interface';
 import { ProductShopService } from '../../../core/services/pages/product-shop.service';
 import { CartService } from '../../../core/services/pages/cart.service';
 import { CartCheckoutService } from '../../../services/shared/cart.checkout.service';
-import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-store',
@@ -44,41 +43,18 @@ export class StoreComponent implements OnInit {
   cartCount = 0;
   
   constructor(
-    
     private loadingService: LoadingService,
     private productShopService: ProductShopService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private cartService: CartService,
     private cartCheckoutService: CartCheckoutService,
-    private router: Router,
-    private titleService: Title, 
-    private metaService: Meta,
-
-
-    
-  )
-  
-  
-  {
+    private router: Router
+  ) {
     
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
     });
-
-    this.loadingService.show();
-      // Establecemos el título de la página
-      this.titleService.setTitle('Abstract Beezzz | Safe Live Honey Bee Removal Experts Stuart');
-
-      // Establecemos la metadata de la página (descripción, palabras clave, etc.)
-      this.metaService.updateTag({ name: 'description', content: 'Abstract Beezzz offers professional live honey bee removal and relocation in Stuart, Martin, Port St. Lucie, and Palm Beach Counties. Expert solutions.' });
-      this.metaService.updateTag({ name: 'keywords', content:'bee removalist, bee hive removal, honey bee removal, bee nest removal,bee removal cost'})
-      this.metaService.updateTag({ name: 'author', content: 'Abstract Beezzz'});
-      this.metaService.updateTag({ name: 'publisher', content: 'Abstract Beezzz'})
-      this.metaService.updateTag({ name: 'lang', content: 'en'}) 
-      this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
-      this.loadingService.hide();
-  
   }
 
   ngOnInit(): void {

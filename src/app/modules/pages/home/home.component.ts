@@ -13,9 +13,7 @@ export class HomeComponent {
   constructor(
     private titleService: Title, 
     private metaService: Meta,
-    private loadingService: LoadingService
-  )
-  { 
+    private loadingService: LoadingService) { 
 
       this.loadingService.show();
       // Establecemos el título de la página
