@@ -59,7 +59,7 @@ export class CartComponent {
 
 calcularTotales() {
   this.subtotal = this.cartItems.reduce(
-    (sum, item) => sum + item.price * (item.quantity || 1), 
+    (sum, item) => sum + item.variants[0].price * (item.variants[0].quantity || 1), 
     0
   );
   this.total = this.subtotal + this.shipping;

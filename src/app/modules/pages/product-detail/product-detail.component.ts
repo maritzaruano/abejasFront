@@ -9,6 +9,7 @@ import { CartCheckoutService } from '../../../services/shared/cart.checkout.serv
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html'
 })
+
 export class ProductDetailComponent implements OnInit {
   producto!: ProductShop;
   cartCount = 0;
@@ -43,7 +44,7 @@ export class ProductDetailComponent implements OnInit {
     this.productShopService.getById(id).subscribe({
       next: (producto) => {
         this.producto = producto;
-        this.mainImageUrl = 'https://abstractbeezzz.com/back/' + this.producto.image_1_url;
+        this.mainImageUrl = 'https://abstractbeezzz.com/back/' + this.producto.variants[0].image_1_url;
       },
       error: (err) => {
         console.error('Error obteniendo producto:', err);

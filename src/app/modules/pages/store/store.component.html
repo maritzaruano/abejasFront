@@ -2,7 +2,7 @@
 
 
 <div class="container mt-5"> 
-    <div style="padding-top:10px;">   
+    <!-- <div style="padding-top:10px;">   
         
         <h1 class=" pink-color text-center" style="font-weight: 600;">
             A Gift from the Hive
@@ -44,12 +44,12 @@
 
 
     
-    <div>   
+    <div>    -->
 
 
 
 
-    <!-- <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="blog-title mb-0">
             <a (click)="irAStore()" class="text-decoration-none">Store</a>
         </h2>
@@ -61,9 +61,6 @@
             </span>
         </div>
     </div>
-
-
-  
     
     <div class="menu-wrapper">
         <button class="scroll-btn left" (click)="scrollLeft()" aria-label="Scroll categories left">‹</button>
@@ -165,23 +162,23 @@
             <div class="card h-100 position-relative">
 
                 
-                <div id="carousel-{{ producto.id_product }}" class="carousel slide" data-bs-ride="carousel"
+                <div id="carousel-{{ producto.id }}" class="carousel slide" data-bs-ride="carousel"
                     (click)="$event.stopPropagation()" (keypress)="$event.stopPropagation()">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img [src]="'https://abstractbeezzz.com/back/' + producto.image_1_url"
+                            <img [src]="'https://abstractbeezzz.com/back/' + producto.variants[0].image_1_url"
                                 class="d-block w-100"
                                 [alt]="producto.description"
                                 height="200px">
                         </div>
-                        <div class="carousel-item" *ngIf="producto.image_2_url">
-                            <img [src]="'https://abstractbeezzz.com/back/' + producto.image_2_url"
+                        <div class="carousel-item" *ngIf="producto.variants[0].image_2_url">
+                            <img [src]="'https://abstractbeezzz.com/back/' + producto.variants[0].image_2_url"
                                 class="d-block w-100"
                                 [alt]="producto.description"
                                 height="200px">
                         </div>
-                        <div class="carousel-item" *ngIf="producto.image_3_url">
-                            <img [src]="'https://abstractbeezzz.com/back/' + producto.image_3_url"
+                        <div class="carousel-item" *ngIf="producto.variants[0].image_3_url">
+                            <img [src]="'https://abstractbeezzz.com/back/' + producto.variants[0].image_3_url"
                                 class="d-block w-100"
                                 [alt]="producto.description"
                                 height="200px">
@@ -189,23 +186,23 @@
                     </div>
 
                     <div class="carousel-indicators d-flex justify-content-center mb-2">
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id_product"
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
                             data-bs-slide-to="0" class="active" (click)="$event.stopPropagation()"></button>
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id_product"
-                            data-bs-slide-to="1" *ngIf="producto.image_2_url" (click)="$event.stopPropagation()"></button>
-                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id_product"
-                            data-bs-slide-to="2" *ngIf="producto.image_3_url" (click)="$event.stopPropagation()"></button>
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide-to="1" *ngIf="producto.variants[0].image_2_url" (click)="$event.stopPropagation()"></button>
+                    <button type="button" [attr.data-bs-target]="'#carousel-' + producto.id"
+                            data-bs-slide-to="2" *ngIf="producto.variants[0].image_3_url" (click)="$event.stopPropagation()"></button>
                     </div>
 
                     
                     <button class="carousel-control-prev" type="button"
-                            [attr.data-bs-target]="'#carousel-' + producto.id_product"
+                            [attr.data-bs-target]="'#carousel-' + producto.id"
                             data-bs-slide="prev" (click)="$event.stopPropagation()">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
                     </button>
                     <button class="carousel-control-next" type="button"
-                            [attr.data-bs-target]="'#carousel-' + producto.id_product"
+                            [attr.data-bs-target]="'#carousel-' + producto.id"
                             data-bs-slide="next" (click)="$event.stopPropagation()">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Siguiente</span>
@@ -219,7 +216,7 @@
 
                 <div class="card-body">
                     <h5 class="card-title"><b>{{ producto.name }}</b></h5>
-                    <p class="card-text">Price: ${{ producto.price }}</p>
+                    <p class="card-text">Price: ${{ producto.variants[0].price }}</p>
                 </div>
             </div>
         </div>
@@ -240,7 +237,7 @@
             <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
         </li>
         </ul>
-    </nav> -->
+    </nav>
 
 </div>
 

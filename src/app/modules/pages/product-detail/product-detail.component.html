@@ -21,18 +21,18 @@
       </div>
 
       <div class="d-flex justify-content-center gap-2">
-        <img *ngIf="producto.image_1_url" [src]="'https://abstractbeezzz.com/back/' + producto.image_1_url"
+        <img *ngIf="producto.variants[0].image_1_url" [src]="'https://abstractbeezzz.com/back/' + producto.variants[0].image_1_url"
              class="img-thumbnail"
              style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
-             (click)="cambiarImagen(producto.image_1_url)">
-        <img *ngIf="producto.image_2_url" [src]="'https://abstractbeezzz.com/back/' + producto.image_2_url"
+             (click)="cambiarImagen(producto.variants[0].image_1_url)">
+        <img *ngIf="producto.variants[0].image_2_url" [src]="'https://abstractbeezzz.com/back/' + producto.variants[0].image_2_url"
              class="img-thumbnail"
              style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
-             (click)="cambiarImagen(producto.image_2_url)">
-        <img *ngIf="producto.image_3_url" [src]="'https://abstractbeezzz.com/back/' + producto.image_3_url"
+             (click)="cambiarImagen(producto.variants[0].image_2_url)">
+        <img *ngIf="producto.variants[0].image_3_url" [src]="'https://abstractbeezzz.com/back/' + producto.variants[0].image_3_url"
              class="img-thumbnail"
              style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
-             (click)="cambiarImagen(producto.image_3_url)">
+             (click)="cambiarImagen(producto.variants[0].image_3_url)">
       </div>
     </div>
 
@@ -40,7 +40,7 @@
     <div class="col-md-6">
       <h3>{{ producto.name }}</h3>
       <p class="text-muted">{{ producto.CategoryName }}</p>
-      <h4 class="text-success mb-3">$ {{ producto.price }}</h4>
+      <h4 class="text-success mb-3">$ {{ producto.variants[0].price }}</h4>
       <p>{{ producto.description }}</p>
 
       <!-- Selector de cantidad -->
@@ -63,9 +63,9 @@
       <div class="mt-4">
         <h5>Características</h5>
         <ul>
-          <li>Weight: {{ producto.weight_oz }}</li>
-          <li>Color: {{ producto.color }}</li>
-          <li>Stock: {{ producto.stock }} unidades</li>
+          <li>Weight: {{ producto.variants[0].weight_oz }}</li>
+          <li>Color: {{ producto.variants[0].color }}</li>
+          <li>Stock: {{ producto.variants[0].stock }} unidades</li>
         </ul>
       </div>
     </div>

@@ -90,6 +90,7 @@ export class ProductsComponent {
     const id = value ? Number(value) : null;
 
     if (id !== null) {
+      debugger;
       this.subcategoryService.getSubCategoriesByCategory(id).subscribe((data: any) => {
         this.subcategory = data;
       });

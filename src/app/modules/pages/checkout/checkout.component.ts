@@ -3,6 +3,8 @@ import { CartService } from '../../../core/services/pages/cart.service';
 import { ProductShop } from '../../../core/interfaces/product-shop.interface';
 import { isPlatformBrowser } from '@angular/common';
 import { loadStripe } from '@stripe/stripe-js';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-checkout',
@@ -28,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   pagoExitoso: boolean | null = null; // para paso 4
 
   constructor(
+      private router: Router,
       private cartService: CartService,
       @Inject(PLATFORM_ID) private platformId: Object
     ) {
@@ -55,7 +58,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   calcularTotales() {
-    this.subtotal = this.cartItems.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+    this.subtotal = this.cartItems.reduce((sum, item) => sum + item.variants[0].price * (item.variants[0].quantity || 1), 0);
     this.total = this.subtotal + this.shipping;
   }
 
@@ -82,16 +85,19 @@ export class CheckoutComponent implements OnInit {
   }
 
   async pagarConStripe() {
+    debugger;
+
     const stripe = await loadStripe('pk_test_51S1cZv2SiqeO0gXPheCdBxnwYpOcCl9pMKU0IUsXLzqIAUWJm4xRlgegNho5GHOVIOlbYUuEVCZYCM3KRxSQCyW6007vPsPMuF'); // clave pública
 
     const response = await fetch('https://www.abstractbeezzz.com/back/create-checkout-session.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        items: [
-          { name: 'Honey Jar', price: 2000, quantity: 1 },
-          { name: 'Bee Pollen', price: 1500, quantity: 2 }
-        ]
+        items: this.cartItems.map(item => ({
+          name: item.name,
+          price: item.variants[0].price,
+          quantity: item.variants[0].quantity
+        }))
       })
     });
 
@@ -105,5 +111,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   finalizarCompra() { if (this.customer.name && this.customer.address && this.customer.email) { alert('¡Compra confirmada!'); this.cartService.clearCart(); this.cartItems = []; this.calcularTotales(); } }
+
+  continueShopping(){
+    this.router.navigate(['/store']);
+  }
 }
 

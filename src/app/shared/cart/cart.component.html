@@ -10,11 +10,11 @@
       <!-- Cart items -->
       <div class="content-model-right-content">
         <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-          <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url" alt="Product">
+          <img [src]="'https://abstractbeezzz.com/back/' + item.variants[0].image_1_url" alt="Product">
           <div class="cart-item-info">
             <h4>{{item.name}}</h4>
             <p>{{item.description}}</p>
-            <span>${{item.price}}</span>
+            <span>${{item.variants[0].price}}</span>
           </div>
           <button class="delete-btn" (click)="removeFromCart(item.id)">
             <i class="bi bi-trash"></i>
@@ -60,24 +60,26 @@
         <!-- Cart items -->
         <div class="content-model-right-content">
             <div class="cart-item" *ngFor="let item of cartItems; let i = index">
-                <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url" alt="Product">
+                <img [src]="'https://abstractbeezzz.com/back/' + item.variants[0].image_1_url" alt="Product">
 
                 <div class="cart-item-info">
                     <h4>{{item.name}}</h4>
                     <p>{{item.description}}</p>
-                    <span>$ {{ item.price * item.quantity | number:'1.0-0' }}</span>
+                    <span>
+                      $ {{ (item.variants?.[0]?.price ?? 0) * (item.variants?.[0]?.quantity ?? 1) | number:'1.0-0' }}
+                    </span>
 
                     <!-- Quantity controls -->
                     
                 </div>
                 <div class="quantity-controls">
-                        <button (click)="item.quantity = item.quantity! - 1; calcularTotales()" [disabled]="item.quantity! <= 1" class="qty-btn">-</button>
-                        <input type="number" [(ngModel)]="item.quantity" min="1" class="qty-input">
-                        <button (click)="item.quantity = item.quantity! + 1; calcularTotales()" class="qty-btn">+</button>
+                        <button (click)="item.variants[0].quantity = item.variants[0].quantity! - 1; calcularTotales()" [disabled]="item.variants[0].quantity! <= 1" class="qty-btn">-</button>
+                        <input type="number" [(ngModel)]="item.variants[0].quantity" min="1" class="qty-input">
+                        <button (click)="item.variants[0].quantity = item.variants[0].quantity! + 1; calcularTotales()" class="qty-btn">+</button>
                 </div>
 
 
-                <button class="delete-btn" (click)="removeFromCart(item.id)">
+                <button class="delete-btn" (click)="removeFromCart(item.variants[0].id)">
                     <i class="bi bi-trash"></i>
                 </button>
             </div>

@@ -16,24 +16,27 @@
             <div class="list-group-item d-flex justify-content-between align-items-center"
                 *ngFor="let item of cartItems; let i = index">
               <div class="d-flex align-items-center">
-                <img [src]="'https://abstractbeezzz.com/back/' + item.image_1_url"
+                <img [src]="'https://abstractbeezzz.com/back/' + item.variants[0].image_1_url"
                     alt="{{ item.name }}" class="img-thumbnail me-3"
                     style="width: 80px; height: 80px; object-fit: cover;">
                 <div>
                   <h5 class="mb-1">{{ item.name }}</h5>
                   <div class="d-flex align-items-center">
                     <button class="btn btn-sm btn-outline-secondary me-2"
-                            (click)="item.quantity = item.quantity! - 1; calcularTotales()"
-                            [disabled]="item.quantity! <= 1">-</button>
-                    <span>{{ item.quantity }}</span>
+                            (click)="item.variants[0].quantity = item.variants[0].quantity! - 1; calcularTotales()"
+                            [disabled]="item.variants[0].quantity! <= 1">-</button>
+                    <span>{{ item.variants[0].quantity }}</span>
                     <button class="btn btn-sm btn-outline-secondary ms-2"
-                            (click)="item.quantity = item.quantity! + 1; calcularTotales()">+</button>
+                            (click)="item.variants[0].quantity = item.variants[0].quantity! + 1; calcularTotales()">+</button>
                   </div>
                 </div>
               </div>
               <div>
                 <div class="text-success">
-                  <span class="text-price-det">$ {{ item.price * item.quantity | number:'1.0-0' }} </span>
+                  <span class="text-price-det">
+                    $ {{ (item.variants?.[0]?.price ?? 0) * (item.variants?.[0]?.quantity ?? 1) | number:'1.0-0' }}
+                  </span>
+
 
                   <button class="btn btn-xs btn-outline-danger mt-2" (click)="removeFromCart(item.id)"> ✕ </button></div>
                 
@@ -73,7 +76,14 @@
                       (click)="step = 2">Proceed to Checkout</button>
             </div>
           </div>
+          <div class="mt-4">
+            <button class="btn btn-info text-white btn-lg w-100 mt-3"
+              (click)="continueShopping()">Continue shopping</button>
+          </div>
         </div>
+
+      
+        
       </div>
   </div>
 

@@ -21,7 +21,7 @@ export class CartService {
       const stored = localStorage.getItem(this.cartKey);
       if (stored) {
         this.items = JSON.parse(stored);
-        this.cartCount.next(this.getTotalQuantity());
+        // this.cartCount.next(this.getTotalQuantity());
       }
     }
   }
@@ -34,9 +34,9 @@ export class CartService {
     const existing = this.items.find(p => p.id === product.id);
 
     if (existing) {
-      existing.quantity = (existing.quantity || 1) + (product.quantity || 1);
+      existing.variants[0].quantity = (existing.variants[0].quantity || 1) + (product.variants[0].quantity || 1);
     } else {
-      this.items.push({ ...product, quantity: product.quantity || 1 });
+      this.items.push({ ...product, variants: product.variants || 1 });
     }
 
     this.updateStorage();
@@ -56,10 +56,10 @@ export class CartService {
     if (this.isBrowser) {
       localStorage.setItem(this.cartKey, JSON.stringify(this.items));
     }
-    this.cartCount.next(this.getTotalQuantity());
+    // this.cartCount.next(this.getTotalQuantity());
   }
 
   private getTotalQuantity(): number {
-    return this.items.reduce((acc, item) => acc + (item.quantity || 1), 0);
+    return this.items.reduce((acc, item) => acc + (item.variants[0].quantity || 1), 0);
   }
 }
