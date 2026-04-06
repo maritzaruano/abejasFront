@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+//import { LoadingComponent } from '../../shared/loading/loading.component';
 import { HeaderComponent } from '../../pages/header/header.component';
 import { FooterComponent } from '../../pages/footer/footer.component';
 import { NavComponent } from '../../pages/nav/nav.component';
@@ -31,7 +31,7 @@ import { CartComponent } from '../../shared/cart/cart.component';
 @NgModule({
   declarations: [
     PagesComponent,
-    LoadingComponent,
+    //LoadingComponent,
     CartComponent,
     HeaderComponent,
     FooterComponent,
