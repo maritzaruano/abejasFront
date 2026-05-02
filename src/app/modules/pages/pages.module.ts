@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
@@ -58,6 +58,9 @@ import { CartComponent } from '../../shared/cart/cart.component';
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class PagesModule { }
