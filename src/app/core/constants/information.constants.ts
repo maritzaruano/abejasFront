@@ -7,6 +7,7 @@ export const INFORMATION = {
     CONTACT_EMAIL: 'abstractbeezzz@gmail.com',
     CONTACT_EMAIL_BEE: 'livebeeremoval@\nabstractbeezzz.com',
     CONTACT_INSTAGRAM: '@Abstractbeezzz',
-    CONTACT_ADRESS: 'Martin County,\nPort Saint Lucie County\nand Palm Beach County'
+    CONTACT_ADRESS: 'Martin, Port Saint Lucie, \nand Palm Beach Counties',
+    CONTACT_STORE: 'Visit our Store'
 }
 
